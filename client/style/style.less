@@ -1,0 +1,67 @@
+@NavbarBackgroundColor:  #667788;
+
+@PanelHeaderBackgroundColor:  #667788;
+@PanelHeaderFontColor:        #AABBCC;
+@PanelBorderColor:  #667788;
+@PanelBorderWidth:  2px;
+@PanelBorderStyle:  ridge;
+
+.navbar {
+  width:            101.6%;
+  height:           30px;
+  margin-left:      -1%;
+  margin-top:       -8px;
+  background-color: @NavbarBackgroundColor;
+  .btn_logout {
+    right:    20px;
+    top:      5px;
+    position: absolute;
+  }
+}
+
+.panel {
+  width:        30%;
+  margin-left:  auto;
+  margin-right: auto;
+  margin-top:   100px;
+  border-color: @PanelBorderColor;
+  border-width: @PanelBorderWidth;
+  border-style: @PanelBorderStyle;
+  .header {
+    color:        @PanelHeaderFontColor;
+    text-align:   center;
+    font-weight:  bold;
+    background-color: @PanelHeaderBackgroundColor;
+    border-color: @PanelBorderColor;
+    border-width: @PanelBorderWidth;
+    border-style: @PanelBorderStyle;
+  }
+  > .column {
+    display: flex;
+    display: -webkit-flex;
+    > div {
+      width:          30%;
+      text-align:     right;
+      padding-right:  10px;
+    }
+    > input {
+      left: 100px;
+      width: 50%;
+    }
+  }
+  .button-1-col {
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%;
+  }
+}
+
+.sidebar {
+  width:              15%;
+  height:             1000px;
+  margin-top:         -8px;
+  border-right-color: @PanelBorderColor;
+  border-right-width: 10px;
+  border-right-style: @PanelBorderStyle;
+  position:           fixed;
+}
