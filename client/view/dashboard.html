@@ -1,8 +1,72 @@
 <template name="Dashboard">
     <div class="sidebar">
-
+        <div class="sidebar_tab">Overview</div>
+        <div class="sidebar_tab">Create Product</div>
+        <div class="sidebar_tab">Products List</div>
     </div>
     <div class="container">
-
+        <div class="container_item" id="Dashboard_Overview">
+            {{> Dashboard_Overview}}
+        </div>
+        <div class="container_item" id="Dashboard_CreateProduct" style="display:none;">
+            {{> Dashboard_CreateProduct}}
+        </div>
+        <div class="container_item" id="Dashboard_ProductList" style="display:none;">
+            {{> Dashboard_ProductList}}
+        </div>
     </div>
+</template>
+
+<template name="Dashboard_Overview">
+    <h1>Overview</h1>
+</template>
+
+<template name="Dashboard_CreateProduct">
+    <h1>Create Product</h1>
+    <div class="panel">
+        <div class="header">Product Detail</div>
+        <br>
+        <div class="column">
+            <div>Product Name</div>
+            <input type="text" id="input_name">
+        </div>
+        <br>
+        <div class="column">
+            <div>Main Image</div>
+            <input type="file" id="input_image">
+        </div>
+        <br>
+        <div class="column">
+            <div>Description</div>
+            <textarea id="input_description"></textarea>
+        </div>
+        <br>
+        <div class="column">
+            <div>Price(HKD)</div>
+            <input type="number" id="input_price" min="1">
+        </div>
+        <br>
+        <div class="column">
+            <div>Weight(g)</div>
+            <input type="number" id="input_weight" min="1">
+        </div>
+        <br>
+        <button class="btn_create_product button-1-col">Create</button>
+        <br>
+        <br>
+    </div>
+</template>
+
+<template name="Dashboard_ProductList">
+    <h1>Product List</h1>
+    {{#each ProductList.All}}
+        <div class="product_item">
+            <p>Name: {{name}}</p>
+            <p>Description: {{description}}</p>
+            <p>Price: HKD{{price}}</p>
+            <p>Weight: {{weight}}g</p>
+            <p>Publish: {{publish}}</p>
+        </div>
+        <br>
+    {{/each}}
 </template>

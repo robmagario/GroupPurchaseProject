@@ -15,4 +15,10 @@ if (Meteor.isClient) {
     Router.route("login_cn", {path: "/cn/login", controller: "LoginController"});
     Router.route("login_hk", {path: "/hk/login", controller: "LoginController"});
     Router.route("login_br", {path: "/br/login", controller: "LoginController"});
+
+    Router.route("resigner_en", {path: "/resigner", controller: "ResignerController"});
+    Router.route("resigner_jp", {path: "/jp/resigner", controller: "ResignerController"});
+    Router.route("resigner_cn", {path: "/cn/resigner", controller: "ResignerController"});
+    Router.route("resigner_hk", {path: "/hk/resigner", controller: "ResignerController"});
+    Router.route("resigner_br", {path: "/br/resigner", controller: "ResignerController"});
 }

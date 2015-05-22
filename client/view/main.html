@@ -1,5 +1,116 @@
 <template name="MainPage">
     <div class="navbar">
         <button class="btn_logout">Logout</button>
+        <button class="btn_profile">Profile</button>
+    </div>
+    <div class="sidebar" style="margin-top:0px;">
+        <div class="sidebar_tab">Overview</div>
+        <div class="sidebar_tab">Find Products</div>
+    </div>
+    <div class="container">
+        <div class="container_item" id="MainPage_Overview">
+            {{> MainPage_Overview}}
+        </div>
+        <div class="container_item" id="MainPage_Profile" style="display:none;">
+            {{> MainPage_Profile}}
+        </div>
+    </div>
+</template>
+
+<template name="MainPage_Overview">
+    <h1>Overview</h1>
+</template>
+
+<template name="MainPage_Profile">
+    <div class="profile_item" id="Profile_Overview">
+        {{> Profile_Overview}}
+    </div>
+    <div class="profile_item" id="Profile_ResetPassword">
+        {{> Profile_ResetPassword}}
+    </div>
+    <div class="profile_item" id="Profile_SendInvite">
+        {{> Profile_SendInvite}}
+    </div>
+</template>
+
+<template name="Profile_Overview">
+    <div class="panel">
+        <div class="header">My Profile</div>
+        <br>
+        <div class="column">
+            <div>Name:</div>
+            <label id="label_username"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Email:</div>
+            <label id="label_useremail"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Password:</div>
+            <button class="btn_reset_password">Reset</button>
+        </div>
+        <br>
+        <div class="column">
+            <div>Invitation:</div>
+            <label id="label_invitation"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div></div>
+            <button class="btn_invite">Invite</button>
+        </div>
+        <div class="column">
+            <div>Invite By</div>
+            <label></label>
+        </div>
+        <br>
+    </div>
+</template>
+
+<template name="Profile_ResetPassword">
+    <div class="panel panel-large-1">
+        <div class="header">Reset Password</div>
+        <br>
+        <div class="column">
+            <div>Origin Password</div>
+            <input type="password" id="input_email">
+        </div>
+        <br>
+        <div class="column">
+            <div>New Password</div>
+            <input type="password" id="input_password">
+        </div>
+        <br>
+        <div class="column">
+            <div>Confirm Password</div>
+            <input type="password" id="input_confirm">
+        </div>
+        <br>
+        <button class="btn_reset_password_submit button-2-left">Reset</button>
+        <button class="btn_reset_password_back button-2-right">Back</button>
+        <br>
+        <br>
+    </div>
+</template>
+
+<template name="Profile_SendInvite">
+    <div class="panel">
+        <div class="header">Send Invite</div>
+        <br>
+        <div class="column">
+            <div>Invitees Email</div>
+            <input type="text" id="input_invitees_email">
+        </div>
+        <br>
+        <div class="column">
+            <div>Message</div>
+            <textarea id="input_invite_message"></textarea>
+        </div>
+        <br>
+        <button class="btn_invite_send button-1-col">Invite</button>
+        <br>
+        <br>
     </div>
 </template>
