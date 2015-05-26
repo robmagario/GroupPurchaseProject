@@ -6,6 +6,8 @@ if (Meteor.isClient) {
     Meteor.subscribe("user_data");
     Meteor.subscribe("product_data");
     Meteor.subscribe("product_image_data");
+    //Meteor.subscribe("address_data");
+    Meteor.subscribe("order_data");
 }
 
 if (Meteor.isServer) {
@@ -17,5 +19,11 @@ if (Meteor.isServer) {
     });
     Meteor.publish("product_image_data", function () {
         return ProductImages.find();
+    });
+    /*Meteor.publish("address_data", function () {
+        return Addresses.find();
+    });*/
+    Meteor.publish("order_data", function () {
+        return Orders.find();
     });
 }

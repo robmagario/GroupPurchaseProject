@@ -1,18 +1,30 @@
+<head>
+    <link href="public/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+
 <template name="MainPage">
     <div class="navbar">
         <button class="btn_logout">Logout</button>
         <button class="btn_profile">Profile</button>
     </div>
-    <div class="sidebar" style="margin-top:0px;">
+    <div class="sidebar">
         <div class="sidebar_tab">Overview</div>
-        <div class="sidebar_tab">Find Products</div>
+        <div class="sidebar_tab">Check Cart</div>
+        <div id="FindProduct_Sidebar" class="sidebar_tab">Find Products</div>
+        <div id="FindProducts_Tab" class="sidebar_subhead" style="display:none;">
+            <div class="sidebar_subtab">Food</div>
+            <div class="sidebar_subtab">Other</div>
+        </div>
     </div>
     <div class="container">
-        <div class="container_item" id="MainPage_Overview">
+        <div class="container_item" id="MainPage_Overview" style="display:none;">
             {{> MainPage_Overview}}
         </div>
         <div class="container_item" id="MainPage_Profile" style="display:none;">
             {{> MainPage_Profile}}
+        </div>
+        <div class="container_item" id="MainPage_FindProducts" style="display:none">
+            {{> MainPage_FindProducts}}
         </div>
     </div>
 </template>
@@ -30,6 +42,12 @@
     </div>
     <div class="profile_item" id="Profile_SendInvite">
         {{> Profile_SendInvite}}
+    </div>
+    <div class="profile_item" id="Profile_DefaultAddress">
+        {{> Profile_DefaultAddress}}
+    </div>
+    <div class="profile_item" id="Profile_ChangeAddress">
+        {{> Profile_ChangeAddress}}
     </div>
 </template>
 
@@ -53,22 +71,31 @@
         </div>
         <br>
         <div class="column">
+            <div>Address:</div>
+            <button class="btn_address_set">Set</button>
+        </div>
+        <br>
+        <div class="column">
             <div>Invitation:</div>
             <label id="label_invitation"></label>
         </div>
-        <br>
         <div class="column">
             <div></div>
             <button class="btn_invite">Invite</button>
         </div>
+        <br>
         <div class="column">
             <div>Invite By</div>
-            <label></label>
+            <label id="label_invite_by"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Create Date:</div>
+            <label id="label_create"></label>
         </div>
         <br>
     </div>
 </template>
-
 <template name="Profile_ResetPassword">
     <div class="panel panel-large-1">
         <div class="header">Reset Password</div>
@@ -110,6 +137,237 @@
         </div>
         <br>
         <button class="btn_invite_send button-1-col">Invite</button>
+        <br>
+        <br>
+    </div>
+</template>
+
+<template name="Profile_DefaultAddress">
+    <div class="panel panel-large-1 panel-top-half">
+        <div class="header">Address</div>
+        <br>
+        <div class="column">
+            <div>Country:</div>
+            <label id="label_country"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>City:</div>
+            <label id="label_city"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Address:</div>
+            <label id="label_address"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Phone:</div>
+            <label id="label_phone"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Zip-Code:</div>
+            <label id="label_zipcode"></label>
+        </div>
+        <br>
+        <button class="btn_address_change button-2-left">Change</button>
+        <button class="btn_address_back button-2-right">Back</button>
+        <br>
+        <br>
+    </div>
+</template>
+
+<template name="Profile_ChangeAddress">
+    <div class="panel panel-large-1">
+        <div class="header">Address</div>
+        <br>
+        <div class="column">
+            <div>Country:</div>
+            <input type="text" id="input_country">
+        </div>
+        <br>
+        <div class="column">
+            <div>City:</div>
+            <input type="text" id="input_city">
+        </div>
+        <br>
+        <div class="column">
+            <div>Address:</div>
+            <input type="text" id="input_address">
+        </div>
+        <br>
+        <div class="column">
+            <div>Phone:</div>
+            <input type="text" id="input_phone">
+        </div>
+        <br>
+        <div class="column">
+            <div>Zip-Code:</div>
+            <input type="text" id="input_zipcode">
+        </div>
+        <br>
+        <button class="btn_address_change_submit button-2-left">Change</button>
+        <button class="btn_address_change_back button-2-right">Back</button>
+        <br>
+        <br>
+    </div>
+</template>
+
+<template name="MainPage_FindProducts">
+    <div class="find_product_item" id="FindProduct_MainPage" style="display:none;">
+        {{> FindProduct_MainPage}}
+    </div>
+    <div class="find_product_item" id="FindProducts_ProductInfo" style="display:none">
+        {{> FindProducts_ProductInfo}}
+    </div>
+    <div class="find_product_item" id="FindProducts_Cart" style="display:none">
+        {{> FindProducts_Cart}}
+    </div>
+    <div class="find_product_item" id="FindProducts_Order_Step1" style="display:none">
+        {{> FindProducts_Order_Step1}}
+    </div>
+    <div class="find_product_item" id="FindProducts_Order_Step2" style="display:none">
+        {{> FindProducts_Order_Step2}}
+    </div>
+    <div class="find_product_item" id="FindProducts_Order_Step3" style="display:none">
+        {{> FindProducts_Order_Step3}}
+    </div>
+</template>
+
+<template name="FindProduct_MainPage">
+    <h1>Find Products</h1>
+    <div style="display: flex">
+        {{#each Product.ListPublished}}
+            <div class="product_info">
+                <p class="info_header">{{name}}</p>
+                <img class="info_img" src="{{image}}">
+                <div class="info_price">HKD{{price}}</div>
+            </div>
+        {{/each}}
+    </div>
+
+</template>
+
+<template name="FindProducts_ProductInfo">
+    <div class="product-page">
+        <div class="product-page-header">{{Product.GetProductByHash.Name}}</div>
+        <div class="product-page-info">
+            <div class="product-page-image">Image Show</div>
+            <div class="product-page-description">
+                <button class="btn-order"><i class="fa fa-pencil"></i>Order</button>
+                <br>
+                <button class="btn-cart"><i class="fa fa-pencil"></i>Add to Cart</button>
+                <br>
+                <br>
+                <div class="product-page-subheader">Price</div>
+                <div class="product-page-price">{{Product.GetProductByHash.Price}} HKD</div>
+                <br>
+                <div class="product-page-subheader">Your Price</div>
+                <div class="product-page-price"><span>4%Cash Back</span> = {{Product.GetProductByHash.CalculateDescount}} HKD</div>
+                <br>
+                <div class="product-page-subheader">Sale Status</div>
+                <div class="product-page-price">active</div>
+                <br>
+                <div class="product-page-subheader">Product Description</div>
+                <div class="product-page-price">{{Product.GetProductByHash.Weight}} g</div>
+                <br>
+                <div class="product-page-subheader">Product Description</div>
+                <div class="product-page-price">{{Product.GetProductByHash.Description}}</div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="FindProducts_Cart">
+    <h2>Product in Cart</h2>
+    {{#each Product.GetProductListInCart}}
+        <p>{{Product.GetProductByID.Name this}}</p>
+    {{/each}}
+</template>
+
+<template name="FindProducts_Order_Step1">
+    <h2>Please be Confirmed Your Product Selected</h2>
+    <button class="btn-step1-next">Next Step</button>
+</template>
+
+<template name="FindProducts_Order_Step2">
+    <h2>Check Delivery Address</h2>
+    <div class="panel panel-large-1 panel-top-half">
+        <div class="header">Address</div>
+        <br>
+        <div class="column">
+            <div>Country:</div>
+            <label id="step2_label_country"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>City:</div>
+            <label id="step2_label_city"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Address:</div>
+            <label id="step2_label_address"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Phone:</div>
+            <label id="step2_label_phone"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Zip-Code:</div>
+            <label id="step2_label_zipcode"></label>
+        </div>
+        <br>
+        <button class="btn_address_change button-2-left">Change</button>
+        <button class="btn_address_back button-2-right">Back</button>
+        <br>
+        <br>
+        <button class="btn-step2-previous button-2-left">Previous Step</button>
+        <button class="btn-step2-next button-2-right">Next Step</button>
+        <br>
+        <br>
+    </div>
+</template>
+
+<template name="FindProducts_Order_Step3">
+    <div class="panel panel-large-1 panel-top-half">
+        <div class="header">Select Shipping Method</div>
+        <div class="column">
+            <input type="radio" name="shipping" style="width: 5%" value="airmall">
+            <label>Airmail</label>
+        </div>
+        <div class="column">
+            <input type="radio" name="shipping" style="width: 5%" value="dhl">
+            <label>DHL</label>
+        </div>
+        <div class="column">
+            <input type="radio" name="shipping" style="width: 5%" value="seamall">
+            <label>Seamail</label>
+        </div>
+        <br>
+        <br>
+        <div class="column">
+            <div>Payment:</div>
+            <label id="step3_label_payment"></label>
+        </div>
+        <br>
+        <br>
+        <div class="header">Select Payment Method</div>
+        <div class="column">
+            <input type="radio" name="payment" style="width: 5%" value="airmall">
+            <label>Paybel</label>
+        </div>
+        <div class="column">
+            <input type="radio" name="payment" style="width: 5%" value="dhl">
+            <label>Other</label>
+        </div>
+        <br>
+        <br>
+        <button class="btn-step3-previous button-2-left">Previous Step</button>
+        <button class="btn-step3-next button-2-right">Create Order</button>
         <br>
         <br>
     </div>

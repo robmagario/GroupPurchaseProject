@@ -3,6 +3,7 @@
         <div class="sidebar_tab">Overview</div>
         <div class="sidebar_tab">Create Product</div>
         <div class="sidebar_tab">Products List</div>
+        <div class="sidebar_tab">Invitation Key List</div>
     </div>
     <div class="container">
         <div class="container_item" id="Dashboard_Overview">
@@ -13,6 +14,9 @@
         </div>
         <div class="container_item" id="Dashboard_ProductList" style="display:none;">
             {{> Dashboard_ProductList}}
+        </div>
+        <div class="container_item" id="Dashboard_InvitationKeyList" style="display:none;">
+            {{> Dashboard_InvitationKeyList}}
         </div>
     </div>
 </template>
@@ -59,7 +63,7 @@
 
 <template name="Dashboard_ProductList">
     <h1>Product List</h1>
-    {{#each ProductList.All}}
+    {{#each Product.ListAll}}
         <div class="product_item">
             <p>Name: {{name}}</p>
             <p>Description: {{description}}</p>
@@ -69,4 +73,28 @@
         </div>
         <br>
     {{/each}}
+</template>
+
+<template name="Dashboard_InvitationKeyList">
+    <h1>Invitation Key List</h1>
+    <table class="table-large">
+        <thead>
+            <th class="email-from">From</th>
+            <th class="email-to">To</th>
+            <th class="key">Key</th>
+            <th class="time">Create At</th>
+            <th class="checkbox">Verified</th>
+        </thead>
+        <tbody>
+    {{#each InvitationKey.ListAll}}
+            <tr class="nth-child">
+                <td>{{from}}</td>
+                <td>{{to}}</td>
+                <td>{{_id}}</td>
+                <td>{{createAt}}</td>
+                <td>{{verified}}</td>
+            </tr>
+    {{/each}}
+        </tbody>
+    </table>
 </template>

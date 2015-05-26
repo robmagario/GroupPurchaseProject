@@ -7,7 +7,9 @@ Meteor.startup(function () {
             email: "robson@magario.com",
             password: "Blah124@",
             profile: {
-            }
+            },
+            invited_by: "",
+            create_at: new Date()
         });
     }
     var userrob = Meteor.users.findOne({username: 'robmagario'});
@@ -23,6 +25,7 @@ Meteor.startup(function () {
             email: "chinho.ng@magario.com",
             password: "12345678",
             profile: {
+                invitedBy: "a"
             }
         });
     }

@@ -18,18 +18,23 @@ Template.ResignerPage.rendered = function() {
 Template.ResignerPage.events({
     // Click Login Button
    'click .btn_resigner': function() {
+       var _name = $('#input_name').val();
        var _email = $('#input_email').val();
        var _password = $('#input_password').val();
        var _key = $('#input_key').val();
        var _empty = false;
        var _error = "";
+       if(_name == "" || _name == null) {
+           _empty = true;
+           _error += "Please fill the 'Username' column!\n";
+       }
        if(_email == "" || _email == null) {
            _empty = true;
            _error += "Please fill the 'Email' column!\n";
        }
        if(_password == "" || _password == null) {
            _empty = true;
-           _error += "Please fill the 'Password' column!";
+           _error += "Please fill the 'Password' column!\n";
        }
        if(_key == "" || _key == null) {
            _empty = true;
@@ -37,42 +42,32 @@ Template.ResignerPage.events({
        }
        if(!_empty) {
            var _searchKey = Invitations.find({_id: _key, verified:false}).fetch();
-           if(_searchKey.count > 0) {
+           var _date = new Date();
+           if(_searchKey.length > 0) {
                //alert("Resigner Success");
                Accounts.createUser({
-                   username: "Testing",
-                   email: _email,
-                   password : _password
+                   username:  _name,
+                   email:     _email,
+                   password : _password,
+                   invited_by: _searchKey.from,
+                   create_at: _date
+
                    //profile: { name: register_name},
                    //language: register_language
                }, function(err) {
                    if(err) {
                        alert(err.message);
                    } else {
-
+                       Meteor.call(
+                           'resigner_account',
+                           _email, _password, _key
+                       );
+                       location = "/";
                    }
                });
            } else {
-               //alert("Resigner Failed");
-               Accounts.createUser({
-                   username: "Testing",
-                   email: _email,
-                   password : _password
-                   //profile: { name: register_name},
-                   //language: register_language
-               }, function(err) {
-                   if(err){
-                       alert(err.message);
-                   } else {
-
-                   }
-               });
+               alert("Incorrect Invitation Key");
            }
-
-           Meteor.call(
-               'resigner_account',
-               _email, _password, _key
-           );
        } else {
            alert(_error);
        }

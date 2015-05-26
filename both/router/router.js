@@ -21,4 +21,9 @@ if (Meteor.isClient) {
     Router.route("resigner_cn", {path: "/cn/resigner", controller: "ResignerController"});
     Router.route("resigner_hk", {path: "/hk/resigner", controller: "ResignerController"});
     Router.route("resigner_br", {path: "/br/resigner", controller: "ResignerController"});
+
+    var _product = Products.find({publish: true}).fetch();
+    for(var i=0; i<_product.length; i++) {
+        Router.route("product_" + _product[i]._id, {path: "/product/" + _product[i]._id, controller: "ProductController"});
+    }
 }

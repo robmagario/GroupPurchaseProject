@@ -76,10 +76,12 @@ Meteor.methods({
 
     // Insert invitation
     invitation_insert: function(to, from, text) {
+        var _date = new Date();
         var _inviteID = Invitations.insert({
             to:         to,
             from:       from,
-            verified:   false
+            verified:   false,
+            createAt:   _date
         });
         var trueID = _inviteID;
         var _message = "From: " + from + "\nTo: " + to +  "\nInvite Key: " + trueID + "\n\n" + text;
@@ -90,7 +92,6 @@ Meteor.methods({
             "Invitation From GroupPurchase",
             _message
         );
-        throw console.log(test);
     },
 
     // Send Email by using mandrill api
@@ -106,12 +107,11 @@ Meteor.methods({
         });
     },
 
-    resigner_account: function(email, password, key) {
+    resigner_account: function(to, from, key) {
         var _searchKey = Invitations.find({_id: key, verified:false}).fetch();
-        if(_searchKey.count > 0) {
-            alert("Resigner Success");
+        if(_searchKey.length > 0) {
+            Invitations.update(key, {$set:{verified: true}});
         } else {
-            alert("Resigner Failed");
         }
     }
 });

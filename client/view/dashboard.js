@@ -25,6 +25,9 @@ var sidebar_events = {
             case "Products List":
                 $('#Dashboard_ProductList').show();
                 break;
+            case "Invitation Key List":
+                $('#Dashboard_InvitationKeyList').show();
+                break;
             default:
                 Dashboard_Log.Show("SelectTab", "Tab of '" + tab_name + "' have not set an events");
                 break;

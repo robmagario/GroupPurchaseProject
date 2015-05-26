@@ -13,4 +13,7 @@ if (Meteor.isClient) {
 }
 
 Invitations.allow({
+    'update': function(userId, doc) {
+        return Users.isAdmin(userId);
+    }
 });
