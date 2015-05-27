@@ -233,6 +233,9 @@
     <div class="find_product_item" id="FindProducts_Order_Step3" style="display:none">
         {{> FindProducts_Order_Step3}}
     </div>
+    <div class="find_product_item" id="FindProducts_Order_Step4" style="display:none">
+        {{> FindProducts_Order_Step4}}
+    </div>
 </template>
 
 <template name="FindProduct_MainPage">
@@ -242,7 +245,7 @@
             <div class="product_info">
                 <p class="info_header">{{name}}</p>
                 <img class="info_img" src="{{image}}">
-                <div class="info_price">HKD{{price}}</div>
+                <div class="info_price">{{price}} HKD</div>
             </div>
         {{/each}}
     </div>
@@ -280,15 +283,50 @@
 </template>
 
 <template name="FindProducts_Cart">
-    <h2>Product in Cart</h2>
+    <div class="panel panel-large-2">
+        <div class="header">Product in Cart</div>
     {{#each Product.GetProductListInCart}}
-        <p>{{Product.GetProductByID.Name this}}</p>
+        <div class="product-col">
+            <input type="checkbox" class="product-col-checkbox btn-cart-checkbox" checked="{{Product.GetProductIsSelected this}}">
+            <img width="64px">
+            <div class="product-col-detail">
+                <div class="product-col-header">{{Product.GetProductByID.Name this}}</div>
+                <div class="product-col-info">
+                    <div class="product-col-info-price">{{Product.GetProductByID.Price this}} HKD</div>
+                    <div class="product-col-info-weight">{{Product.GetProductByID.Weight this}} g</div>
+                    <button class="product-col-info-cancel btn-cart-cancel" value="{{this}}">Cancel</button>
+                </div>
+            </div>
+            <br>
+        </div>
     {{/each}}
+    </div>
 </template>
 
 <template name="FindProducts_Order_Step1">
-    <h2>Please be Confirmed Your Product Selected</h2>
-    <button class="btn-step1-next">Next Step</button>
+    <br>
+    <div class="panel panel-large-2 panel-top-half">
+        <div class="header">Please be Confirmed Your Product Selected</div>
+        <br>
+        <div class="column">
+            <div>Number of Product Selected:</div>
+            <label id="step1_label_cart">2</label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Total Weight:</div>
+            <label id="step1_label_weight">123 g</label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Total Payment:</div>
+            <label id="step1_label_payment">123 HKD</label>
+        </div>
+        <br>
+        <button class="btn-step1-next button-1-col">Next Step</button>
+        <br>
+        <br>
+    </div>
 </template>
 
 <template name="FindProducts_Order_Step2">
@@ -298,27 +336,27 @@
         <br>
         <div class="column">
             <div>Country:</div>
-            <label id="step2_label_country"></label>
+            <input type="text" id="step2_label_country">
         </div>
         <br>
         <div class="column">
             <div>City:</div>
-            <label id="step2_label_city"></label>
+            <input type="text" id="step2_label_city">
         </div>
         <br>
         <div class="column">
             <div>Address:</div>
-            <label id="step2_label_address"></label>
+            <input type="text" id="step2_label_address">
         </div>
         <br>
         <div class="column">
             <div>Phone:</div>
-            <label id="step2_label_phone"></label>
+            <input type="text" id="step2_label_phone">
         </div>
         <br>
         <div class="column">
             <div>Zip-Code:</div>
-            <label id="step2_label_zipcode"></label>
+            <input type="text" id="step2_label_zipcode">
         </div>
         <br>
         <button class="btn_address_change button-2-left">Change</button>
@@ -335,39 +373,108 @@
 <template name="FindProducts_Order_Step3">
     <div class="panel panel-large-1 panel-top-half">
         <div class="header">Select Shipping Method</div>
+        <br>
         <div class="column">
-            <input type="radio" name="shipping" style="width: 5%" value="airmall">
-            <label>Airmail</label>
+            <input type="radio" name="shipping" style="width: 5%" value="Seamall" checked>
+            <label>Seamail</label>
         </div>
         <div class="column">
-            <input type="radio" name="shipping" style="width: 5%" value="dhl">
+            <input type="radio" name="shipping" style="width: 5%" value="DHL">
             <label>DHL</label>
         </div>
         <div class="column">
-            <input type="radio" name="shipping" style="width: 5%" value="seamall">
-            <label>Seamail</label>
+            <input type="radio" name="shipping" style="width: 5%" value="Airmall">
+            <label>Airmail</label>
         </div>
         <br>
         <br>
         <div class="column">
             <div>Payment:</div>
-            <label id="step3_label_payment"></label>
+            <label id="step3_label_payment">54321 HKD</label>
         </div>
         <br>
         <br>
         <div class="header">Select Payment Method</div>
+        <br>
         <div class="column">
-            <input type="radio" name="payment" style="width: 5%" value="airmall">
+            <input type="radio" name="payment" style="width: 5%" value="Paybel" checked>
             <label>Paybel</label>
         </div>
         <div class="column">
-            <input type="radio" name="payment" style="width: 5%" value="dhl">
+            <input type="radio" name="payment" style="width: 5%" value="Other">
             <label>Other</label>
         </div>
         <br>
         <br>
         <button class="btn-step3-previous button-2-left">Previous Step</button>
-        <button class="btn-step3-next button-2-right">Create Order</button>
+        <button class="btn-step3-next button-2-right">Next Step</button>
+        <br>
+        <br>
+    </div>
+</template>
+
+<template name="FindProducts_Order_Step4">
+    <h1>Confirm Your Order</h1>
+    <div class="panel panel-large-3">
+        <div class="header">Payment</div>
+        <br>
+        <div class="column">
+            <div>Total Payment:</div>
+            <label id="step4_label_total"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Number of Product:</div>
+            <label id="step4_label_count"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Total Weight:</div>
+            <label id="step4_label_weight"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Payment Method:</div>
+            <label id="step4_label_payment_method"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Shipping Method:</div>
+            <label id="step4_label_shipping_method"></label>
+        </div>
+        <br>
+        <div class="header">Delivery Address</div>
+        <br>
+        <div class="column">
+            <div>Country:</div>
+            <label id="step4_label_country"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>City:</div>
+            <label id="step4_label_city"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Address:</div>
+            <label id="step4_label_address"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Phone:</div>
+            <label id="step4_label_phone"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Zip-Code:</div>
+            <label id="step4_label_zipcode"></label>
+        </div>
+        <br>
+        <div class="header">Product Order</div>
+        <br>
+        <br>
+        <button class="btn-step4-previous button-2-left">Previous Step</button>
+        <button class="btn-step4-next button-2-right">Create Order</button>
         <br>
         <br>
     </div>

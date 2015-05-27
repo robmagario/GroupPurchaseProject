@@ -4,6 +4,7 @@
         <div class="sidebar_tab">Create Product</div>
         <div class="sidebar_tab">Products List</div>
         <div class="sidebar_tab">Invitation Key List</div>
+        <div class="sidebar_tab">Orders List</div>
     </div>
     <div class="container">
         <div class="container_item" id="Dashboard_Overview">
@@ -15,8 +16,17 @@
         <div class="container_item" id="Dashboard_ProductList" style="display:none;">
             {{> Dashboard_ProductList}}
         </div>
+        <div class="container_item" id="Dashboard_ProductDetail" style="display:none;">
+            {{> Dashboard_ProductDetail}}
+        </div>
         <div class="container_item" id="Dashboard_InvitationKeyList" style="display:none;">
             {{> Dashboard_InvitationKeyList}}
+        </div>
+        <div class="container_item" id="Dashboard_OrderList" style="display:none;">
+            {{> Dashboard_OrderList}}
+        </div>
+        <div class="container_item" id="Dashboard_OrderDetail" style="display:none;">
+            {{> Dashboard_OrderDetail}}
         </div>
     </div>
 </template>
@@ -27,7 +37,7 @@
 
 <template name="Dashboard_CreateProduct">
     <h1>Create Product</h1>
-    <div class="panel">
+    <div class="panel panel-large-2">
         <div class="header">Product Detail</div>
         <br>
         <div class="column">
@@ -63,16 +73,41 @@
 
 <template name="Dashboard_ProductList">
     <h1>Product List</h1>
-    {{#each Product.ListAll}}
-        <div class="product_item">
-            <p>Name: {{name}}</p>
-            <p>Description: {{description}}</p>
-            <p>Price: HKD{{price}}</p>
-            <p>Weight: {{weight}}g</p>
-            <p>Publish: {{publish}}</p>
+    <div class="panel panel-large-2">
+        <div class="header">Product List</div>
+        {{#each Product.ListAll}}
+            <div class="product-col product-each">
+                <img width="64px">
+                <div class="product-col-detail">
+                    <div class="product-col-header">{{name}}</div>
+                    <div class="product-col-info">
+                        <div class="product-col-info-price">{{price}} HKD</div>
+                        <div class="product-col-info-weight">{{weight}} g</div>
+                        <button class="product-col-info-cancel btn-cart-cancel" value="{{this}}">Cancel</button>
+                    </div>
+                </div>
+                <br>
+            </div>
+        {{/each}}
+    </div>
+</template>
+
+<template name="Dashboard_ProductDetail">
+    <h1>Product Detail</h1>
+    <div class="panel panel-large-3">
+        <div class="header">Product Detail</div>
+        <br>
+        <div class="column">
+            <div>Product ID: </div>
+            <label id="label_product_id"></label>
         </div>
         <br>
-    {{/each}}
+        <div class="column">
+            <div>Product Name: </div>
+            <label id="label_product_name"></label>
+        </div>
+        <br>
+    </div>
 </template>
 
 <template name="Dashboard_InvitationKeyList">
@@ -86,7 +121,7 @@
             <th class="checkbox">Verified</th>
         </thead>
         <tbody>
-    {{#each InvitationKey.ListAll}}
+        {{#each InvitationKey.ListAll}}
             <tr class="nth-child">
                 <td>{{from}}</td>
                 <td>{{to}}</td>
@@ -94,7 +129,116 @@
                 <td>{{createAt}}</td>
                 <td>{{verified}}</td>
             </tr>
-    {{/each}}
+        {{/each}}
         </tbody>
     </table>
+</template>
+
+<template name="Dashboard_OrderList">
+    <h1>Order List</h1>
+    <table class="table-large">
+        <thead>
+            <th class="">User</th>
+            <th class="">Payment</th>
+            <th class="">Weight</th>
+            <th class="">No. of product</th>
+            <th class="">Status</th>
+        </thead>
+        <tbody>
+        {{#each Order.ListAll}}
+            <tr class="nth-child order-each">
+                <td>{{user}}</td>
+                <td>{{payment.payment}}</td>
+                <td>{{payment.weight}}</td>
+                <td>{{payment.count}}</td>
+                <td>{{status}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</template>
+
+<template name="Dashboard_OrderDetail">
+    <h1>Order Detail</h1>
+    <div class="panel panel-large-3">
+        <div class="header">Order Information</div>
+        <br>
+        <div class="column">
+            <div>Order ID: </div>
+            <label id="label_detail_orderid"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Username: </div>
+            <label id="label_detail_username"></label>
+            <label id="label_detail_userid" style="display: none;"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Status: </div>
+            <label id="label_detail_status"></label>
+        </div>
+        <br>
+        <div class="header">Payment Information</div>
+        <br>
+        <div class="column">
+            <div>Payment: </div>
+            <label id="label_detail_payment"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>No. of product: </div>
+            <label id="label_detail_count"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Total Weight: </div>
+            <label id="label_detail_weight"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Payment Method: </div>
+            <label id="label_detail_payment_method"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Shipping Method</div>
+            <label id="label_detail_shipping_method"></label>
+        </div>
+        <br>
+        <div class="header">Address Information</div>
+        <br>
+        <div class="column">
+            <div>Country: </div>
+            <label id="label_detail_country"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>City: </div>
+            <label id="label_detail_city"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Address: </div>
+            <label id="label_detail_address"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Contact Number: </div>
+            <label id="label_detail_phone"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Zip-Code</div>
+            <label id="label_detail_zipcode"></label>
+        </div>
+        <br>
+        <div class="header">Product Information</div>
+        <br>
+        <div id="Order_detail_ProductList" style="width:80%; margin-left:auto; margin-right:auto;"></div>
+        <br>
+        <button class="btn_order_detail_back button-1-col">Back</button>
+        <br>
+        <br>
+    </div>
 </template>

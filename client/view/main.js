@@ -16,20 +16,49 @@ function InitializeProductInfo(_id) {
     $('#FindProduct_Sidebar').addClass('active');
 }
 
+// Get the Value from a radio group.
+// (header = radio -> name)
+function GetRadioValue(header) {
+    var selections = document.getElementsByName(header);
+    var final_result = "";
+    for (var i = 0; i < selections.length; i++) {
+        if (selections[i].checked) {
+            final_result = selections[i].value;
+            break;
+        }
+    }
+    return final_result;
+}
+
 Template.MainPage.rendered = function() {
     // Turn to Login Page if haven't login
     var _id = Meteor.userId();
     if(_id == null) {
         LocatToLogin();
     } else {
+        var _cart_item = window.localStorage.getItem("CartItem");
+        var _cart_select = window.localStorage.getItem("CartItem_selected");
+        if(_cart_item == null) {
+            window.localStorage.setItem('CartItem','');
+        }if(_cart_select == null) {
+            window.localStorage.setItem('CartItem_selected','');
+        }
         window.setTimeout(function() {
             var _location = location.hash;
             _location = _location.replace("#","");
-            var _count = Products.find({_id: _location}).count();
-            if (_count > 0) {
-                InitializeProductInfo(_location);
+            if(_location == "CART" || _location == "STARTORDER") {
+                if(_location == "CART") {
+                    tab_events.SelectTab("Check Cart");
+                } else {
+                    tab_events.SelectTab("Start Order");
+                }
             } else {
-                console.log('No This Product');
+                var _count = Products.find({_id: _location}).count();
+                if (_count > 0) {
+                    InitializeProductInfo(_location);
+                } else {
+                    console.log('No This Product');
+                }
             }
         }, 200);
     }
@@ -93,27 +122,69 @@ var tab_events = {
                 $('#MainPage_FindProducts').show();
                 $('#FindProducts_Cart').show();
                 $('#FindProducts_Order_Step1').show();
+
+                // Fill Column
+                var _ids = window.localStorage.getItem('CartItem_selected').split(',');
+                var _count = 0;
+                var _weight = 0;
+                var _price = 0;
+                for(var i=0; i< _ids.length; i++) {
+                    if(_ids[i] != "") {
+                        _weight += Helpers.Product.GetProductByID.Weight(_ids[i]);
+                        _price += Helpers.Product.GetProductByID.Price(_ids[i]);
+                        _count ++;
+                    }
+                }
+                $('#step1_label_cart').html(_count);
+                $('#step1_label_weight').html(_weight + " g");
+                $('#step1_label_payment').html(_price + " HKD");
                 break;
             case "Start Order Step2":
                 $('#MainPage_FindProducts').show();
                 $('#FindProducts_Order_Step2').show();
                 var _temp = Meteor.user().profile;
-                $('#step2_label_country').html(_temp.country);
-                $('#step2_label_city').html(_temp.city);
-                $('#step2_label_address').html(_temp.address);
-                $('#step2_label_phone').html(_temp.phone);
-                $('#step2_label_zipcode').html(_temp.zipcode);
+                $('#step2_label_country').val(_temp.country);
+                $('#step2_label_city').val(_temp.city);
+                $('#step2_label_address').val(_temp.address);
+                $('#step2_label_phone').val(_temp.phone);
+                $('#step2_label_zipcode').val(_temp.zipcode);
                 break;
             case "Start Order Step3":
                 $('#MainPage_FindProducts').show();
                 $('#FindProducts_Order_Step3').show();
+
+                // Fill column
+                $('#step3_label_payment').html($('#step1_label_payment').html());
                 break;
             case "Start Order Step4":
-                $('#MainPage_Overview').show();
-                Orders.insert({
+                $('#MainPage_FindProducts').show();
+                $('#FindProducts_Order_Step4').show();
 
-                });
-                alert("Order Created");
+                // Fill Payment Column
+                var _products = Helpers.Product.GetProductListInCart();
+                var _count = 0;
+                for(var i=0; i<_products.length; i++) {
+                    if(_products[i] != "" && _products[i] != null) {
+                        _count++;
+                    }
+                }
+                $('#step4_label_total').html($('#step3_label_payment').html());
+                $('#step4_label_count').html(_count);
+                $('#step4_label_weight').html($('#step1_label_weight').html());
+                $('#step4_label_payment_method').html(GetRadioValue("payment"));
+                $('#step4_label_shipping_method').html(GetRadioValue("shipping"));
+
+                // Fill Address Column
+                $('#step4_label_country').html($('#step2_label_country').val());
+                $('#step4_label_city').html($('#step2_label_city').val());
+                $('#step4_label_address').html($('#step2_label_address').val());
+                $('#step4_label_phone').html($('#step2_label_phone').val());
+                $('#step4_label_zipcode').html($('#step2_label_zipcode').val());
+
+                break;
+            case "Submit Order":
+                $('#MainPage_Overview').show();
+                alert("Order is sent");
                 break;
             case "Check Cart":
                 $('#MainPage_FindProducts').show();
@@ -130,7 +201,7 @@ function AddProductToCart() {
     var _id = Helpers.Product.GetProductByHash.ProductID();
     var _tempString = window.localStorage.getItem('CartItem');
     var _newtemp = [_id];
-    if(_tempString != null) {
+    if(_tempString != null && _tempString != "") {
         var _temp = _tempString.split(',');
         for(var i=0; i<_temp.length; i++) {
             if(_temp[i] != _id) {
@@ -155,7 +226,7 @@ Template.MainPage.events({
         $('#label_username').html(Helpers.User.Name());
         $('#label_useremail').html(Helpers.User.Email());
         $('#label_invitation').html(Helpers.User.Invitation());
-        $('#label_invite_by').html(Helpers.User.Invitation());
+        $('#label_invite_by').html(Helpers.User.InviteBy());
         $('#label_create').html(Helpers.User.CreateAt());
     },
 
@@ -203,7 +274,13 @@ Template.MainPage.events({
 
     // Click Invite Button from Profile
     'click .btn_invite': function() {
-        tab_events.SelectTab("Invitation");
+        var _count = parseInt($('#label_invitation').html());
+        if(_count > 0) {
+            tab_events.SelectTab("Invitation");
+        } else {
+            alert('You haven not enough invite letter.\n' +
+                "You can buy something to increase it.");
+        }
     },
 
     // Click Back Button from Reset Password
@@ -221,11 +298,19 @@ Template.MainPage.events({
             _check = false;
         }
 
+        var _invitation_left = parseInt(Meteor.user().invitation) - 1;
+        var _invitation_use = parseInt(Meteor.user().invitation_use) + 1;
         if(_check) {
+            Meteor.call(
+                'invitation_use',
+                Meteor.userId(), _invitation_left, _invitation_use
+            )
             Meteor.call(
                 'invitation_insert',
                 _to, _from, _text
             );
+            location.hash = "";
+            location.reload();
         } else {
             alert("Send fail");
         }
@@ -247,14 +332,84 @@ Template.MainPage.events({
 
     // Click 'Order' for a Product
     'click .btn-order': function() {
-        tab_events.SelectTab('Start Order');
         AddProductToCart();
+        window.localStorage.setItem('CartItem_selected', localStorage.getItem('CartItem'));
+        //tab_events.SelectTab('Start Order');
+        location.hash = '#STARTORDER';
+        location.reload();
     },
 
     // Click 'Add to Cart' for a Product
     'click .btn-cart': function() {
-        tab_events.SelectTab('Check Cart');
         AddProductToCart();
+        //tab_events.SelectTab('Check Cart');
+        location.hash = '#CART';
+        location.reload();
+    },
+
+    // Select or Unselect a product
+    'click .btn-cart-checkbox': function(e) {
+        var _id = this.toString();
+        var _action = e.target.checked;
+        var _select_o = window.localStorage.getItem('CartItem_selected').split(',');
+        var _select_n = [];
+        if(_action) {
+            for(var i=0; i<_select_o.length; i++) {
+                if(_select_o[i] != "") {
+                    _select_n.push(_select_o[i]);
+                }
+            }
+            _select_n.push(_id);
+        } else {
+            for(var i=0; i<_select_o.length; i++) {
+                if(_select_o[i] != _id && _select_o[i] != "") {
+                    _select_n.push(_select_o[i]);
+                }
+            }
+        }
+        window.localStorage.setItem('CartItem_selected', _select_n);
+
+        // Fill column
+        $('#step1_label_cart').html(_select_n.length);
+        var _product_weight = Helpers.Product.GetProductByID.Weight(_id);
+        var _product_price = Helpers.Product.GetProductByID.Price(_id);
+        var _weight = parseInt($('#step1_label_weight').html());
+        var _price = parseInt($('#step1_label_payment').html());
+        var _weight_new;
+        var _price_new;
+        if(_action) {
+            _weight_new = _weight + _product_weight;
+            _price_new = _price + _product_price;
+        } else {
+            _weight_new = _weight - _product_weight;
+            _price_new = _price - _product_price;
+        }
+        $('#step1_label_weight').html(_weight_new + " g");
+        $('#step1_label_payment').html(_price_new + " HKD");
+    },
+
+    // Cancel a product in Cart
+    'click .btn-cart-cancel': function() {
+        var _id = this.toString();
+        var _product_cart = window.localStorage.getItem("CartItem").split(",");
+        var _product_select = window.localStorage.getItem("CartItem_selected").split(",");
+        var _product_cart_new = [];
+        var _product_select_new = [];
+        for(var i=0; i< _product_cart.length; i++) {
+            if(_product_cart[i] != _id && _product_cart[i] != "") {
+                _product_cart_new.push(_product_cart[i]);
+            }
+        }
+        for(var i=0; i< _product_select.length; i++) {
+            if(_product_select[i] != _id && _product_select[i] != "") {
+                _product_select_new.push(_product_select[i]);
+            }
+        }
+        window.localStorage.setItem("CartItem", _product_cart_new);
+        window.localStorage.setItem("CartItem_selected", _product_select_new);
+
+        location.hash = '#STARTORDER';
+        location.reload();
     },
 
     // Click 'Next Step' in Order
@@ -280,8 +435,74 @@ Template.MainPage.events({
     // Click 'Next Step' in Step3
     'click .btn-step3-next': function() {
         tab_events.SelectTab('Start Order Step4');
-    }
+    },
 
+    // Click 'Previous Step' in Step4
+    'click .btn-step4-previous': function() {
+        tab_events.SelectTab('Start Order Step3');
+    },
+
+    // Click 'Create Order' in Step4
+    'click .btn-step4-next': function() {
+        var _userID =   Meteor.userId();
+        var _products = window.localStorage.getItem('CartItem_selected').split(',');
+        var _payment =  $('#step4_label_total').html();
+        var _count =    $('#step4_label_count').html();
+        var _weight =   $('#step4_label_weight').html();
+        var _payment_method = $('#step4_label_payment_method').html();
+        var _shipping_method = $('#step4_label_shipping_method').html();
+        var _country =  $('#step4_label_country').html();
+        var _city =     $('#step4_label_city').html();
+        var _address =  $('#step4_label_address').html();
+        var _phone =    $('#step4_label_phone').html();
+        var _zipcode =  $('#step4_label_zipcode').html();
+
+        Orders.insert({
+            user:     _userID,
+            products: _products,
+            payment: {
+                payment: _payment,
+                count:   _count,
+                weight:  _weight,
+                payment_method:  _payment_method,
+                shipping_method: _shipping_method
+            },
+            address: {
+                country: _country,
+                city:    _city,
+                address: _address,
+                phone:   _phone,
+                zipcode: _zipcode
+            }
+        }, function() {
+            var _cart_product = window.localStorage.getItem("CartItem").split(',');
+            var _cart_selected = window.localStorage.getItem("CartItem_selected").split(',');
+            var _cart_rest = [];
+            for(var i=0; i<_cart_product.length; i++) {
+                var _buy = false;
+                if (_cart_product[i] == "") {
+                    _buy = true;
+                } else {
+                    for (var j = 0; j < _cart_selected.length; j++) {
+                        if(_cart_product[i] == _cart_selected[j]) {
+                            _buy = true;
+                        }
+                    }
+                }
+                if(!_buy) {
+                    _cart_rest.push(_cart_product[i]);
+                }
+            }
+            if(_cart_rest.length > 0) {
+                window.localStorage.setItem('CartItem', _cart_rest.toString());
+                window.localStorage.removeItem('CartItem_selected');
+            } else {
+                window.localStorage.removeItem('CartItem');
+                window.localStorage.removeItem('CartItem_selected');
+            }
+            tab_events.SelectTab('Submit Order');
+        });
+    }
 });
 
 var MainPage_Log = {

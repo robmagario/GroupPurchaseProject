@@ -94,6 +94,18 @@ Meteor.methods({
         );
     },
 
+    // Update Invitation Left
+    invitation_use: function(_id, _left, _use) {
+        console.log("Teting");
+        console.log(_id);
+        console.log(_left);
+        console.log(_use);
+        Meteor.users.update(_id, {$set:{
+            invitation:     _left,
+            invitation_use: _use
+        }})
+    },
+
     // Send Email by using mandrill api
     sendEmail: function (to, from, subject, text) {
         check([to, from, subject, text], [String]);

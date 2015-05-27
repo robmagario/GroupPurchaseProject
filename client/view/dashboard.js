@@ -25,8 +25,17 @@ var sidebar_events = {
             case "Products List":
                 $('#Dashboard_ProductList').show();
                 break;
+            case "Product Detail":
+                $('#Dashboard_ProductDetail').show();
+                break;
             case "Invitation Key List":
                 $('#Dashboard_InvitationKeyList').show();
+                break;
+            case "Orders List":
+                $('#Dashboard_OrderList').show();
+                break;
+            case "Order Detail":
+                $('#Dashboard_OrderDetail').show();
                 break;
             default:
                 Dashboard_Log.Show("SelectTab", "Tab of '" + tab_name + "' have not set an events");
@@ -96,8 +105,99 @@ Template.Dashboard.events({
             Dashboard_Log.Show("Create Product", "Create Fail!");
             alert(_error);
         }
+    },
+
+    // Click to see a product
+    'click .product-each': function() {
+        sidebar_events.SelectTab('Product Detail');
+
+        // Fill Column for a product
+        $('#label_product_id').html(this._id);
+        $('#label_product_name').html(this.name);
+    },
+
+    // Click to see an order
+    'click .order-each': function() {
+        sidebar_events.SelectTab('Order Detail');
+
+        // Fill Column for Order Information
+        var _status = this.status;
+        var StatusHTML = "";
+        if(_status == "" || _status == "Waiting Confirm" || _status == null) {
+            StatusHTML = "Waiting Confirm    <button class='btn_order_detail_confirm'>Confirm</button>";
+        } else {
+            StatusHTML = "Confirmed";
+        }
+        $('#label_detail_status').html(StatusHTML);
+
+        $('#label_detail_orderid').html(this._id);
+        $('#label_detail_username').html(Meteor.users.find({_id:this.user}).fetch()[0].username);
+        $('#label_detail_userid').html(this.user);
+        $('#label_detail_payment').html(this.payment.payment);
+        $('#label_detail_count').html(this.payment.count);
+        $('#label_detail_weight').html(this.payment.weight);
+        $('#label_detail_payment_method').html(this.payment.payment_method);
+        $('#label_detail_shipping_method').html(this.payment.shipping_method);
+        $('#label_detail_country').html(this.address.country);
+        $('#label_detail_city').html(this.address.city);
+        $('#label_detail_address').html(this.address.address);
+        $('#label_detail_phone').html(this.address.phone);
+        $('#label_detail_zipcode').html(this.address.zipcode);
+
+        var ProductListHTML = ""
+        var _productIDs = this.products
+        for(var i=0; i<_productIDs.length; i++) {
+            var _product_name = Helpers.Product.GetProductByID.Name(_productIDs[i]);
+            var _product_price = Helpers.Product.GetProductByID.Price(_productIDs[i]);
+            var _product_weight = Helpers.Product.GetProductByID.Weight(_productIDs[i]);
+
+            ProductListHTML +=
+                "<div class='product-col'>" +
+                    "<img width='64px'>" +
+                    "<div class='product-col-detail'>" +
+                        "<div class='product-col-header'>" + _product_name + "</div>" +
+                        "<div class='product-col-info'>" +
+                            "<div class='product-col-info-price'>" + _product_price + " HKD</div>" +
+                            "<div class='product-col-info-weight'>" + _product_weight + " g</div>" +
+                        "</div>" +
+                    "</div>" +
+                    "<br>" +
+                "</div>";
+        }
+
+        $('#Order_detail_ProductList').html(ProductListHTML);
+    },
+
+    // Click 'Confirm' for an order
+    'click .btn_order_detail_confirm': function() {
+        // Update User
+        var _userID = $('#label_detail_userid').html();
+        var _user = Meteor.users.find({_id:_userID}).fetch()[0];
+        var _invitation = _user.profile.invitation;
+        var _invitation_use = _user.profile.invitation_use;
+        if(_invitation == "" || _invitation == null) {
+            _invitation = 0;
+        }
+        if(_invitation_use == "" || _invitation_use == null) {
+            _invitation_use = 0;
+        }
+        _invitation = parseInt(_invitation) + parseInt($('#label_detail_count').html());
+        _invitation_use = parseInt(_invitation_use);
+        Meteor.users.update(_userID, {$set:{
+            invitation:_invitation,
+            invitation_use: _invitation_use
+        }});
+
+        // Update Order
+        var _orderID = $('#label_detail_orderid').html()
+        Orders.update(_orderID, {$set: {
+            status: "Confirmed"
+        }});
+
+        // Change Column
+        $('#label_detail_status').html("Confirmed");
     }
-})
+});
 
 Template.Dashboard.helpers({
     'GetProductList': function() {

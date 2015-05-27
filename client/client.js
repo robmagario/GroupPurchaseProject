@@ -16,7 +16,8 @@ Helpers.User = {
         return Meteor.user().emails[0].address;
     },
     Invitation: function() {
-        return Invitations.find({from:this.Email(), verified:true}).count();
+        return Meteor.user().invitation;
+        //return Invitations.find({from:this.Email(), verified:true}).count();
 
         /*var _profile = Meteor.user().profile;
         if(_profile.invitation == "" || _profile.invitation == null) {
@@ -26,7 +27,7 @@ Helpers.User = {
         }*/
     },
     InviteBy: function() {
-        return Meteor.user().profile.invitedBy;
+        return Meteor.user().invited_by;
     },
     CreateAt: function() {
         return Meteor.user().createdAt;
@@ -105,7 +106,7 @@ Helpers.Product = {
         Price: function(_id) {
             var _product = Products.findOne({_id:_id, publish: true});
             if(_product != null) {
-                return _product.price;
+                return parseInt(_product.price);
             } else {
                 return "Unknown";
             }
@@ -113,7 +114,7 @@ Helpers.Product = {
         Weight: function(_id) {
             var _product = Products.findOne({_id:_id, publish: true});
             if(_product != null) {
-                return _product.weight;
+                return parseInt(_product.weight);
             } else {
                 return "Unknown";
             }
@@ -138,16 +139,45 @@ Helpers.Product = {
     GetProductListInCart: function() {
         var _temp = window.localStorage.getItem('CartItem');
         if(_temp != null) {
-            return _temp.split(',');
+            var _tempArray = _temp.split(',');
+            if(_tempArray[0] == "") {
+                return false;
+            } else {
+                return _tempArray;
+            }
         } else {
-            return "";
+            return false;
         }
+    },
+    GetProductIsSelected: function(_id) {
+        var _checked = false;
+        var _cart_item = window.localStorage.getItem("CartItem");
+        var _cart_select = window.localStorage.getItem("CartItem_selected");
+        if(_cart_item == null) {
+            window.localStorage.setItem('CartItem','');
+        }if(_cart_select == null) {
+            window.localStorage.setItem('CartItem_selected','');
+        }
+        var _ids = window.localStorage.getItem("CartItem_selected").split(',');
+        for(var i=0; i<_ids.length; i++) {
+            if(_ids[i] == _id) {
+                _checked = true;
+                break;
+            }
+        }
+        return _checked;
     }
 };
 
 Helpers.InvitationKey = {
     ListAll: function() {
         return Invitations.find();
+    }
+}
+
+Helpers.Order = {
+    ListAll: function() {
+        return Orders.find();
     }
 }
 

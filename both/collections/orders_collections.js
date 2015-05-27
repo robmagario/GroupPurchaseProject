@@ -14,7 +14,7 @@ if (Meteor.isClient) {
 
 Orders.allow({
     'insert': function(userId, doc) {
-        return Users.isAdmin(userId);
+        return true;
     },
     'update': function(userId, doc) {
         return Users.isAdmin(userId);
