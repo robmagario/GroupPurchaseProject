@@ -9,6 +9,9 @@ Meteor.startup(function() {
 });
 
 Helpers.User = {
+    IsAdmin: function() {
+        return Users.isAdmin(Meteor.userId());
+    },
     Name: function() {
         return Meteor.user().username;
     },
@@ -92,7 +95,7 @@ Helpers.Product = {
             var _id = this.ProductID();
             var _product = Products.findOne({_id:_id, publish: true});
             if(_product != null) {
-                return (_product.price * 0.04);
+                return parseInt(_product.price * 0.04);
             } else {
                 return "Unknown";
             }

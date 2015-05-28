@@ -45,19 +45,23 @@ Template.MainPage.rendered = function() {
         }
         window.setTimeout(function() {
             var _location = location.hash;
-            _location = _location.replace("#","");
-            if(_location == "CART" || _location == "STARTORDER") {
-                if(_location == "CART") {
-                    tab_events.SelectTab("Check Cart");
-                } else {
-                    tab_events.SelectTab("Start Order");
-                }
+            if(_location == "") {
+                tab_events.SelectTab("Overview");
             } else {
-                var _count = Products.find({_id: _location}).count();
-                if (_count > 0) {
-                    InitializeProductInfo(_location);
+                _location = _location.replace("#", "");
+                if (_location == "CART" || _location == "STARTORDER") {
+                    if (_location == "CART") {
+                        tab_events.SelectTab("Check Cart");
+                    } else {
+                        tab_events.SelectTab("Start Order");
+                    }
                 } else {
-                    console.log('No This Product');
+                    var _count = Products.find({_id: _location}).count();
+                    if (_count > 0) {
+                        InitializeProductInfo(_location);
+                    } else {
+                        console.log('No This Product');
+                    }
                 }
             }
         }, 1000);
@@ -130,16 +134,19 @@ var tab_events = {
                 var _count = 0;
                 var _weight = 0;
                 var _price = 0;
+                var _cashback = 0;
                 for(var i=0; i< _ids.length; i++) {
                     if(_ids[i] != "") {
                         _weight += Helpers.Product.GetProductByID.Weight(_ids[i]);
                         _price += Helpers.Product.GetProductByID.Price(_ids[i]);
+                        _cashback += parseInt(Helpers.Product.GetProductByID.Price(_ids[i]) * 0.04);
                         _count ++;
                     }
                 }
                 $('#step1_label_cart').html(_count);
                 $('#step1_label_weight').html(_weight + " g");
                 $('#step1_label_payment').html(_price + " HKD");
+                $('#step1_label_cashback').html(_cashback + " HKD");
                 break;
             case "Start Order Step2":
                 $('#MainPage_FindProducts').show();
@@ -171,6 +178,7 @@ var tab_events = {
                     }
                 }
                 $('#step4_label_total').html($('#step3_label_payment').html());
+                $('#step4_label_cashback').html($('#step1_label_cashback').html());
                 $('#step4_label_count').html(_count);
                 $('#step4_label_weight').html($('#step1_label_weight').html());
                 $('#step4_label_payment_method').html(GetRadioValue("payment"));
@@ -230,6 +238,11 @@ Template.MainPage.events({
         $('#label_invitation').html(Helpers.User.Invitation());
         $('#label_invite_by').html(Helpers.User.InviteBy());
         $('#label_create').html(Helpers.User.CreateAt());
+    },
+
+    // Click Dashboard Button
+    'click .btn_dashboard': function() {
+        location = "/dashboard";
     },
 
     // Click Reset Button from Profile
@@ -357,6 +370,7 @@ Template.MainPage.events({
         $('#label_detail_username').html(Meteor.users.find({_id:this.user}).fetch()[0].username);
         $('#label_detail_status').html(this.status);
         $('#label_detail_payment').html(this.payment.payment);
+        $('#label_detail_cashback').html(this.payment.cashback);
         $('#label_detail_count').html(this.payment.count);
         $('#label_detail_weight').html(this.payment.weight);
         $('#label_detail_payment_method').html(this.payment.payment_method);
@@ -375,7 +389,7 @@ Template.MainPage.events({
             var _product_weight = Helpers.Product.GetProductByID.Weight(_productIDs[i]);
 
             ProductListHTML +=
-                "<div class='product-col'>" +
+                "<div class='product-col to-see-product' value='"+_productIDs[i]+"'>" +
                 "<img width='64px' src='"+Helpers.Product.GetProductByID.Image(_productIDs[i])+"'>" +
                 "<div class='product-col-detail'>" +
                 "<div class='product-col-header'>" + _product_name + "</div>" +
@@ -389,6 +403,13 @@ Template.MainPage.events({
         }
 
         $('#Order_detail_ProductList').html(ProductListHTML);
+    },
+
+    // Click to see the product
+    'click .to-see-product': function() {
+        //location.hash
+        location.hash = this.params.hash;
+        location.reload();
     },
 
     // Click 'Back' in Order Detail
@@ -453,19 +474,25 @@ Template.MainPage.events({
         $('#step1_label_cart').html(_select_n.length);
         var _product_weight = Helpers.Product.GetProductByID.Weight(_id);
         var _product_price = Helpers.Product.GetProductByID.Price(_id);
+        var _product_cashback = parseInt(_product_price * 0.04);
         var _weight = parseInt($('#step1_label_weight').html());
         var _price = parseInt($('#step1_label_payment').html());
+        var _cashback = parseInt($('#step1_label_cashback').html());
         var _weight_new;
         var _price_new;
+        var _cashback_new;
         if(_action) {
             _weight_new = _weight + _product_weight;
             _price_new = _price + _product_price;
+            _cashback_new = _cashback + _product_cashback;
         } else {
             _weight_new = _weight - _product_weight;
             _price_new = _price - _product_price;
+            _cashback_new = _cashback - _product_cashback;
         }
         $('#step1_label_weight').html(_weight_new + " g");
         $('#step1_label_payment').html(_price_new + " HKD");
+        $('#step1_label_cashback').html(_cashback_new + " HKD");
     },
 
     // Cancel a product in Cart
@@ -544,6 +571,7 @@ Template.MainPage.events({
         var _userID =   Meteor.userId();
         var _products = window.localStorage.getItem('CartItem_selected').split(',');
         var _payment =  $('#step4_label_total').html();
+        var _cashback = $('#step4_label_cashback').html();
         var _count =    $('#step4_label_count').html();
         var _weight =   $('#step4_label_weight').html();
         var _payment_method = $('#step4_label_payment_method').html();
@@ -561,9 +589,10 @@ Template.MainPage.events({
             user:     _userID,
             products: _products,
             payment: {
-                payment: _payment,
-                count:   _count,
-                weight:  _weight,
+                payment:  _payment,
+                cashback: _cashback,
+                count:    _count,
+                weight:   _weight,
                 payment_method:  _payment_method,
                 shipping_method: _shipping_method
             },

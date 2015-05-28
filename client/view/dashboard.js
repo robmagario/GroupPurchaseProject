@@ -8,7 +8,7 @@ Template.Dashboard.rendered = function() {
         } else {
             location = "login";
         }
-    },1000)
+    },1000);
 }
 
 var sidebar_events = {
@@ -45,6 +45,17 @@ var sidebar_events = {
 }
 
 Template.Dashboard.events({
+    // Go To Main Page
+    'click .btn_mainpage': function() {
+        location = "/";
+    },
+
+    // Logout
+    'click .btn_logout': function() {
+        Meteor.logout();
+        location = "/login";
+    },
+
     // Select Tab on sidebar
     'click .sidebar_tab': function(e) {
         $('.sidebar_tab').removeClass("active");

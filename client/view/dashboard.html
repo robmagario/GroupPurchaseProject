@@ -1,4 +1,8 @@
 <template name="Dashboard">
+    <div class="navbar">
+        <button class="btn_logout">Logout</button>
+        <button class="btn_mainpage">Main Page</button>
+    </div>
     <div class="sidebar">
         <div class="sidebar_tab">Overview</div>
         <div class="sidebar_tab">Create Product</div>
@@ -182,7 +186,7 @@
 
 <template name="Dashboard_InvitationKeyList">
     <h1>Invitation Key List</h1>
-    <table class="table-large">
+    <table class="user-table">
         <thead>
             <th class="email-from">From</th>
             <th class="email-to">To</th>
@@ -206,7 +210,7 @@
 
 <template name="Dashboard_OrderList">
     <h1>Order List</h1>
-    <table class="table-large">
+    <table class="user-table">
         <thead>
             <th class="">User</th>
             <th class="">Payment</th>

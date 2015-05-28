@@ -6,6 +6,9 @@
     <div class="navbar">
         <button class="btn_logout">Logout</button>
         <button class="btn_profile">Profile</button>
+        {{#if User.IsAdmin}}
+            <button class="btn_dashboard">Dashboard</button>
+        {{/if}}
     </div>
     <div class="sidebar">
         <div class="sidebar_tab">Overview</div>
@@ -84,6 +87,11 @@
         <div class="column">
             <div>Payment: </div>
             <label id="label_detail_payment"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Cashback: </div>
+            <label id="label_detail_cashback"></label>
         </div>
         <br>
         <div class="column">
@@ -455,6 +463,11 @@
             <label id="step1_label_payment">123 HKD</label>
         </div>
         <br>
+        <div class="column">
+            <div>Total Cash Back:</div>
+            <label id="step1_label_cashback">123 HKD</label>
+        </div>
+        <br>
         <button class="btn-step1-next button-1-col">Next Step</button>
         <br>
         <br>
@@ -549,6 +562,11 @@
         <div class="column">
             <div>Total Payment:</div>
             <label id="step4_label_total"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Total Cashback:</div>
+            <label id="step4_label_cashback"></label>
         </div>
         <br>
         <div class="column">
