@@ -46,8 +46,42 @@
         </div>
         <br>
         <div class="column">
+            <div>Icon Image</div>
+            <input type="file" onchange="Helpers.Image.ReadURL(this, 'img_icon');">
+        </div>
+        <br>
+        <div class="column">
+            <div></div>
+            <div class="image-icon">
+                <img id="img_icon">
+            </div>
+        </div>
+        <br>
+        <div class="column">
             <div>Main Image</div>
-            <input type="file" id="input_image">
+            <input type="file" onchange="Helpers.Image.ReadURL(this, 'img_main');">
+        </div>
+        <br>
+        <div class="column">
+            <div></div>
+            <img id="img_main">
+        </div>
+        <br>
+        <div id="CreateSubImage" class="column-sub-image">
+            <divh class="column">
+                <div>Sub Image</div>
+                <input type="file" onchange="Helpers.Image.ReadURL(this, 'image_00000');">
+                <button class="btn-minus-image">-</button>
+            </divh>
+            <divi class="column">
+                <div></div>
+                <img id="image_00000">
+            </divi>
+        </div>
+        <br>
+        <div class="column">
+            <div></div>
+            <button class="btn-add-image">+</button>
         </div>
         <br>
         <div class="column">
@@ -77,7 +111,7 @@
         <div class="header">Product List</div>
         {{#each Product.ListAll}}
             <div class="product-col product-each">
-                <img width="64px">
+                <img width="64px" src="{{Image.GetImageByID.Icon image}}">
                 <div class="product-col-detail">
                     <div class="product-col-header">{{name}}</div>
                     <div class="product-col-info">
@@ -106,6 +140,42 @@
             <div>Product Name: </div>
             <label id="label_product_name"></label>
         </div>
+        <br>
+        <div class="column">
+            <div>Description: </div>
+            <label id="label_product_description"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Price: </div>
+            <label id="label_product_price"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Weight: </div>
+            <label id="label_product_weight"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Icon Image</div>
+            <div class="image-icon">
+                <img id="label_product_img_icon">
+            </div>
+        </div>
+        <br>
+        <div class="column">
+            <div>Main Image</div>
+            <img id="label_product_img_main">
+        </div>
+        <br>
+        <div class="column">
+            <div>Sub Image</div>
+        </div>
+        <div id="ShowingSubImage" class="column-sub-image">
+        </div>
+        <br>
+        <button class="btn_product_detail_back button-1-col">Back</button>
+        <br>
         <br>
     </div>
 </template>

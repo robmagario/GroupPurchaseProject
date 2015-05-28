@@ -12,13 +12,18 @@
         <div class="sidebar_tab">Check Cart</div>
         <div id="FindProduct_Sidebar" class="sidebar_tab">Find Products</div>
         <div id="FindProducts_Tab" class="sidebar_subhead" style="display:none;">
+            <!--
             <div class="sidebar_subtab">Food</div>
             <div class="sidebar_subtab">Other</div>
+            -->
         </div>
     </div>
     <div class="container">
         <div class="container_item" id="MainPage_Overview" style="display:none;">
             {{> MainPage_Overview}}
+        </div>
+        <div class="container_item" id="MainPage_OrderDetail" style="display:none;">
+            {{> MainPage_OrderDetail}}
         </div>
         <div class="container_item" id="MainPage_Profile" style="display:none;">
             {{> MainPage_Profile}}
@@ -31,6 +36,111 @@
 
 <template name="MainPage_Overview">
     <h1>Overview</h1>
+
+    <div class="panel panel-large-3">
+        <div class="header">Order List</div>
+        <table class="user-table">
+            <thead>
+                <th class="table-col-user-order-date">Create Date</th>
+                <th class="table-col-user-order-payment">Payment</th>
+                <th class="table-col-user-order-method">Method</th>
+                <th class="table-col-user-order-status">Status</th>
+            </thead>
+            <tbody>
+                {{#each Order.ListUserOrder}}
+                    <tr class="user-order-each">
+                        <td>{{createAt}}</td>
+                        <td style="text-align: right;">{{payment.payment}}</td>
+                        <td style="text-align: center;">{{payment.payment_method}}</td>
+                        <td style="text-align: center;">{{status}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</template>
+
+<template name="MainPage_OrderDetail">
+    <div class="panel panel-large-3">
+        <div class="header">Order Information</div>
+        <br>
+        <div class="column">
+            <div>Order ID: </div>
+            <label id="label_detail_orderid"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Username: </div>
+            <label id="label_detail_username"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Status: </div>
+            <label id="label_detail_status"></label>
+        </div>
+        <br>
+        <div class="header">Payment Information</div>
+        <br>
+        <div class="column">
+            <div>Payment: </div>
+            <label id="label_detail_payment"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>No. of product: </div>
+            <label id="label_detail_count"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Total Weight: </div>
+            <label id="label_detail_weight"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Payment Method: </div>
+            <label id="label_detail_payment_method"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Shipping Method</div>
+            <label id="label_detail_shipping_method"></label>
+        </div>
+        <br>
+        <div class="header">Address Information</div>
+        <br>
+        <div class="column">
+            <div>Country: </div>
+            <label id="label_detail_country"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>City: </div>
+            <label id="label_detail_city"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Address: </div>
+            <label id="label_detail_address"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Contact Number: </div>
+            <label id="label_detail_phone"></label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Zip-Code</div>
+            <label id="label_detail_zipcode"></label>
+        </div>
+        <br>
+        <div class="header">Product Information</div>
+        <br>
+        <div id="Order_detail_ProductList" style="width:80%; margin-left:auto; margin-right:auto;"></div>
+        <br>
+        <button class="btn_order_detail_back button-1-col">Back</button>
+        <br>
+        <br>
+    </div>
 </template>
 
 <template name="MainPage_Profile">
@@ -52,7 +162,7 @@
 </template>
 
 <template name="Profile_Overview">
-    <div class="panel">
+    <div class="panel panel-large-1">
         <div class="header">My Profile</div>
         <br>
         <div class="column">
@@ -102,17 +212,17 @@
         <br>
         <div class="column">
             <div>Origin Password</div>
-            <input type="password" id="input_email">
+            <input type="password" id="input_reset_origin">
         </div>
         <br>
         <div class="column">
             <div>New Password</div>
-            <input type="password" id="input_password">
+            <input type="password" id="input_reset_new">
         </div>
         <br>
         <div class="column">
             <div>Confirm Password</div>
-            <input type="password" id="input_confirm">
+            <input type="password" id="input_reset_confirm">
         </div>
         <br>
         <button class="btn_reset_password_submit button-2-left">Reset</button>
@@ -244,7 +354,7 @@
         {{#each Product.ListPublished}}
             <div class="product_info">
                 <p class="info_header">{{name}}</p>
-                <img class="info_img" src="{{image}}">
+                <img class="info_img" src="{{Image.GetImageByID.Main image}}">
                 <div class="info_price">{{price}} HKD</div>
             </div>
         {{/each}}
@@ -256,7 +366,12 @@
     <div class="product-page">
         <div class="product-page-header">{{Product.GetProductByHash.Name}}</div>
         <div class="product-page-info">
-            <div class="product-page-image">Image Show</div>
+            <div class="product-page-image">
+                <img src="{{Image.GetImageByID.Main Product.GetProductByHash.Image}}">
+                {{#each Image.GetImageByID.Sub Product.GetProductByHash.Image}}
+                    <img src="{{this}}">
+                {{/each}}
+            </div>
             <div class="product-page-description">
                 <button class="btn-order"><i class="fa fa-pencil"></i>Order</button>
                 <br>
@@ -285,10 +400,9 @@
 <template name="FindProducts_Cart">
     <div class="panel panel-large-2">
         <div class="header">Product in Cart</div>
-    {{#each Product.GetProductListInCart}}
-        <div class="product-col">
-            <input type="checkbox" class="product-col-checkbox btn-cart-checkbox" checked="{{Product.GetProductIsSelected this}}">
-            <img width="64px">
+        {{#each Product.GetProductListInCart}}
+        <div class="product-col cart-item-each" value="{{this}}">
+            <img width="64px" src="{{Product.GetProductByID.Image this}}">
             <div class="product-col-detail">
                 <div class="product-col-header">{{Product.GetProductByID.Name this}}</div>
                 <div class="product-col-info">
@@ -299,11 +413,29 @@
             </div>
             <br>
         </div>
-    {{/each}}
+        {{/each}}
     </div>
 </template>
 
 <template name="FindProducts_Order_Step1">
+    <div class="panel panel-large-2">
+        <div class="header">Product in Cart</div>
+        {{#each Product.GetProductListInCart}}
+            <div class="product-col">
+                <input type="checkbox" class="product-col-checkbox btn-cart-checkbox" checked="{{Product.GetProductIsSelected this}}">
+                <img width="64px" src="{{Product.GetProductByID.Image this}}">
+                <div class="product-col-detail">
+                    <div class="product-col-header">{{Product.GetProductByID.Name this}}</div>
+                    <div class="product-col-info">
+                        <div class="product-col-info-price">{{Product.GetProductByID.Price this}} HKD</div>
+                        <div class="product-col-info-weight">{{Product.GetProductByID.Weight this}} g</div>
+                        <button class="product-col-info-cancel btn-cart-cancel" value="{{this}}">Cancel</button>
+                    </div>
+                </div>
+                <br>
+            </div>
+        {{/each}}
+    </div>
     <br>
     <div class="panel panel-large-2 panel-top-half">
         <div class="header">Please be Confirmed Your Product Selected</div>
@@ -358,10 +490,6 @@
             <div>Zip-Code:</div>
             <input type="text" id="step2_label_zipcode">
         </div>
-        <br>
-        <button class="btn_address_change button-2-left">Change</button>
-        <button class="btn_address_back button-2-right">Back</button>
-        <br>
         <br>
         <button class="btn-step2-previous button-2-left">Previous Step</button>
         <button class="btn-step2-next button-2-right">Next Step</button>
@@ -470,8 +598,21 @@
             <label id="step4_label_zipcode"></label>
         </div>
         <br>
-        <div class="header">Product Order</div>
+        <div class="header">Product in Order</div>
         <br>
+        {{#each Product.GetProductListInSelected}}
+            <div class="product-col" style="width:80%; margin-left:auto; margin-right:auto;">
+                <img width="64px" src="{{Product.GetProductByID.Image this}}">
+                <div class="product-col-detail">
+                    <div class="product-col-header">{{Product.GetProductByID.Name this}}</div>
+                    <div class="product-col-info">
+                        <div class="product-col-info-price">{{Product.GetProductByID.Price this}} HKD</div>
+                        <div class="product-col-info-weight">{{Product.GetProductByID.Weight this}} g</div>
+                    </div>
+                </div>
+                <br>
+            </div>
+        {{/each}}
         <br>
         <button class="btn-step4-previous button-2-left">Previous Step</button>
         <button class="btn-step4-next button-2-right">Create Order</button>

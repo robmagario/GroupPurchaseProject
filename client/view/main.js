@@ -108,6 +108,9 @@ var tab_events = {
             case "Overview":
                 $('#MainPage_Overview').show();
                 break;
+            case "Order Detail":
+                $('#MainPage_OrderDetail').show();
+                break;
             case "Find Products":
                 $('#MainPage_FindProducts').show();
                 $('#FindProducts_Tab').show();
@@ -120,7 +123,6 @@ var tab_events = {
                 break;
             case "Start Order":
                 $('#MainPage_FindProducts').show();
-                $('#FindProducts_Cart').show();
                 $('#FindProducts_Order_Step1').show();
 
                 // Fill Column
@@ -283,6 +285,28 @@ Template.MainPage.events({
         }
     },
 
+    // Click Reset Button form Reset Password
+    'click .btn_reset_password_submit': function() {
+        var _pw_old = $('#input_reset_origin').val();
+        var _pw_new = $('#input_reset_new').val();
+        var _pw_con = $('#input_reset_confirm').val();
+        if(_pw_new != _pw_con) {
+            Helpers.ErrorMessage.ConfirmPW();
+        } else {
+            Accounts.changePassword(_pw_old,_pw_new,function(err){
+                if (err) {
+                    alert(err.reason);
+                    return false;
+                } else {
+                    Meteor.logout(function() {
+                        alert('Password have Reset');
+                        location = "/login";
+                    });
+                }
+            });
+        }
+    },
+
     // Click Back Button from Reset Password
     'click .btn_reset_password_back': function() {
         tab_events.SelectTab("Profile");
@@ -323,6 +347,55 @@ Template.MainPage.events({
         e.target.classList.add("active");
     },
 
+    // Click to see an order information
+    'click .user-order-each': function() {
+        tab_events.SelectTab("Order Detail");
+
+        // Fill Column for Order Information
+
+        $('#label_detail_orderid').html(this._id);
+        $('#label_detail_username').html(Meteor.users.find({_id:this.user}).fetch()[0].username);
+        $('#label_detail_status').html(this.status);
+        $('#label_detail_payment').html(this.payment.payment);
+        $('#label_detail_count').html(this.payment.count);
+        $('#label_detail_weight').html(this.payment.weight);
+        $('#label_detail_payment_method').html(this.payment.payment_method);
+        $('#label_detail_shipping_method').html(this.payment.shipping_method);
+        $('#label_detail_country').html(this.address.country);
+        $('#label_detail_city').html(this.address.city);
+        $('#label_detail_address').html(this.address.address);
+        $('#label_detail_phone').html(this.address.phone);
+        $('#label_detail_zipcode').html(this.address.zipcode);
+
+        var ProductListHTML = "";
+        var _productIDs = this.products;
+        for(var i=0; i<_productIDs.length; i++) {
+            var _product_name = Helpers.Product.GetProductByID.Name(_productIDs[i]);
+            var _product_price = Helpers.Product.GetProductByID.Price(_productIDs[i]);
+            var _product_weight = Helpers.Product.GetProductByID.Weight(_productIDs[i]);
+
+            ProductListHTML +=
+                "<div class='product-col'>" +
+                "<img width='64px' src='"+Helpers.Product.GetProductByID.Image(_productIDs[i])+"'>" +
+                "<div class='product-col-detail'>" +
+                "<div class='product-col-header'>" + _product_name + "</div>" +
+                "<div class='product-col-info'>" +
+                "<div class='product-col-info-price'>" + _product_price + " HKD</div>" +
+                "<div class='product-col-info-weight'>" + _product_weight + " g</div>" +
+                "</div>" +
+                "</div>" +
+                "<br>" +
+                "</div>";
+        }
+
+        $('#Order_detail_ProductList').html(ProductListHTML);
+    },
+
+    // Click 'Back' in Order Detail
+    'click .btn_order_detail_back': function() {
+        tab_events.SelectTab("Overview");
+    },
+
     // Click in a Product
     'click .product_info': function() {
         location = '/#' + this._id;
@@ -344,6 +417,13 @@ Template.MainPage.events({
         AddProductToCart();
         //tab_events.SelectTab('Check Cart');
         location.hash = '#CART';
+        location.reload();
+    },
+
+    // Click a product in Cart
+    'click .cart-item-each': function(e) {
+        var _id = e.currentTarget.attributes.value.value;
+        location.hash = '#' + _id;
         location.reload();
     },
 
@@ -414,7 +494,11 @@ Template.MainPage.events({
 
     // Click 'Next Step' in Order
     'click .btn-step1-next': function() {
-        tab_events.SelectTab('Start Order Step2');
+        if(window.localStorage.getItem('CartItem_selected') == "" || window.localStorage.getItem('CartItem_selected') == null) {
+            Helpers.ErrorMessage.NoItemSelected();
+        } else {
+            tab_events.SelectTab('Start Order Step2');
+        }
     },
 
     // Click 'Previous Step' in Step2
@@ -424,7 +508,20 @@ Template.MainPage.events({
 
     // Click 'Next Step' in Step2
     'click .btn-step2-next': function() {
-        tab_events.SelectTab('Start Order Step3');
+        var _temp1 = $('#step2_label_country').val();
+        var _temp2 = $('#step2_label_city').val();
+        var _temp3 = $('#step2_label_address').val();
+        var _temp4 = $('#step2_label_phone').val();
+        var _temp5 = $('#step2_label_zipcode').val();
+        if(_temp1 == "" ||
+            _temp2 == "" ||
+            _temp3 == "" ||
+            _temp4 == "" ||
+            _temp5 == "") {
+            Helpers.ErrorMessage.BlankColumn();
+        } else {
+            tab_events.SelectTab('Start Order Step3');
+        }
     },
 
     // Click 'Previous Step' in Step3
@@ -457,6 +554,9 @@ Template.MainPage.events({
         var _phone =    $('#step4_label_phone').html();
         var _zipcode =  $('#step4_label_zipcode').html();
 
+        var _status = "Waiting Confirm";
+        var _date = new Date();
+
         Orders.insert({
             user:     _userID,
             products: _products,
@@ -473,7 +573,9 @@ Template.MainPage.events({
                 address: _address,
                 phone:   _phone,
                 zipcode: _zipcode
-            }
+            },
+            status:      _status,
+            createAt:    _date
         }, function() {
             var _cart_product = window.localStorage.getItem("CartItem").split(',');
             var _cart_selected = window.localStorage.getItem("CartItem_selected").split(',');

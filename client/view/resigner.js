@@ -45,26 +45,32 @@ Template.ResignerPage.events({
            var _date = new Date();
            if(_searchKey.length > 0) {
                //alert("Resigner Success");
-               Accounts.createUser({
-                   username:  _name,
-                   email:     _email,
-                   password : _password,
-                   invited_by: _searchKey.from,
-                   create_at: _date
+               if(_searchKey[0].to == _email) {
+                   Accounts.createUser({
+                       username:  _name,
+                       email:     _email,
+                       password : _password,
+                       invited_by: _searchKey.from,
+                       create_at: _date,
+                       invitation: 0,
+                       invitation_use: 0
 
-                   //profile: { name: register_name},
-                   //language: register_language
-               }, function(err) {
-                   if(err) {
-                       alert(err.message);
-                   } else {
-                       Meteor.call(
-                           'resigner_account',
-                           _email, _password, _key
-                       );
-                       location = "/";
-                   }
-               });
+                       //profile: { name: register_name},
+                       //language: register_language
+                   }, function(err) {
+                       if(err) {
+                           alert(err.message);
+                       } else {
+                           Meteor.call(
+                               'resigner_account',
+                               _email, _password, _key
+                           );
+                           location = "/";
+                       }
+                   });
+               } else {
+                   alert("Valid Email for Invitation");
+               }
            } else {
                alert("Incorrect Invitation Key");
            }
