@@ -406,10 +406,11 @@ Template.MainPage.events({
     },
 
     // Click to see the product
-    'click .to-see-product': function() {
-        //location.hash
-        location.hash = this.params.hash;
+    'click .to-see-product': function(e) {
+        location = '/#' + e.currentTarget.attributes.value.value;
         location.reload();
+
+        //location.reload();
     },
 
     // Click 'Back' in Order Detail
