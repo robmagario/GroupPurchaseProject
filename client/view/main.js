@@ -60,7 +60,7 @@ Template.MainPage.rendered = function() {
                     console.log('No This Product');
                 }
             }
-        }, 200);
+        }, 1000);
     }
 }
 
