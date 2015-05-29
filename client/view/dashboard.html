@@ -82,12 +82,37 @@
                 <img id="image_00000">
             </divi>
         </div>
-        <br>
         <div class="column">
             <div></div>
             <button class="btn-add-image">+</button>
         </div>
         <br>
+        <div class="column">
+            <div>Selections</div>
+            <div class="checkbox-selection">
+                <input type="checkbox" class="btn-toggle-size">
+                <label>Size</label>
+            </div>
+            <div class="checkbox-selection">
+                <input type="checkbox" class="btn-toggle-color">
+                <label>Color</label>
+            </div>
+        </div>
+        <br>
+        <div id="CreateSize" class="column" style="display:none;">
+            <div>Size</div>
+            <div id="CreatingSize" class="create-size">
+                <button class="btn-add-size">+</button>
+            </div>
+        </div>
+        <br id="CreateSizeBR" style="display:none;">
+        <div id="CreateColor" class="column" style="display: none;">
+            <div>Color</div>
+            <div id="CreatingColor" class="create-color">
+                <button class="btn-add-color">+</button>
+            </div>
+        </div>
+        <br id="CreateColorBR" style="display:none;">
         <div class="column">
             <div>Description</div>
             <textarea id="input_description"></textarea>
@@ -131,7 +156,77 @@
 </template>
 
 <template name="Dashboard_ProductDetail">
-    <h1>Product Detail</h1>
+    <div class="product-detail-panel">
+        <div class="basic-info">
+            <div class="column">
+                <div>Product ID: </div>
+                <label id="label_product_id"></label>
+            </div>
+            <br>
+            <div class="column">
+                <div>Icon Image</div>
+                <div class="image-icon">
+                    <img id="label_product_img_icon">
+                </div>
+            </div>
+            <br>
+        </div>
+        <div class="selection-info">
+            <div class="img-holder">
+                <img id="label_product_img_main" class="main-img-holder">
+                <div id="ShowingSubImage" class="sub-img-holder">
+                </div>
+            </div>
+            <div class="main-info">
+                <div class="column">
+                    <div>Product Nmae: </div>
+                    <label id="label_product_name"></label>
+                </div>
+                <br>
+                <div class="column">
+                    <div>Description: </div>
+                    <label id="label_product_description"></label>
+                </div>
+                <br>
+                <div class="column">
+                    <div>Price: </div>
+                    <label id="label_product_price"></label>
+                </div>
+                <br>
+                <div class="column">
+                    <div>Weight: </div>
+                    <label id="label_product_weight"></label>
+                </div>
+                <br>
+                <div id="SizeSelectionHeader" class="column">
+                    <div>Size: </div>
+                    <div id="SizeSelection" class="size-section">
+                    </div>
+                </div>
+                <br>
+                <div id="ColorSelectionHeader" class="column">
+                    <div>Color: </div>
+                    <div id="ColorSelection" class="color-section">
+                    </div>
+                </div>
+                <br>
+                <div class="column">
+                    <div>Remaining: </div>
+                    <label id="label_product_rest" style="width: 50px;">0</label>
+                    <input id="label_product_rest_edit" type="text" style="width: 50px; display: none;" value="0">
+                    <button class="btn-remain-edit">Edit</button>
+                    <button class="btn-remain-save" style="display: none;">Save</button>
+                </div>
+            </div>
+        </div>
+        <button class="btn_product_detail_back button-1-col">Back</button>
+    </div>
+
+
+
+
+
+
     <div class="panel panel-large-3">
         <div class="header">Product Detail</div>
         <br>

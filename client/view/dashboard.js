@@ -94,9 +94,140 @@ Template.Dashboard.events({
         $('#img_'+e.target.value+'').remove();
     },
 
+    // Toggle Size Section
+    'click .btn-toggle-size': function(e) {
+        if(e.currentTarget.checked) {
+            $('#CreateSize').show();
+            $('#CreateSizeBR').show();
+        } else {
+            $('#CreateSize').hide();
+            $('#CreateSizeBR').hide();
+        }
+    },
+
+    // Toggle Color Section
+    'click .btn-toggle-color': function(e) {
+        if(e.currentTarget.checked) {
+            $('#CreateColor').show();
+            $('#CreateColorBR').show();
+        } else {
+            $('#CreateColor').hide();
+            $('#CreateColorBR').hide();
+        }
+    },
+
+    // Add Size Selection
+    'click .btn-add-size': function(e) {
+        var _temp = $('#CreatingSize').find('div');
+        var _html = "";
+        for(var i=0; i<_temp.length; i++) {
+            var _value = _temp.eq(i).find('input').eq(0).val();
+            _html += "<div class='size-selection'>" +
+                    "<input type='text' value='" + _value + "'>" +
+                    "<button class='btn-delete btn-delete-size'>x</button>" +
+                "</div>";
+        }
+        var _selection = "<div class='size-selection'>" +
+                            "<input type='text'>" +
+                            "<button class='btn-delete btn-delete-size'>x</button>" +
+                        "</div>";
+        var _button = "<button class='btn-add-size'>+</button>";
+        $('#CreatingSize').html(_html + _selection + _button);
+    },
+
+    // Delete Size Selection
+    'click .btn-delete-size': function(e) {
+        e.currentTarget.parentElement.remove();
+    },
+
+    // Add Color Selection
+    'click .btn-add-color': function(e) {
+        var _temp = $('#CreatingColor').find('div');
+        var _html = "";
+        for(var i=0; i<_temp.length; i++) {
+            var _value = _temp.eq(i).find('img').eq(0).attr('src');
+            if(_value == "" || _value == null || _value == 'undefind') {
+                _value = "";
+            }
+            _html += "<div class='color-selection'>" +
+                        "<input class='btn-choose-img' type='file'>" +
+                        "<button class='btn-delete btn-delete-color'>x</button>" +
+                        "<img src='" + _value + "'>" +
+                    "</div>";
+        }
+        var _selection = "<div class='color-selection'>" +
+                            "<input class='btn-choose-img' type='file'>" +
+                            "<button class='btn-delete btn-delete-color'>x</button>" +
+                            "<img src=''>" +
+                        "</div>";
+        var _button = "<button class='btn-add-color'>+</button>";
+        $('#CreatingColor').html(_html + _selection + _button);
+    },
+
+    // Choose Color Image
+    'change .btn-choose-img': function(e) {
+        var _img_file = e.currentTarget.parentElement.children[0].files;
+        var _img_loc = e;
+        if (_img_file[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                _img_loc.currentTarget.parentElement.children[2].src = e.target.result;
+            };
+            reader.readAsDataURL(_img_file[0]);
+        }
+    },
+
+    // Delete Color Selection
+    'click .btn-delete-color': function(e) {
+        e.currentTarget.parentElement.remove();
+    },
+
     // Create Product
     'click .btn_create_product': function() {
         Dashboard_Log.Show("Create Product", "Start");
+
+        var _section_count = 0;
+        var _section_size = $('.btn-toggle-size')[0].checked;
+        var _selection_size = [];
+        var _section_color = $('.btn-toggle-color')[0].checked;
+        var _selection_color = [];
+        if(_section_size) {
+            var _temp_size = $('.size-selection').find('input');
+            for(var i=0; i<_temp_size.length; i++) {
+                var _value = _temp_size[i].value;
+                if(_value != null && _value != "")
+                _selection_size.push(_value);
+            }
+            _section_count++;
+        }
+        if(_section_color) {
+            var _temp_color = $('.color-selection').find('img');
+            for(var i=0; i<_temp_color.length; i++) {
+                var _value = _temp_color[i].src;
+                if(_value != null && _value != "")
+                    _selection_color.push(_value);
+            }
+            _section_count++;
+        }
+        var _item_remain = [];
+        if(_section_color && _section_size) {
+            for(var i=0; i<_selection_color.length; i++) {
+                for(var j=0; j<_selection_size.length; j++) {
+                    _item_remain.push(0);
+                }
+            }
+        } else if(_section_size) {
+            for(var i=0; i<_selection_size.length; i++) {
+                _item_remain.push(0);
+            }
+        } else if(_section_color) {
+            for(var i=0; i<_selection_color.length; i++) {
+                _item_remain.push(0);
+            }
+        } else {
+            _item_remain.push(0);
+        }
+
         var _img_icon = $('#img_icon').attr('src');
         var _img_main = $('#img_main').attr('src');
         var _img_sub = [];
@@ -114,7 +245,8 @@ Template.Dashboard.events({
         var _img_id = ProductImages.insert({
             icon: _img_icon,
             main: _img_main,
-            sub:  _img_sub
+            sub:  _img_sub,
+            color: _selection_color
         });
 
         var _name = $('#input_name').val();
@@ -150,7 +282,9 @@ Template.Dashboard.events({
                 price:          _price,
                 weight:         _weight,
                 image:          _img_id,
-                publish:        true
+                size:           _selection_size,
+                remain:         _item_remain,
+                publish:        false
             });
             Dashboard_Log.Show("Create Product", "Create Success!");
             alert("Process Success!");
@@ -176,13 +310,82 @@ Template.Dashboard.events({
         var SubImageHTML = "";
         var _temp_sub = Helpers.Image.GetImageByID.Sub(this.image);
         for(var i=0; i<_temp_sub.length; i++) {
-            SubImageHTML += "<div class='column'>" +
-                                "<div></div>" +
-                                "<img src='"+_temp_sub[i]+"'>" +
-                            "</div>" +
-                            "<br>";
+            //SubImageHTML += "<div class='column'>" +
+            //                    "<div></div>" +
+            //                    "<img src='"+_temp_sub[i]+"'>" +
+            //                "</div>" +
+            //                "<br>";
+            SubImageHTML += "<img src='"+_temp_sub[i]+"' class='label_product_img_sub'>";
         }
         $('#ShowingSubImage').html(SubImageHTML);
+
+        var SizeSelectionHTML = "";
+        var _temp_size = this.size;
+        if(_temp_size.length > 0) {
+            for(var i=0; i< _temp_size.length; i++) {
+                SizeSelectionHTML += "<button style='background-color:none;' class='btn-select-a-size'>"+_temp_size[i]+"</button>";
+            }
+            $('#SizeSelection').html(SizeSelectionHTML).show();
+        } else {
+            $('#SizeSelectionHeader').hide();
+        }
+
+        var ColorSelectionHTML = "";
+        var _temp_color = Helpers.Image.GetImageByID.Color(this.image);
+        if(_temp_color.length > 0) {
+            for(var i=0; i< _temp_color.length; i++) {
+                ColorSelectionHTML += "<div>" +
+                                            "<div style='display:none;' class='btn-select-a-color-bg'></div>" +
+                                            "<img src='"+_temp_color[i]+"' class='btn-select-a-color'>" +
+                                        "</div>";
+            }
+            $('#ColorSelection').html(ColorSelectionHTML).show();
+        } else {
+            $('#ColorSelectionHeader').hide();
+        }
+    },
+
+    // Click to change the image
+    'click .label_product_img_sub': function(e) {
+        $('#label_product_img_main').attr('src', e.currentTarget.currentSrc);
+    },
+
+    // Click to select the size
+    'click .btn-select-a-size': function(e) {
+        $('#SizeSelection').find('button').css({"background":'none'});
+        e.currentTarget.style.background = 'orange';
+        CheckRemaining();
+    },
+
+    // Click to select the color
+    'click .btn-select-a-color': function(e) {
+        $('#ColorSelection').find('div').find('div').hide();
+        $('#label_product_img_main').attr('src', e.currentTarget.currentSrc);
+        e.currentTarget.parentElement.children[0].style.display = 'block';
+        CheckRemaining();
+    },
+
+    // Click 'Edit'
+    'click .btn-remain-edit': function() {
+        $('#label_product_rest').hide();
+        $('.btn-remain-edit').hide();
+        $('#label_product_rest_edit').show();
+        $('.btn-remain-save').show();
+    },
+
+    // Click Save
+    'click .btn-remain-save': function() {
+        var _index = parseInt($('#label_product_rest').val());
+        if(_index >= 0) {
+            var _id = $('#label_product_id').html();
+            var _product = Products.findOne({_id:_id});
+            var _value = $('#label_product_rest_edit').val();
+            var _remain = _product.remain;
+            _remain[_index] = _value;
+            console.log(_value);
+            console.log(_remain);
+            Products.update(_id, {$set:{remain:_remain}});
+        }
     },
 
     // Clcik 'Back' in Product Detail
@@ -272,6 +475,40 @@ Template.Dashboard.events({
         $('#label_detail_status').html("Confirmed");
     }
 });
+
+function CheckRemaining() {
+    var _size = $('#SizeSelection').find('button');
+    var _index_size = -1;
+    for(var i=0; i<_size.length; i++) {
+        var _style = _size.eq(i).attr('style');
+        if(_style == "background: orange;") {
+            _index_size = i;
+            break;
+        }
+    }
+    var _color = $('#ColorSelection').find('div').find('div');
+    var _index_color = -1;
+    for(var i=0; i<_color.length; i++) {
+        var _style = _color.eq(i).attr('style');
+        if(_style == "display: block;") {
+            _index_color = i;
+            break;
+        }
+    }
+
+    var _id = $('#label_product_id').html();
+    var _product = Products.findOne({_id:_id});
+    var _index = _index_color * _color.length + _index_size;
+    if(_index_color == -1 || _index_size == -1) { _index = 0; }
+    console.log(_index);
+    var _value = _product.remain[_index];
+    if(_index_color == -1 || _index_size == -1) { _index = -1; _value = 0; }
+    console.log(_value);
+    $('#label_product_rest').html(_value);
+    $('#label_product_rest_edit').val(_value);
+    $('#label_product_rest').val(_index);
+    console.log($('#label_product_rest').val());
+};
 
 Template.Dashboard.helpers({
     'GetProductList': function() {

@@ -266,6 +266,14 @@ Helpers.Image = {
                     return _temp.sub;
                 }
             }
+        },
+        Color: function(_id) {
+            if(_id != null && _id != "" && _id != "No Image") {
+                var _temp = ProductImages.findOne({_id: _id});
+                if (_temp != null) {
+                    return _temp.color;
+                }
+            }
         }
     }
 };
