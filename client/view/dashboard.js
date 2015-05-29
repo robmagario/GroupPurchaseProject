@@ -386,6 +386,10 @@ Template.Dashboard.events({
             console.log(_remain);
             Products.update(_id, {$set:{remain:_remain}});
         }
+        $('#label_product_rest').html(_value).show();
+        $('.btn-remain-edit').show();
+        $('#label_product_rest_edit').hide();
+        $('.btn-remain-save').hide();
     },
 
     // Clcik 'Back' in Product Detail
