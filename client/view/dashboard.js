@@ -306,6 +306,7 @@ Template.Dashboard.events({
         $('#label_product_weight').html(this.weight + " g");
         $('#label_product_img_icon').attr('src', Helpers.Image.GetImageByID.Icon(this.image));
         $('#label_product_img_main').attr('src', Helpers.Image.GetImageByID.Main(this.image));
+        $('#label_product_publish').attr('checked', this.publish);
 
         var SubImageHTML = "";
         var _temp_sub = Helpers.Image.GetImageByID.Sub(this.image);
@@ -392,7 +393,14 @@ Template.Dashboard.events({
         $('.btn-remain-save').hide();
     },
 
-    // Clcik 'Back' in Product Detail
+    // Click to publish or not
+    'click #label_product_publish': function(e) {
+        var _id = $('#label_product_id').html();
+        var _publich = e.target.checked;
+        Products.update(_id, {$set:{publish:_publich}});
+    },
+
+    // Click 'Back' in Product Detail
     'click .btn_product_detail_back': function() {
         sidebar_events.SelectTab('Products List');
     },
@@ -415,6 +423,7 @@ Template.Dashboard.events({
         $('#label_detail_username').html(Meteor.users.find({_id:this.user}).fetch()[0].username);
         $('#label_detail_userid').html(this.user);
         $('#label_detail_payment').html(this.payment.payment);
+        $('#label_detail_cashback').html(this.payment.cashback);
         $('#label_detail_count').html(this.payment.count);
         $('#label_detail_weight').html(this.payment.weight);
         $('#label_detail_payment_method').html(this.payment.payment_method);
@@ -456,18 +465,56 @@ Template.Dashboard.events({
         var _user = Meteor.users.find({_id:_userID}).fetch()[0];
         var _invitation = _user.invitation;
         var _invitation_use = _user.invitation_use;
+        var _cashback = _user.cashback;
+        console.log(_cashback);
+        var _cashback_add = parseInt($('#label_detail_cashback').html());
         if(_invitation == "" || _invitation == null) {
             _invitation = 0;
         }
         if(_invitation_use == "" || _invitation_use == null) {
             _invitation_use = 0;
         }
+        if(_cashback == "" || _cashback == null || _cashback == "NaN") {
+            _cashback = 0;
+        }
+        console.log(_cashback);
         _invitation = parseInt(_invitation) + parseInt($('#label_detail_count').html());
         _invitation_use = parseInt(_invitation_use);
+        _cashback = parseInt(_cashback) + parseInt(_cashback_add);
+        console.log(_cashback);
         Meteor.users.update(_userID, {$set:{
             invitation:_invitation,
-            invitation_use: _invitation_use
+            invitation_use: _invitation_use,
+            cashback: _cashback
         }});
+
+        var INVITAITION_CASHBACK_COUNT = 3;
+        var _cashback_count = INVITAITION_CASHBACK_COUNT;
+        var _current_user = _user;
+        do {
+            var _user_invitation = Invitations.findOne({to:_current_user.emails[0].address, verified:true});
+            console.log("User Invitation");
+            console.log(_user_invitation);
+            if(_user_invitation == "" || _user_invitation == null) {
+                _cashback_count = 0;
+                break;
+            } else {
+                var _user_invite_by = Meteor.users.findOne({_id:_user_invitation.fromid});
+                if(_user_invite_by != null) {
+                    var _user_invite_by_cashback = _user_invite_by.cashback;
+                    var _user_invite_by_cashback_new = parseInt(_user_invite_by_cashback) + (_cashback_add / 4 * _cashback_count);
+                    Meteor.users.update(_user_invite_by._id, {$set:{
+                        cashback: _user_invite_by_cashback_new
+                    }});
+                    _current_user = _user_invite_by;
+                } else {
+                    _cashback_count = 0;
+                    break;
+                }
+            }
+            console.log("Cashback Counting: " + _cashback_count);
+            _cashback_count--;
+        } while(_cashback_count > 0);
 
         // Update Order
         var _orderID = $('#label_detail_orderid').html()
@@ -502,16 +549,13 @@ function CheckRemaining() {
 
     var _id = $('#label_product_id').html();
     var _product = Products.findOne({_id:_id});
-    var _index = _index_color * _color.length + _index_size;
+    var _index = _index_color * _size.length + _index_size;
     if(_index_color == -1 || _index_size == -1) { _index = 0; }
-    console.log(_index);
     var _value = _product.remain[_index];
     if(_index_color == -1 || _index_size == -1) { _index = -1; _value = 0; }
-    console.log(_value);
     $('#label_product_rest').html(_value);
     $('#label_product_rest_edit').val(_value);
     $('#label_product_rest').val(_index);
-    console.log($('#label_product_rest').val());
 };
 
 Template.Dashboard.helpers({

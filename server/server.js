@@ -75,11 +75,12 @@ Meteor.methods({
     },
 
     // Insert invitation
-    invitation_insert: function(to, from, text) {
+    invitation_insert: function(to, from, fromid, text) {
         var _date = new Date();
         var _inviteID = Invitations.insert({
             to:         to,
             from:       from,
+            fromid:     fromid,
             verified:   false,
             createAt:   _date
         });

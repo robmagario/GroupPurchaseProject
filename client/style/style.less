@@ -385,7 +385,11 @@ table {
         color: #444444;
       }
       .product-col-info-weight {
-        width: 55%;
+        width: 25%;
+        color: #444444;
+      }
+      .product-col-info-quantity {
+        width: 25%;
         color: #444444;
       }
       .product-col-info-cancel {
@@ -467,6 +471,10 @@ table {
             margin-left: 2%;
             margin-right: 2%;
           }
+          .selection-unable {
+            color: lightgray;
+            pointer-events: none;
+          }
         }
         .color-section {
           display: flex;
@@ -488,10 +496,20 @@ table {
               background-color: orange;;
               position: absolute;
               opacity: 0.5;
+              pointer-events: none;
             }
             >img {
               width:100%;
               height:100%;
+            }
+          }
+          .selection-unable {
+            >div {
+              background-color: none;
+            }
+            >img {
+              opacity: 0.3;
+              pointer-events: none;
             }
           }
           >button {

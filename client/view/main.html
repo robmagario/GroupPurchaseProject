@@ -40,6 +40,14 @@
 <template name="MainPage_Overview">
     <h1>Overview</h1>
 
+    <div class="panel">
+        <div class="header">Cash Back</div>
+        <div class="column">
+            <div>Total: </div>
+            <label id="label_total_cashback">{{User.CashBack}} HKD</label>
+        </div>
+    </div>
+
     <div class="panel panel-large-3">
         <div class="header">Order List</div>
         <table class="user-table">
@@ -375,10 +383,72 @@
         <div class="product-page-header">{{Product.GetProductByHash.Name}}</div>
         <div class="product-page-info">
             <div class="product-page-image">
-                <img src="{{Image.GetImageByID.Main Product.GetProductByHash.Image}}">
-                {{#each Image.GetImageByID.Sub Product.GetProductByHash.Image}}
-                    <img src="{{this}}">
-                {{/each}}
+                <div class="product-detail-panel">
+                    <div class="basic-info">
+                        <div class="column" style="display:none;">
+                            <div></div>
+                            <label id="label_product_id">{{Product.GetProductByHash.ProductID}}</label>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="selection-info">
+                        <div class="img-holder">
+                            <img id="label_product_img_main" class="main-img-holder" src="{{Image.GetImageByID.Main Product.GetProductByHash.Image}}">
+                            <div id="ShowingSubImage" class="sub-img-holder">
+                                {{#each Image.GetImageByID.Sub Product.GetProductByHash.Image}}
+                                    <img src="{{this}}" class="label_product_img_sub">
+                                {{/each}}
+                            </div>
+                        </div>
+                        <div class="main-info">
+                            <div class="column">
+                                <div>Name: </div>
+                                <label id="label_product_name">{{Product.GetProductByHash.Name}}</label>
+                            </div>
+                            <br>
+                            <div class="column">
+                                <div>Description: </div>
+                                <label id="label_product_description">{{Product.GetProductByHash.Description}}</label>
+                            </div>
+                            <br>
+                            <div class="column">
+                                <div>Weight: </div>
+                                <label id="label_product_weight">{{Product.GetProductByHash.Price}} g</label>
+                            </div>
+                            <br>
+                            <div id="SizeSelectionHeader" class="column">
+                                <div>Size: </div>
+                                <div id="SizeSelection" class="size-section">
+                                    {{#each Product.GetProductByHash.Size}}
+                                        <button style="background-color:none;" class="btn-select-a-size">{{this}}</button>
+                                    {{/each}}
+                                </div>
+                            </div>
+                            <br>
+                            <div id="ColorSelectionHeader" class="column">
+                                <div>Color: </div>
+                                <div id="ColorSelection" class="color-section">
+                                    {{#each Product.GetProductByHash.Color}}
+                                        <div class="color-section-item">
+                                            <div style='display:none;' class='btn-select-a-color-bg'></div>
+                                            <img src="{{this}}" class='btn-select-a-color'>
+                                        </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                            <br>
+                            <div class="column">
+                                <div>Remaining: </div>
+                                <label id="label_product_rest" style="width: 50px;">0</label>
+                            </div>
+                            <br>
+                            <div class="column">
+                                <div>Quantity: </div>
+                                <input id="label_product_quantity" type="number" style="width: 50px;" value="1" min="1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="product-page-description">
                 <button class="btn-order"><i class="fa fa-pencil"></i>Order</button>
@@ -387,19 +457,13 @@
                 <br>
                 <br>
                 <div class="product-page-subheader">Price</div>
-                <div class="product-page-price">{{Product.GetProductByHash.Price}} HKD</div>
+                <div id="ProductPagePrice" class="product-page-price">{{Product.GetProductByHash.Price}} HKD</div>
                 <br>
                 <div class="product-page-subheader">Your Price</div>
-                <div class="product-page-price"><span>4%Cash Back</span> = {{Product.GetProductByHash.CalculateDescount}} HKD</div>
+                <div id="ProductPageCashback" class="product-page-price"><span>4%Cash Back</span> = {{Product.GetProductByHash.CalculateDescount}} HKD</div>
                 <br>
                 <div class="product-page-subheader">Sale Status</div>
                 <div class="product-page-price">active</div>
-                <br>
-                <div class="product-page-subheader">Product Description</div>
-                <div class="product-page-price">{{Product.GetProductByHash.Weight}} g</div>
-                <br>
-                <div class="product-page-subheader">Product Description</div>
-                <div class="product-page-price">{{Product.GetProductByHash.Description}}</div>
             </div>
         </div>
     </div>
@@ -410,12 +474,13 @@
         <div class="header">Product in Cart</div>
         {{#each Product.GetProductListInCart}}
         <div class="product-col cart-item-each" value="{{this}}">
-            <img width="64px" src="{{Product.GetProductByID.Image this}}">
+            <img width="64px" src="{{Product.GetProductByCartID.Image this}}">
             <div class="product-col-detail">
-                <div class="product-col-header">{{Product.GetProductByID.Name this}}</div>
+                <div class="product-col-header">{{Product.GetProductByCartID.Name this}}</div>
                 <div class="product-col-info">
-                    <div class="product-col-info-price">{{Product.GetProductByID.Price this}} HKD</div>
-                    <div class="product-col-info-weight">{{Product.GetProductByID.Weight this}} g</div>
+                    <div class="product-col-info-price">{{Product.GetProductByCartID.Price this}} HKD</div>
+                    <div class="product-col-info-weight">{{Product.GetProductByCartID.Weight this}} g</div>
+                    <div class="product-col-info-quantity">Quantity: {{Product.GetProductByCartID.Quantity this}}</div>
                     <button class="product-col-info-cancel btn-cart-cancel" value="{{this}}">Cancel</button>
                 </div>
             </div>
@@ -431,12 +496,13 @@
         {{#each Product.GetProductListInCart}}
             <div class="product-col">
                 <input type="checkbox" class="product-col-checkbox btn-cart-checkbox" checked="{{Product.GetProductIsSelected this}}">
-                <img width="64px" src="{{Product.GetProductByID.Image this}}">
+                <img width="64px" src="{{Product.GetProductByCartID.Image this}}">
                 <div class="product-col-detail">
-                    <div class="product-col-header">{{Product.GetProductByID.Name this}}</div>
+                    <div class="product-col-header">{{Product.GetProductByCartID.Name this}}</div>
                     <div class="product-col-info">
-                        <div class="product-col-info-price">{{Product.GetProductByID.Price this}} HKD</div>
-                        <div class="product-col-info-weight">{{Product.GetProductByID.Weight this}} g</div>
+                        <div class="product-col-info-price">{{Product.GetProductByCartID.Price this}} HKD</div>
+                        <div class="product-col-info-weight">{{Product.GetProductByCartID.Weight this}} g</div>
+                        <div class="product-col-info-quantity">Quantity: {{Product.GetProductByCartID.Quantity this}}</div>
                         <button class="product-col-info-cancel btn-cart-cancel" value="{{this}}">Cancel</button>
                     </div>
                 </div>
@@ -618,19 +684,22 @@
         <br>
         <div class="header">Product in Order</div>
         <br>
+        <div id="step4_selected_products">
         {{#each Product.GetProductListInSelected}}
             <div class="product-col" style="width:80%; margin-left:auto; margin-right:auto;">
-                <img width="64px" src="{{Product.GetProductByID.Image this}}">
+                <img width="64px" src="{{Product.GetProductByCartID.Image this}}">
                 <div class="product-col-detail">
-                    <div class="product-col-header">{{Product.GetProductByID.Name this}}</div>
+                    <div class="product-col-header">{{Product.GetProductByCartID.Name this}}</div>
                     <div class="product-col-info">
-                        <div class="product-col-info-price">{{Product.GetProductByID.Price this}} HKD</div>
-                        <div class="product-col-info-weight">{{Product.GetProductByID.Weight this}} g</div>
+                        <div class="product-col-info-price">{{Product.GetProductByCartID.Price this}} HKD</div>
+                        <div class="product-col-info-weight">{{Product.GetProductByCartID.Weight this}} g</div>
+                        <div class="product-col-info-quantity">Quantity: {{Product.GetProductByCartID.Quantity this}}</div>
                     </div>
                 </div>
                 <br>
             </div>
         {{/each}}
+        </div>
         <br>
         <button class="btn-step4-previous button-2-left">Previous Step</button>
         <button class="btn-step4-next button-2-right">Create Order</button>
