@@ -145,10 +145,14 @@ var tab_events = {
                         _count += Helpers.Product.GetProductByCartID.Quantity(_ids[i]);
                     }
                 }
+                var _remain = Helpers.User.CashBackStatus.UserTotalRemain();
+                var _cashback_use = Helpers.Product.CalculateCashbackByUseCashback(_price, _remain);
+                var _price_new = Helpers.Product.CalculatePriceByUseCashback(_price, _remain);
                 $('#step1_label_cart').html(_count);
                 $('#step1_label_weight').html(_weight + " g");
-                $('#step1_label_payment').html(_price + " HKD");
+                $('#step1_label_payment').html(_price_new + " HKD");
                 $('#step1_label_cashback').html(_cashback + " HKD");
+                $('#step1_label_cashback_use').html(_cashback_use + " HKD");
                 break;
             case "Start Order Step2":
                 $('#MainPage_FindProducts').show();
@@ -181,6 +185,7 @@ var tab_events = {
                 }
                 $('#step4_label_total').html($('#step3_label_payment').html());
                 $('#step4_label_cashback').html($('#step1_label_cashback').html());
+                $('#step4_label_cashback_use').html($('#step1_label_cashback_use').html());
                 $('#step4_label_count').html(_count);
                 $('#step4_label_weight').html($('#step1_label_weight').html());
                 $('#step4_label_payment_method').html(GetRadioValue("payment"));
@@ -543,11 +548,14 @@ Template.MainPage.events({
         var _cashback = parseInt(Helpers.Product.GetProductByHash.CalculateDescount());
         var _quantity = parseInt($('#label_product_quantity').val());
         if(_quantity != 0 && _quantity != "") {
+            var _remain = Helpers.User.CashBackStatus.UserTotalRemain();
+            var _price_new = Helpers.Product.CalculatePriceByUseCashback((_price * _quantity), _remain);
+            var _remain_new = Helpers.Product.CalculateRemainByUseCashback((_price * _quantity), _remain);
             $('#ProductPagePrice').html((_price * _quantity) + " HKD");
             $('#ProductPageCashback').html("<span>4%Cash Back</span> = " + (_cashback * _quantity) + " HKD");
+            $('#ProductPagePriceNew').html((_price * _quantity) + " HKD => " + _price_new + " HKD");
+            $('#ProductPageCashbackRemain').html(_remain + " HKD => " + _remain_new + " HKD");
         }
-        console.log(_price);
-        console.log(_quantity);
     },
 
     // Click 'Order' for a Product
@@ -631,10 +639,18 @@ Template.MainPage.events({
             _cashback_new = _cashback - _product_cashback;
             _quantity_new = _quantity - _product_quantity;
         }
+
+
+        var _remain = Helpers.User.CashBackStatus.UserTotalRemain();
+        var _cashback_use = Helpers.Product.CalculateCashbackByUseCashback(_price_new, _remain);
+        var _price__new = Helpers.Product.CalculatePriceByUseCashback(_price_new, _remain);
+
         $('#step1_label_weight').html(_weight_new + " g");
-        $('#step1_label_payment').html(_price_new + " HKD");
+        $('#step1_label_payment').html(_price__new + " HKD");
         $('#step1_label_cashback').html(_cashback_new + " HKD");
+        $('#step1_label_cashback_use').html(_cashback_use + " HKD");
         $('#step1_label_cart').html(_quantity_new);
+
     },
 
     // Cancel a product in Cart
@@ -726,6 +742,7 @@ Template.MainPage.events({
 
         var _payment =  $('#step4_label_total').html();
         var _cashback = $('#step4_label_cashback').html();
+        var _cashbackuse = $('#step4_label_cashback_use').html();
         var _count =    $('#step4_label_count').html();
         var _weight =   $('#step4_label_weight').html();
         var _payment_method = $('#step4_label_payment_method').html();
@@ -747,6 +764,7 @@ Template.MainPage.events({
                 cashback: _cashback,
                 count:    _count,
                 weight:   _weight,
+                cashbackuse: _cashbackuse,
                 payment_method:  _payment_method,
                 shipping_method: _shipping_method
             },

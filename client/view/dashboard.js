@@ -420,10 +420,12 @@ Template.Dashboard.events({
         $('#label_detail_status').html(StatusHTML);
 
         $('#label_detail_orderid').html(this._id);
+        $('#label_detail_createdate').html(this.createAt);
         $('#label_detail_username').html(Meteor.users.find({_id:this.user}).fetch()[0].username);
         $('#label_detail_userid').html(this.user);
         $('#label_detail_payment').html(this.payment.payment);
         $('#label_detail_cashback').html(this.payment.cashback);
+        $('#label_detail_cashback_use').html(this.payment.cashbackuse);
         $('#label_detail_count').html(this.payment.count);
         $('#label_detail_weight').html(this.payment.weight);
         $('#label_detail_payment_method').html(this.payment.payment_method);
@@ -462,12 +464,14 @@ Template.Dashboard.events({
     'click .btn_order_detail_confirm': function() {
         // Update User
         var _userID = $('#label_detail_userid').html();
+        var _orderID = $('#label_detail_orderid').html();
         var _user = Meteor.users.find({_id:_userID}).fetch()[0];
         var _invitation = _user.invitation;
         var _invitation_use = _user.invitation_use;
         var _cashback = _user.cashback;
         console.log(_cashback);
         var _cashback_add = parseInt($('#label_detail_cashback').html());
+        var _cashback_use = parseInt($('#label_detail_cashback_use').html());
         if(_invitation == "" || _invitation == null) {
             _invitation = 0;
         }
@@ -477,16 +481,23 @@ Template.Dashboard.events({
         if(_cashback == "" || _cashback == null || _cashback == "NaN") {
             _cashback = 0;
         }
-        console.log(_cashback);
         _invitation = parseInt(_invitation) + parseInt($('#label_detail_count').html());
         _invitation_use = parseInt(_invitation_use);
         _cashback = parseInt(_cashback) + parseInt(_cashback_add);
-        console.log(_cashback);
         Meteor.users.update(_userID, {$set:{
             invitation:_invitation,
             invitation_use: _invitation_use,
             cashback: _cashback
         }});
+
+        var _date = new Date();
+        Cashbacks.insert({
+            user:       _userID,
+            order:      _orderID,
+            cash_get:   _cashback_add,
+            cash_use:   _cashback_use,
+            date:       _date
+        });
 
         var INVITAITION_CASHBACK_COUNT = 3;
         var _cashback_count = INVITAITION_CASHBACK_COUNT;
@@ -506,6 +517,15 @@ Template.Dashboard.events({
                     Meteor.users.update(_user_invite_by._id, {$set:{
                         cashback: _user_invite_by_cashback_new
                     }});
+                    var _targetuserID = _user_invite_by._id;
+                    var _cashback_get = parseInt(_cashback_add / 4 * _cashback_count);
+                    Cashbacks.insert({
+                        user:       _targetuserID,
+                        order:      _orderID,
+                        cash_get:   _cashback_get,
+                        cash_use:   0,
+                        date:       _date
+                    });
                     _current_user = _user_invite_by;
                 } else {
                     _cashback_count = 0;

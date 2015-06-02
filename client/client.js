@@ -39,6 +39,54 @@ Helpers.User = {
     CreateAt: function() {
         return Meteor.user().createdAt;
     },
+    CashBackStatus: {
+        ListUsers: function() {
+            return Cashbacks.find({user:Meteor.userId()}, {sort: {createdAt: -1}});
+        },
+        UserTotalUse: function() {
+            var _cashbackdb = Cashbacks.find({user:Meteor.userId()}, {sort: {createdAt: -1}});
+            if(_cashbackdb != null) {
+                var _cashbackuse = _cashbackdb.fetch();
+                var _use = 0;
+                for(var i=0; i<_cashbackuse.length; i++) {
+                    _use += _cashbackuse[i].cash_use;
+                }
+                return _use;
+            } else {
+                return 0
+            }
+        },
+        UserTotalGet: function() {
+            var _cashbackdb = Cashbacks.find({user:Meteor.userId()}, {sort: {createdAt: -1}});
+            if(_cashbackdb != null) {
+                var _cashbackget = _cashbackdb.fetch();
+                var _get = 0;
+                for(var i=0; i<_cashbackget.length; i++) {
+                    _get += _cashbackget[i].cash_get;
+                }
+                return _get;
+            } else {
+                return 0;
+            }
+        },
+        UserTotalRemain: function() {
+            var _cashbackdb = Cashbacks.find({user:Meteor.userId()}, {sort: {createdAt: -1}});
+            if(_cashbackdb != null) {
+                var _cashbackremin = _cashbackdb.fetch();
+                var _remain
+                var _use = 0;
+                var _get = 0;
+                for(var i=0; i<_cashbackremin.length; i++) {
+                    _use += _cashbackremin[i].cash_use;
+                    _get += _cashbackremin[i].cash_get;
+                }
+                _remain = _get - _use;
+                return _remain;
+            } else {
+                return 0;
+            }
+        }
+    },
     CashBack: function() {
         if(Meteor.user() != null) {
             var _cashback = Meteor.user().cashback;
@@ -289,6 +337,29 @@ Helpers.Product = {
             }
         }
         return _checked;
+    },
+    CalculatePriceByUseCashback: function(_price, _remain) {
+        var _result = _price - _remain;
+        if(_result < 0) {
+            _result = 0;
+        }
+        return _result;
+    },
+    CalculateRemainByUseCashback: function(_price, _remain) {
+        var _result = _remain - _price;
+        if(_result < 0) {
+            _result = 0;
+        }
+        return _result;
+    },
+    CalculateCashbackByUseCashback: function(_price, _remain) {
+        var _result = _remain - _price;
+        if(_result < 0) {
+            _result = _remain;
+        } else {
+            _result = _price;
+        }
+        return _result;
     }
 };
 

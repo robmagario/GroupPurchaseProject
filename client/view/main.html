@@ -44,8 +44,36 @@
         <div class="header">Cash Back</div>
         <div class="column">
             <div>Total: </div>
-            <label id="label_total_cashback">{{User.CashBack}} HKD</label>
+            <label id="label_total_cashback">{{User.CashBackStatus.UserTotalRemain}} HKD</label>
         </div>
+    </div>
+
+    <div class="panel panel-large-3">
+        <div class="header">Cashback List</div>
+        <table class="user-table">
+            <thead>
+            <th class="table-col-user-cashback-date">Date</th>
+            <th class="table-col-user-cashback-id">Order ID</th>
+            <th class="table-col-user-cashback-use">Cashback Use</th>
+            <th class="table-col-user-cashback-get">Cashback Get</th>
+            </thead>
+            <tbody>
+            {{#each User.CashBackStatus.ListUsers}}
+                <tr class="">
+                    <td>{{date}}</td>
+                    <td style="text-align: left;">{{order}}</td>
+                    <td style="text-align: right;">{{cash_use}} HKD</td>
+                    <td style="text-align: right;">{{cash_get}} HKD</td>
+                </tr>
+            {{/each}}
+            <tr>
+                <td></td>
+                <td style="text-align: left;"></td>
+                <td id="overniew_cashback_totaluse" style="text-align: right;">Total: {{User.CashBackStatus.UserTotalUse}} HKD</td>
+                <td id="overniew_cashback_totalget" style="text-align: right;">Total: {{User.CashBackStatus.UserTotalGet}} HKD</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
     <div class="panel panel-large-3">
@@ -462,6 +490,12 @@
                 <div class="product-page-subheader">Your Price</div>
                 <div id="ProductPageCashback" class="product-page-price"><span>4%Cash Back</span> = {{Product.GetProductByHash.CalculateDescount}} HKD</div>
                 <br>
+                <div class="product-page-subheader">Price by using remaining cashback</div>
+                <div id="ProductPagePriceNew" class="product-page-price">{{Product.GetProductByHash.Price}} HKD =>  {{Product.CalculatePriceByUseCashback Product.GetProductByHash.Price User.CashBackStatus.UserTotalRemain}} HKD</div>
+                <br>
+                <div class="product-page-subheader">Cashback Remain</div>
+                <div id="ProductPageCashbackRemain" class="product-page-price">{{User.CashBackStatus.UserTotalRemain}} HKD =>  {{Product.CalculateRemainByUseCashback Product.GetProductByHash.Price User.CashBackStatus.UserTotalRemain}} HKD</div>
+                <br>
                 <div class="product-page-subheader">Sale Status</div>
                 <div class="product-page-price">active</div>
             </div>
@@ -527,6 +561,11 @@
         <div class="column">
             <div>Total Payment:</div>
             <label id="step1_label_payment">123 HKD</label>
+        </div>
+        <br>
+        <div class="column">
+            <div>Cash Back Use:</div>
+            <label id="step1_label_cashback_use">123 HKD</label>
         </div>
         <br>
         <div class="column">
@@ -633,6 +672,7 @@
         <div class="column">
             <div>Total Cashback:</div>
             <label id="step4_label_cashback"></label>
+            <div id="step4_label_cashback_use" style="display:none;"></div>
         </div>
         <br>
         <div class="column">

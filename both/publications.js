@@ -8,6 +8,7 @@ if (Meteor.isClient) {
     Meteor.subscribe("product_image_data");
     Meteor.subscribe("order_data");
     Meteor.subscribe("invitation_data");
+    Meteor.subscribe("cashback_data");
 }
 
 if (Meteor.isServer) {
@@ -25,5 +26,8 @@ if (Meteor.isServer) {
     });
     Meteor.publish("invitation_data", function () {
         return Invitations.find();
+    });
+    Meteor.publish("cashback_data", function () {
+        return Cashbacks.find();
     });
 }
