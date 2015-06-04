@@ -126,6 +126,18 @@ Meteor.methods({
             Invitations.update(key, {$set:{verified: true}});
         } else {
         }
+    },
+
+    cashback_handle: function(userid, orderid, method, payment, value) {
+        var date = new Date();
+        Cashbacks.insert({
+            user:    userid,
+            order:   orderid,
+            method:  method,
+            payment: payment,
+            value:   value,
+            date:    date
+        })
     }
 });
 

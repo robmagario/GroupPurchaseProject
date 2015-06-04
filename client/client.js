@@ -5,13 +5,99 @@ this.App = {};
 this.Helpers = {};
 
 Meteor.startup(function() {
-
+    $(".dropdown-toggle").dropdown();
 });
 
 Helpers.User = {
+    Data: function() {
+        return Meteor.user();
+    },
+    Logged: {
+        In: function() {
+            if(Meteor.userId() != null) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        Out: function() {
+            if(Meteor.userId() == null) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    },
+    Profile: {
+        Name: function() {
+            return Meteor.user().username;
+        },
+        Email: function() {
+            return Meteor.user().emails[0].address;
+        },
+        CreateAt: function() {
+            return Meteor.user().createdAt;
+        },
+        Address: function() {
+            return Meteor.user().profile;
+        },
+        Invite: {
+            Total: function() {
+
+            },
+            Remain: function() {
+                var _temp = Meteor.user().invitation;
+                if(_temp == "" || _temp == null) {
+                    return 0;
+                } else {
+                    return _temp;
+                }
+            },
+            Use: function() {
+                var _temp = Meteor.user().invitation_use;
+                if(_temp == "" || _temp == null) {
+                    return 0;
+                } else {
+                    return _temp;
+                }
+            },
+            InviteBy: function() {
+                var _temp = Invitations.findOne({to:Meteor.user().emails[0].address, verified:true});
+                if(_temp == "" || _temp == null) {
+                    return "You are admin!";
+                } else {
+                    return _temp.from;
+                }
+            }
+        }
+    },
+    CashBack: {
+        Remain: function() {
+            var _cashbackdb = Cashbacks.find({user:Meteor.userId()}, {sort: {createdAt: -1}});
+            if(_cashbackdb != null) {
+                var _cashbackremin = _cashbackdb.fetch();
+                var _remain = 0;
+                for(var i=0; i<_cashbackremin.length; i++) {
+                    _remain += parseFloat(_cashbackremin[i].value);
+                }
+                return _remain;
+            } else {
+                return 0;
+            }
+        },
+        ListAll: function() {
+            return Cashbacks.find({user:Meteor.userId()}, {sort: {createdAt: -1}});
+        }
+    },
     IsAdmin: function() {
         return Users.isAdmin(Meteor.userId());
     },
+
+
+
+
+
+
     Name: function() {
         return Meteor.user().username;
     },
@@ -87,7 +173,7 @@ Helpers.User = {
             }
         }
     },
-    CashBack: function() {
+    CashBack2: function() {
         if(Meteor.user() != null) {
             var _cashback = Meteor.user().cashback;
             if(_cashback == "" || _cashback == null) {
@@ -450,6 +536,15 @@ Helpers.ErrorMessage = {
         alert('Please confirm your password');
     }
 };
+
+Helpers.Log = {
+    Active: true,
+    Show: function(header, message) {
+        if(this.Active) {
+            console.log("[" + header + "]: " + message);
+        }
+    }
+}
 
 _.each(Helpers, function (helper, key) {
     Handlebars.registerHelper(key, helper);

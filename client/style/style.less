@@ -1,3 +1,122 @@
+// Edit Bootstrap Style
+@Navbar_BackgroundColor: #FFAA00;
+@Navbar_ActiveColor:     #EE9900;
+@Navbar_FontColor:       #004488;
+.navbar-orange {
+  background-color: @Navbar_BackgroundColor;
+  border-color:     @Navbar_BackgroundColor;
+}
+.navbar-orange .navbar-brand {
+  color: @Navbar_FontColor;
+}
+.navbar-orange .navbar-brand:hover,
+.navbar-orange .navbar-brand:focus {
+  color: #fff;
+  background-color: transparent;
+}
+.navbar-orange .navbar-text {
+  color: @Navbar_FontColor;
+}
+.navbar-orange .navbar-nav > li > a {
+  color: @Navbar_FontColor;
+}
+.navbar-orange .navbar-nav > li > a:hover,
+.navbar-orange .navbar-nav > li > a:focus {
+  color: #fff;
+  background-color: transparent;
+}
+.navbar-orange .navbar-nav > .active > a,
+.navbar-orange .navbar-nav > .active > a:hover,
+.navbar-orange .navbar-nav > .active > a:focus {
+  color: #fff;
+  background-color: @Navbar_ActiveColor;
+}
+.navbar-orange .navbar-nav > .disabled > a,
+.navbar-orange .navbar-nav > .disabled > a:hover,
+.navbar-orange .navbar-nav > .disabled > a:focus {
+  color: #444;
+  background-color: transparent;
+}
+.navbar-orange .navbar-toggle {
+  border-color: #333;
+}
+.navbar-orange .navbar-toggle:hover,
+.navbar-orange .navbar-toggle:focus {
+  background-color: #333;
+}
+.navbar-orange .navbar-toggle .icon-bar {
+  background-color: #fff;
+}
+.navbar-orange .navbar-collapse,
+.navbar-orange .navbar-form {
+  border-color: #101010;
+}
+.navbar-orange .navbar-nav > .open > a,
+.navbar-orange .navbar-nav > .open > a:hover,
+.navbar-orange .navbar-nav > .open > a:focus {
+  color: #fff;
+  background-color: @Navbar_ActiveColor;
+}
+@media (max-width: 767px) {
+  .navbar-orange .navbar-nav .open .dropdown-menu > .dropdown-header {
+    border-color: @Navbar_ActiveColor;
+  }
+  .navbar-orange .navbar-nav .open .dropdown-menu .divider {
+    background-color: @Navbar_ActiveColor;
+  }
+  .navbar-orange .navbar-nav .open .dropdown-menu > li > a {
+    color: @Navbar_FontColor;
+  }
+  .navbar-orange .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-orange .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #fff;
+    background-color: transparent;
+  }
+  .navbar-orange .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-orange .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-orange .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #fff;
+    background-color: @Navbar_ActiveColor;
+  }
+  .navbar-orange .navbar-nav .open .dropdown-menu > .disabled > a,
+  .navbar-orange .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-orange .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+    color: #444;
+    background-color: transparent;
+  }
+}
+.navbar-orange .navbar-link {
+  color: @Navbar_FontColor;
+}
+.navbar-orange .navbar-link:hover {
+  color: #fff;
+}
+.navbar-orange .btn-link {
+  color: @Navbar_FontColor;
+}
+.navbar-orange .btn-link:hover,
+.navbar-orange .btn-link:focus {
+  color: #fff;
+}
+.navbar-orange .btn-link[disabled]:hover,
+fieldset[disabled] .navbar-inverse .btn-link:hover,
+.navbar-orange .btn-link[disabled]:focus,
+fieldset[disabled] .navbar-inverse .btn-link:focus {
+  color: #444;
+}
+
+// Edit By Dave
+.panel {
+  margin-left: auto;
+  margin-right: auto;
+}
+.panel-width-60 {
+  width: 60%;
+}
+.panel-width-80 {
+  width: 80%;
+}
+
 @NavbarBackgroundColor:  #FFAA00;
 
 @PanelHeaderBackgroundColor:  orange;
@@ -6,7 +125,7 @@
 @PanelBorderWidth:  2px;
 @PanelBorderStyle:  ridge;
 
-.navbar {
+.navbar2 {
   width:            101.6%;
   height:           30px;
   margin-left:      -1%;
@@ -32,7 +151,7 @@
   }
 }
 
-.panel {
+.panel2 {
   width:        30%;
   margin-left:  auto;
   margin-right: auto;
@@ -208,7 +327,7 @@
 .table-large {
   width:    100%
 }
-table {
+.table2 {
   > thead {
     > th {
       background-color: #888888;

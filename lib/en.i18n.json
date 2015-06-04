@@ -1,0 +1,45 @@
+/**
+ * Created by user on 4/28/2015.
+ */
+{
+    // Title
+    "WebsiteTitle": "GroupPurchase",
+
+    // Navbar Item
+    "Navbar_Profile": "Profile",
+    "Navbar_Login": "Login",
+    "Navbar_Logout": "Logout",
+
+    // Profile
+    "Profile_Title": "Profile",
+    "Profile_Email": "Email",
+    "Profile_EditAddress":  "Edit Address",
+    "Profile_Country": "Country",
+    "Profile_City": "City",
+    "Profile_State": "State",
+    "Profile_Address": "Address",
+    "Profile_Zipcode": "Zip-Code",
+    "Profile_Phone": "Phone Number",
+    "Profile_Invitation": "Invitation Information",
+    "Invite_Remain": "Remain",
+    "Invite_By": "Invited By",
+
+    // Reset Password
+    "ResetPW_Title":   "Reset Password",
+    "ResetPW_Origin":  "Origin Password",
+    "ResetPW_New":     "New Password",
+    "ResetPW_Confirm": "Confirm Password",
+
+    // Invitation
+    "Invite_Title":     "Send Invitation",
+    "Invite_Invitees":  "Invitees Email",
+    "Invite_Email":     "Email",
+    "Invite_Message":   "Message",
+
+    // Button
+    "Btn_Reset":  "Reset",
+    "Btn_Invite": "Invite",
+    "Btn_Edit":   "Edit",
+    "Btn_Save":   "Save",
+    "Btn_Back":   "Back"
+}

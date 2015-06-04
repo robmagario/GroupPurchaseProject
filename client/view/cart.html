@@ -1,0 +1,69 @@
+<template name="CartPage">
+    <div class="panel-group" id="purchase">
+        <br>
+        <br>
+        <br>
+        <div class="panel panel-info panel-width-80">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Cart Information</div>
+            <div class="panel-body" id="profile">
+                <div class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="email">Cashback Remain:</label>
+                        <div class="col-sm-9">
+                            <label class="form-control">0</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="email">Total Price of Selected Products:</label>
+                        <div class="col-sm-9">
+                            <label class="form-control">0</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="email">Total Weight of Selected Products:</label>
+                        <div class="col-sm-9">
+                            <label class="form-control">0</label>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th width="10px"></th>
+                        <th width="80px"></th>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Weight</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each CartItem}}
+                    <tr>
+                        <td><br><input class="select-item" type="checkbox" checked value="{{id}}"></td>
+                        <td><img src="{{icon}}" width="64px" height="64px"></td>
+                        <td><br>{{name}}</td>
+                        <td><br>{{quantity}}</td>
+                        <td><br>{{weight}} g</td>
+                        <td><br>{{price}} HKD</td>
+                    </tr>
+                    {{/each}}
+                    <tr>
+                        <td><input class="select-all" type="checkbox" checked></td>
+                        <td>All</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="form-horizontal" role="form">
+                    <div class="col-sm-offset-5 col-sm-2">
+                        <button class="btn btn-default" value="StartOrder">Start Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
