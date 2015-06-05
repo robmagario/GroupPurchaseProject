@@ -171,7 +171,7 @@ Template.CartPage.helpers({
                     var _weight =   _quantity * _product.weight;
                     var _price =    _quantity * _product.price;
                     if(_images != null) {
-                        _icon = _images.sub[_array[i+2]];
+                        _icon = _images.color[_array[i+2]];
                     }
                     items.push({
                         id:         _array[i],

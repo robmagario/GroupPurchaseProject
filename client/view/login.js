@@ -17,30 +17,56 @@ Template.LoginPage.rendered = function() {
 
 Template.LoginPage.events({
     // Click Login Button
-   'click .btn_login': function() {
-       var _email = $('#input_email').val();
-       var _password = $('#input_password').val();
-       var _empty = false;
-       var _error = "";
-       if(_email == "" || _email == null) {
-           _empty = true;
-           _error += "Please fill the 'Email' column!\n";
-       }
-       if(_password == "" || _password == null) {
-           _empty = true;
-           _error += "Please fill the 'Password' column!";
-       }
-       if(!_empty) {
-           Meteor.loginWithPassword(_email, _password, function(err) {
-               if (err) {
-                   alert(err.reason);
-                   return false;
-               } else {
-                   LocatToMain();
-               }
-           })
-       } else {
-           alert(_error);
-       }
-   }
+    'click .btn': function() {
+        var _email = $('#login').find('input').eq(0).val();
+        var _password = $('#login').find('input').eq(1).val();
+        var _empty = false;
+        var _error = "";
+        if(_email == "" || _email == null) {
+            _empty = true;
+            _error += "Please fill the 'Email' column!\n";
+        }
+        if(_password == "" || _password == null) {
+            _empty = true;
+            _error += "Please fill the 'Password' column!";
+        }
+        if(!_empty) {
+            Meteor.loginWithPassword(_email, _password, function(err) {
+                if (err) {
+                    alert(err.reason);
+                    return false;
+                } else {
+                    LocatToMain();
+                }
+            })
+        } else {
+            alert(_error);
+        }
+    }
+    //'click .btn_log': function() {
+    //   var _email = $('#input_email').val();
+    //   var _password = $('#input_password').val();
+    //   var _empty = false;
+    //   var _error = "";
+    //   if(_email == "" || _email == null) {
+    //       _empty = true;
+    //       _error += "Please fill the 'Email' column!\n";
+    //   }
+    //   if(_password == "" || _password == null) {
+    //       _empty = true;
+    //       _error += "Please fill the 'Password' column!";
+    //   }
+    //   if(!_empty) {
+    //       Meteor.loginWithPassword(_email, _password, function(err) {
+    //           if (err) {
+    //               alert(err.reason);
+    //               return false;
+    //           } else {
+    //               LocatToMain();
+    //           }
+    //       })
+    //   } else {
+    //       alert(_error);
+    //   }
+    //}
 });

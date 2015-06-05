@@ -8,6 +8,10 @@ Meteor.startup(function() {
     $(".dropdown-toggle").dropdown();
 });
 
+Helpers.CashbackRate = function() {
+    return [0.04, 0.03, 0.02, 0.01];
+};
+
 Helpers.User = {
     Data: function() {
         return Meteor.user();

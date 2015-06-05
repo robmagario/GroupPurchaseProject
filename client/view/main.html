@@ -3,38 +3,30 @@
 </head>
 
 <template name="MainPage">
+    <!--
     <div class="navbar">
         <button class="btn_logout">Logout</button>
         <button class="btn_profile">Profile</button>
-        {{#if User.IsAdmin}}
             <button class="btn_dashboard">Dashboard</button>
-        {{/if}}
     </div>
     <div class="sidebar">
         <div class="sidebar_tab">Overview</div>
         <div class="sidebar_tab">Check Cart</div>
         <div id="FindProduct_Sidebar" class="sidebar_tab">Find Products</div>
         <div id="FindProducts_Tab" class="sidebar_subhead" style="display:none;">
-            <!--
-            <div class="sidebar_subtab">Food</div>
-            <div class="sidebar_subtab">Other</div>
-            -->
         </div>
     </div>
     <div class="container">
         <div class="container_item" id="MainPage_Overview" style="display:none;">
-            {{> MainPage_Overview}}
         </div>
         <div class="container_item" id="MainPage_OrderDetail" style="display:none;">
-            {{> MainPage_OrderDetail}}
         </div>
         <div class="container_item" id="MainPage_Profile" style="display:none;">
-            {{> MainPage_Profile}}
         </div>
         <div class="container_item" id="MainPage_FindProducts" style="display:none">
-            {{> MainPage_FindProducts}}
         </div>
-    </div>
+    </div>-->
+    {{> MainPage_FindProducts}}
 </template>
 
 <template name="MainPage_Overview">
@@ -369,138 +361,263 @@
 </template>
 
 <template name="MainPage_FindProducts">
-    <div class="find_product_item" id="FindProduct_MainPage" style="display:none;">
+    <div id="FindProduct_MainPage" style="display:none">
         {{> FindProduct_MainPage}}
     </div>
-    <div class="find_product_item" id="FindProducts_ProductInfo" style="display:none">
-        {{> FindProducts_ProductInfo}}
+    <div id="ProductInfo" style="display:none">
+        {{> ProductInfo}}
     </div>
-    <div class="find_product_item" id="FindProducts_Cart" style="display:none">
-        {{> FindProducts_Cart}}
-    </div>
-    <div class="find_product_item" id="FindProducts_Order_Step1" style="display:none">
-        {{> FindProducts_Order_Step1}}
-    </div>
-    <div class="find_product_item" id="FindProducts_Order_Step2" style="display:none">
-        {{> FindProducts_Order_Step2}}
-    </div>
-    <div class="find_product_item" id="FindProducts_Order_Step3" style="display:none">
-        {{> FindProducts_Order_Step3}}
-    </div>
-    <div class="find_product_item" id="FindProducts_Order_Step4" style="display:none">
-        {{> FindProducts_Order_Step4}}
-    </div>
+    <!--<div class="find_product_item" id="FindProducts_Cart" style="display:none">-->
+        <!--{{> FindProducts_Cart}}-->
+    <!--</div>-->
+    <!--<div class="find_product_item" id="FindProducts_Order_Step1" style="display:none">-->
+        <!--{{> FindProducts_Order_Step1}}-->
+    <!--</div>-->
+    <!--<div class="find_product_item" id="FindProducts_Order_Step2" style="display:none">-->
+        <!--{{> FindProducts_Order_Step2}}-->
+    <!--</div>-->
+    <!--<div class="find_product_item" id="FindProducts_Order_Step3" style="display:none">-->
+        <!--{{> FindProducts_Order_Step3}}-->
+    <!--</div>-->
+    <!--<div class="find_product_item" id="FindProducts_Order_Step4" style="display:none">-->
+        <!--{{> FindProducts_Order_Step4}}-->
+    <!--</div>-->
 </template>
 
 <template name="FindProduct_MainPage">
-    <h1>Find Products</h1>
-    <div style="display: flex">
+    <br>
+    <br>
+    <br>
+    <br>
+    <div style="display:flex; display:-webkit-flex; flex-wrap:wrap;">
         {{#each Product.ListPublished}}
-            <div class="product_info">
-                <p class="info_header">{{name}}</p>
-                <img class="info_img" src="{{Image.GetImageByID.Main image}}">
-                <div class="info_price">{{price}} HKD</div>
-            </div>
-        {{/each}}
-    </div>
-
-</template>
-
-<template name="FindProducts_ProductInfo">
-    <div class="product-page">
-        <div class="product-page-header">{{Product.GetProductByHash.Name}}</div>
-        <div class="product-page-info">
-            <div class="product-page-image">
-                <div class="product-detail-panel">
-                    <div class="basic-info">
-                        <div class="column" style="display:none;">
-                            <div></div>
-                            <label id="label_product_id">{{Product.GetProductByHash.ProductID}}</label>
+        <div class="panel-group panel-width-25 each-product">
+            <div class="panel panel-info panel-width-80">
+                <div class="panel-heading">{{name}}</div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <img src="{{Image.GetImageByID.Main image}}" style="max-width:100%;">
                         </div>
-                        <br>
-                    </div>
-                    <div class="selection-info">
-                        <div class="img-holder">
-                            <img id="label_product_img_main" class="main-img-holder" src="{{Image.GetImageByID.Main Product.GetProductByHash.Image}}">
-                            <div id="ShowingSubImage" class="sub-img-holder">
-                                {{#each Image.GetImageByID.Sub Product.GetProductByHash.Image}}
-                                    <img src="{{this}}" class="label_product_img_sub">
-                                {{/each}}
-                            </div>
-                        </div>
-                        <div class="main-info">
-                            <div class="column">
-                                <div>Name: </div>
-                                <label id="label_product_name">{{Product.GetProductByHash.Name}}</label>
-                            </div>
-                            <br>
-                            <div class="column">
-                                <div>Description: </div>
-                                <label id="label_product_description">{{Product.GetProductByHash.Description}}</label>
-                            </div>
-                            <br>
-                            <div class="column">
-                                <div>Weight: </div>
-                                <label id="label_product_weight">{{Product.GetProductByHash.Price}} g</label>
-                            </div>
-                            <br>
-                            <div id="SizeSelectionHeader" class="column">
-                                <div>Size: </div>
-                                <div id="SizeSelection" class="size-section">
-                                    {{#each Product.GetProductByHash.Size}}
-                                        <button style="background-color:none;" class="btn-select-a-size">{{this}}</button>
-                                    {{/each}}
-                                </div>
-                            </div>
-                            <br>
-                            <div id="ColorSelectionHeader" class="column">
-                                <div>Color: </div>
-                                <div id="ColorSelection" class="color-section">
-                                    {{#each Product.GetProductByHash.Color}}
-                                        <div class="color-section-item">
-                                            <div style='display:none;' class='btn-select-a-color-bg'></div>
-                                            <img src="{{this}}" class='btn-select-a-color'>
-                                        </div>
-                                    {{/each}}
-                                </div>
-                            </div>
-                            <br>
-                            <div class="column">
-                                <div>Remaining: </div>
-                                <label id="label_product_rest" style="width: 50px;">0</label>
-                            </div>
-                            <br>
-                            <div class="column">
-                                <div>Quantity: </div>
-                                <input id="label_product_quantity" type="number" style="width: 50px;" value="1" min="1">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Price:</label>
+                            <div class="col-sm-9">
+                                <label class="form-control">{{price}} HKD</label>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="product-page-description">
-                <button class="btn-order"><i class="fa fa-pencil"></i>Order</button>
-                <br>
-                <button class="btn-cart"><i class="fa fa-pencil"></i>Add to Cart</button>
-                <br>
-                <br>
-                <div class="product-page-subheader">Price</div>
-                <div id="ProductPagePrice" class="product-page-price">{{Product.GetProductByHash.Price}} HKD</div>
-                <br>
-                <div class="product-page-subheader">Your Price</div>
-                <div id="ProductPageCashback" class="product-page-price"><span>4%Cash Back</span> = {{Product.GetProductByHash.CalculateDescount}} HKD</div>
-                <br>
-                <div class="product-page-subheader">Price by using remaining cashback</div>
-                <div id="ProductPagePriceNew" class="product-page-price">{{Product.GetProductByHash.Price}} HKD =>  {{Product.CalculatePriceByUseCashback Product.GetProductByHash.Price User.CashBackStatus.UserTotalRemain}} HKD</div>
-                <br>
-                <div class="product-page-subheader">Cashback Remain</div>
-                <div id="ProductPageCashbackRemain" class="product-page-price">{{User.CashBackStatus.UserTotalRemain}} HKD =>  {{Product.CalculateRemainByUseCashback Product.GetProductByHash.Price User.CashBackStatus.UserTotalRemain}} HKD</div>
-                <br>
-                <div class="product-page-subheader">Sale Status</div>
-                <div class="product-page-price">active</div>
+        </div>
+        {{/each}}
+    </div>
+</template>
+
+<template name="ProductInfo">
+    <br>
+    <br>
+    <br>
+    <br>
+    {{#each HashProduct}}
+    <div class="panel-group">
+        <div class="panel panel-warning">
+            <div class="panel-heading">{{name}}</div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group col-sm-4">
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <img id="img_main" src="{{Image.GetImageByID.Main image}}" style="max-width:100%">
+                                <ul class="pagination pagination-lg">
+                                    <li><a style="width:20%; padding:0;"><img src="{{MainImage}}" class="main-img" style="max-width:100%"></a></li>
+                                    {{#each SubImages}}
+                                        <li><a style="width:20%; padding:0;"><img src="{{this}}" class="sub-img" style="max-width:100%"></a></li>
+                                    {{/each}}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3">Name:</label>
+                                            <div class="col-sm-9">
+                                                <label class="form-control">{{name}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3">Description:</label>
+                                            <div class="col-sm-9">
+                                                <label class="form-control">{{description}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3">Price:</label>
+                                            <div class="col-sm-9">
+                                                <label class="form-control">{{price}} HKD</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3">Weight:</label>
+                                            <div class="col-sm-9">
+                                                <label class="form-control">{{weight}} g</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="size">
+                                            <label class="control-label col-sm-3">Size:</label>
+                                            {{#each Sizes}}
+                                                <div class="col-sm-1">
+                                                    <button class="btn btn-default" value="SelectSize">{{this}}</button>
+                                                </div>
+                                            {{/each}}
+                                        </div>
+                                        <div class="form-group" id="color">
+                                            <label class="control-label col-sm-3">Color:</label>
+                                            {{#each Colors}}
+                                                <div class="col-sm-1" style="padding-right:60px;">
+                                                    <div style='display:none;' class='color-cover'></div>
+                                                    <img src="{{this}}" class='btn-select-a-color color-img' style="width:64px; height:64px;">
+                                                </div>
+                                            {{/each}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3">Quantity:</label>
+                                            <div class="col-sm-2">
+                                                <input id="quantity" class="form-control" type="number" min="1" value="1">
+                                            </div>
+                                            <label class="control-label col-sm-2" style="color:gray">Remain:</label>
+                                            <label class="control-label col-sm-1" style="color:gray" id="remain">0</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <div class="product-page-description">
+                            <button class="btn-order"><i class="fa fa-pencil"></i>Order</button>
+                            <br>
+                            <button class="btn-cart"><i class="fa fa-pencil"></i>Add to Cart</button>
+                            <br>
+                            <br>
+                            <div class="product-page-subheader">Price</div>
+                            <div id="ProductPagePrice" class="product-page-price">{{Price}} HKD</div>
+                            <br>
+                            <div class="product-page-subheader">Cashback Get</div>
+                            <div id="ProductPageCashback" class="product-page-price"><span>4%Cash Back</span> = {{CashbackGet}} HKD</div>
+                            <br>
+                            <div class="product-page-subheader">Price by using remaining cashback</div>
+                            <div id="ProductPagePriceNew" class="product-page-price">{{Price}} HKD =>  {{NewPrice Price Cashback}} HKD</div>
+                            <br>
+                            <div class="product-page-subheader">Cashback Remain</div>
+                            <div id="ProductPageCashbackRemain" class="product-page-price">{{Cashback}} HKD =>  {{CashbackRemain Price Cashback}} HKD</div>
+                            <br>
+                            <div class="product-page-subheader">Sale Status</div>
+                            <div class="product-page-price">active</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    {{/each}}
+    <!--<div class="product-page">-->
+        <!--<div class="product-page-header">{{Product.GetProductByHash.Name}}</div>-->
+        <!--<div class="product-page-info">-->
+            <!--<div class="product-page-image">-->
+                <!--<div class="product-detail-panel">-->
+                    <!--<div class="basic-info">-->
+                        <!--<div class="column" style="display:none;">-->
+                            <!--<div></div>-->
+                            <!--<label id="label_product_id">{{Product.GetProductByHash.ProductID}}</label>-->
+                        <!--</div>-->
+                        <!--<br>-->
+                    <!--</div>-->
+                    <!--<div class="selection-info">-->
+                        <!--<div class="img-holder">-->
+                            <!--<img id="label_product_img_main" class="main-img-holder" src="{{Image.GetImageByID.Main Product.GetProductByHash.Image}}">-->
+                            <!--<div id="ShowingSubImage" class="sub-img-holder">-->
+                                <!--{{#each Image.GetImageByID.Sub Product.GetProductByHash.Image}}-->
+                                    <!--<img src="{{this}}" class="label_product_img_sub">-->
+                                <!--{{/each}}-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="main-info">-->
+                            <!--<div class="column">-->
+                                <!--<div>Name: </div>-->
+                                <!--<label id="label_product_name">{{Product.GetProductByHash.Name}}</label>-->
+                            <!--</div>-->
+                            <!--<br>-->
+                            <!--<div class="column">-->
+                                <!--<div>Description: </div>-->
+                                <!--<label id="label_product_description">{{Product.GetProductByHash.Description}}</label>-->
+                            <!--</div>-->
+                            <!--<br>-->
+                            <!--<div class="column">-->
+                                <!--<div>Weight: </div>-->
+                                <!--<label id="label_product_weight">{{Product.GetProductByHash.Price}} g</label>-->
+                            <!--</div>-->
+                            <!--<br>-->
+                            <!--<div id="SizeSelectionHeader" class="column">-->
+                                <!--<div>Size: </div>-->
+                                <!--<div id="SizeSelection" class="size-section">-->
+                                    <!--{{#each Product.GetProductByHash.Size}}-->
+                                        <!--<button style="background-color:none;" class="btn-select-a-size">{{this}}</button>-->
+                                    <!--{{/each}}-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<br>-->
+                            <!--<div id="ColorSelectionHeader" class="column">-->
+                                <!--<div>Color: </div>-->
+                                <!--<div id="ColorSelection" class="color-section">-->
+                                    <!--{{#each Product.GetProductByHash.Color}}-->
+                                        <!--<div class="color-section-item">-->
+                                            <!--<div style='display:none;' class='btn-select-a-color-bg'></div>-->
+                                            <!--<img src="{{this}}" class='btn-select-a-color'>-->
+                                        <!--</div>-->
+                                    <!--{{/each}}-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<br>-->
+                            <!--<div class="column">-->
+                                <!--<div>Remaining: </div>-->
+                                <!--<label id="label_product_rest" style="width: 50px;">0</label>-->
+                            <!--</div>-->
+                            <!--<br>-->
+                            <!--<div class="column">-->
+                                <!--<div>Quantity: </div>-->
+                                <!--<input id="label_product_quantity" type="number" style="width: 50px;" value="1" min="1">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="product-page-description">-->
+                <!--<button class="btn-order"><i class="fa fa-pencil"></i>Order</button>-->
+                <!--<br>-->
+                <!--<button class="btn-cart"><i class="fa fa-pencil"></i>Add to Cart</button>-->
+                <!--<br>-->
+                <!--<br>-->
+                <!--<div class="product-page-subheader">Price</div>-->
+                <!--<div id="ProductPagePrice" class="product-page-price">{{Product.GetProductByHash.Price}} HKD</div>-->
+                <!--<br>-->
+                <!--<div class="product-page-subheader">Your Price</div>-->
+                <!--<div id="ProductPageCashback" class="product-page-price"><span>4%Cash Back</span> = {{Product.GetProductByHash.CalculateDescount}} HKD</div>-->
+                <!--<br>-->
+                <!--<div class="product-page-subheader">Price by using remaining cashback</div>-->
+                <!--<div id="ProductPagePriceNew" class="product-page-price">{{Product.GetProductByHash.Price}} HKD =>  {{Product.CalculatePriceByUseCashback Product.GetProductByHash.Price User.CashBackStatus.UserTotalRemain}} HKD</div>-->
+                <!--<br>-->
+                <!--<div class="product-page-subheader">Cashback Remain</div>-->
+                <!--<div id="ProductPageCashbackRemain" class="product-page-price">{{User.CashBackStatus.UserTotalRemain}} HKD =>  {{Product.CalculateRemainByUseCashback Product.GetProductByHash.Price User.CashBackStatus.UserTotalRemain}} HKD</div>-->
+                <!--<br>-->
+                <!--<div class="product-page-subheader">Sale Status</div>-->
+                <!--<div class="product-page-price">active</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 </template>
 
 <template name="FindProducts_Cart">

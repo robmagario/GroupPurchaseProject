@@ -2,9 +2,16 @@
  * Created by chinhong on 5/21/15.
  */
 Template.Dashboard.rendered = function() {
+    var _height = window.innerHeight;
+    $('#sidebar').css({height:_height-40});
+
     // Turn to Login Page if user is not admin
     window.setTimeout(function() {
         if(Roles.userIsInRole(Meteor.userId(), "admin")) {
+            if(location.hash != "") {
+                $('#overview').hide();
+                $('#product_detail').show();
+            }
         } else {
             location = "login";
         }
@@ -44,7 +51,356 @@ var sidebar_events = {
     }
 }
 
+function CheckRemaining() {
+    $('.selection-unable').removeClass('selection-unable');
+
+    var _size = $('#size').find('button');
+    var _index_size = -1;
+    for(var i=0; i<_size.length; i++) {
+        var _style = _size.eq(i).attr('style');
+        if(_style == "background: orange;") {
+            _index_size = i;
+            break;
+        }
+    }
+    var _color = $('#color').find('div').find('div');
+    var _index_color = -1;
+    for(var i=0; i<_color.length; i++) {
+        var _style = _color.eq(i).attr('style');
+        if(_style == "display: block;") {
+            _index_color = i;
+            break;
+        }
+    }
+
+    var _hash = location.hash;
+    var _product_id = _hash.replace("#","");
+    var _product = Products.findOne({_id:_product_id});
+    var _index = _index_color * _size.length + _index_size;
+    if(_index_color >= 0) {
+        for(var i=0; i<_size.length; i++) {
+            var _checking_index = _index_color * _size.length + i;
+            if(_product.remain[_checking_index] <= 0) {
+            }
+        }
+    }
+    if(_index_size >= 0) {
+        for (var i = 0; i < _color.length; i++) {
+            var _checking_index = i * _size.length + _index_size;
+            if (_product.remain[_checking_index] <= 0) {
+            }
+        }
+    }
+    if(_index_color == -1 || _index_size == -1) {
+        _index = 0;
+    }
+    var _value = _product.remain[_index];
+    if(_index_color == -1 || _index_size == -1) { _index = -1; _value = 0; }
+    $('#remain').html(_value);
+    $('#remain-set').val(_value);
+    $('#remain-edit').value = _index;
+};
+
 Template.Dashboard.events({
+    'click .list-group-item': function(e) {
+        $('.list-group-item').removeClass('list-group-item-warning');
+        e.target.classList.add('list-group-item-warning');
+        $('.content_item').hide();
+        $('#product_detail').hide();
+        $('#order_detail').hide();
+        location.hash = "";
+        switch(e.currentTarget.innerText) {
+            case "Overview":
+                $('#overview').show();
+                break;
+            case "Create Product":
+                $('#create_product').show();
+                break;
+            case "Product List":
+                $('#product_list').show();
+                break;
+            case "Order List":
+                $('#order_list').show();
+                break;
+            default :
+                break;
+        }
+    },
+
+
+    // Create Product Event
+    'click .sub-image-add': function() {
+        var CurrentHTML = $('#create_sub_image').html();
+        var _randomID = parseInt(Math.random() * 65536);
+        CurrentHTML += "" +
+            "<div>" +
+                "<div class='col-sm-11' style='padding-left:0'>" +
+                    "<input class='form-control' type='file' onchange='Helpers.Image.ReadURL(this, &#x0027image_"+_randomID+"&#x0027);'>" +
+                "</div>" +
+                "<div class='col-sm-1'>" +
+                    "<button class='btn btn-default sub-image-minus' value='image_"+_randomID+"'>-</button>" +
+                "</div>" +
+                "<img id='image_"+_randomID+"' style='max-width:100%;'>" +
+            "</div>";
+        $('#create_sub_image').html(CurrentHTML);
+    },
+    'click .sub-image-minus': function(e) {
+        $('#'+e.currentTarget.value+'').parent().remove();
+    },
+
+    'click .size-add': function() {
+        //var CurrentHTML = $('#create_size').html();
+        //CurrentHTML += "" +
+        //    "<div class='size-selection'>" +
+        //    "<div class='col-sm-2' style='padding-left:0'>" +
+        //    "<input class='form-control' type='text'>" +
+        //    "</div>" +
+        //    "<button class='btn btn-default size-minus'>x</button>" +
+        //    "</div>";
+        //$('#create_size').html(CurrentHTML);
+        var _temp = $('#create_size').find('input');
+        var _html = "";
+        for(var i=0; i<_temp.length; i++) {
+            var _value = $('#create_size').find('input').eq(i).val();
+            _html += "" +
+                "<div class='size-selection'>" +
+                "<div class='col-sm-2' style='padding-left:0'>" +
+                "<input class='form-control' type='text' value='"+_value+"'>" +
+                "</div>" +
+                "<button class='btn btn-default size-minus'>x</button>" +
+                "</div>";
+        }
+        _html += "" +
+            "<div class='size-selection'>" +
+            "<div class='col-sm-2' style='padding-left:0'>" +
+            "<input class='form-control' type='text'>" +
+            "</div>" +
+            "<button class='btn btn-default size-minus'>x</button>" +
+            "</div>";
+        $('#create_size').html(_html);
+    },
+    'click .size-minus': function(e) {
+        e.currentTarget.parentElement.remove();
+    },
+
+    'click .color-add': function() {
+        var CurrentHTML = $('#create_color').html();
+        var _randomID = parseInt(Math.random() * 65536);
+        CurrentHTML += "" +
+            "<div class='color-selection'>" +
+            "<div class='col-sm-11' style='padding-left:0'>" +
+            "<input class='form-control' type='file' onchange='Helpers.Image.ReadURL(this, &#x0027lor_"+_randomID+"&#x0027);'>" +
+            "</div>" +
+            "<div class='col-sm-1'>" +
+            "<button class='btn btn-default color-minus' value='lor_"+_randomID+"'>-</button>" +
+            "</div>" +
+            "<img id='lor_"+_randomID+"' style='width:64px; height:64px'>" +
+            "</div>";
+        $('#create_color').html(CurrentHTML);
+    },
+    'click .color-minus': function(e) {
+        $('#'+e.currentTarget.value+'').parent().remove();
+    },
+    'click .create-product': function() {
+        Helpers.Log.Show("Create Product", "Start");
+
+        var _selection_size = [];
+        var _selection_color = [];
+        var _temp_size = $('.size-selection').find('input');
+        for(var i=0; i<_temp_size.length; i++) {
+            var _value = _temp_size[i].value;
+            if(_value != null && _value != "")
+                _selection_size.push(_value);
+        }
+        var _temp_color = $('.color-selection').find('img');
+        for(var i=0; i<_temp_color.length; i++) {
+            var _value = _temp_color[i].src;
+            if(_value != null && _value != "")
+                _selection_color.push(_value);
+        }
+        var _item_remain = [];
+        for(var i=0; i<_selection_color.length; i++) {
+            for(var j=0; j<_selection_size.length; j++) {
+                _item_remain.push(0);
+            }
+        }
+
+        var _img_icon = $('#img_icon').attr('src');
+        var _img_main = $('#img_main').attr('src');
+        var _img_sub = [];
+
+        if(_img_icon == "" || _img_icon == null) { _img_icon = "No Image"; }
+        if(_img_main == "" || _img_main == null) { _img_main = "No Image"; }
+        var _count = $('#create_sub_image').find('img').length;
+        for(var i=0; i<_count; i++) {
+            var _img_temp = $('#create_sub_image').find('img').eq(i).attr('src');
+            if(_img_temp != "" && _img_temp != null) {
+                _img_sub.push(_img_temp);
+            }
+        }
+
+        var _name = $('#product_name').val();
+        var _price = $('#product_price').val();
+        var _weight = $('#product_weight').val();
+        var _description = $('#product_description').val();
+        var _empty = false;
+        var _error = "";
+        Dashboard_Log.Show("Name", _name);
+        Dashboard_Log.Show("Price", _price + " HKD");
+        Dashboard_Log.Show("Weight", _weight + "g");
+        Dashboard_Log.Show("Description", _description);
+        if(_name == "" || _name == null) {
+            _empty = true;
+            _error += "Please fill the 'Product Name' column!\n";
+        }
+        if(_price == "" || _price == null) {
+            _empty = true;
+            _error += "Please fill the 'Price' column!\n";
+        }
+        if(_weight == "" || _weight == null) {
+            _empty = true;
+            _error += "Please fill the 'Weight' column!\n";
+        }
+        if(_description == "" || _description == null) {
+            _description = "No Description";
+        }
+        var _date = new Date();
+
+        var _img_id = ProductImages.insert({
+            icon: _img_icon,
+            main: _img_main,
+            sub:  _img_sub,
+            color: _selection_color
+        });
+        Dashboard_Log.Show("Image ID", _img_id);
+        if(!_empty) {
+            Products.insert({
+                name:           _name,
+                description:    _description,
+                price:          _price,
+                weight:         _weight,
+                image:          _img_id,
+                size:           _selection_size,
+                remain:         _item_remain,
+                publish:        false,
+                createAt:       _date
+            });
+            Helpers.Log.Show("Create Product", "Create Success!");
+            alert("Process Success!");
+            location.reload();
+        } else {
+            Helpers.Log.Show("Create Product", "Create Fail!");
+            alert(_error);
+        }
+    },
+
+    // Product List Event
+    'click .publish-item': function(e) {
+        if(e.currentTarget.innerText == "true") {
+            e.currentTarget.innerText = "false";
+            Products.update(this._id, {$set:{publish:false}});
+        } else {
+            e.currentTarget.innerText = "true";
+            Products.update(this._id, {$set:{publish:true}});
+        }
+    },
+    'click .a-product': function () {
+        location.hash = "#" + this._id;
+        location.reload();
+    },
+
+    // Product Detail
+    // Click to change the image
+    'click .sub-img, click .main-img, click .color-img': function(e) {
+        $('#detail_img_main').attr('src', e.currentTarget.currentSrc);
+    },
+    'click .btn-select-a-size': function(e) {
+        if(e.currentTarget.style.background != 'orange') {
+            $('.btn-select-a-size').css({"background":'transparent'});
+            e.currentTarget.style.background = 'orange';
+        } else {
+            $('.btn-select-a-size').css({"background":'transparent'});
+        }
+        CheckRemaining();
+    },
+    'click .btn-select-a-color': function(e) {
+        $('.color-cover').hide();
+        $('#label_product_img_main').attr('src', e.currentTarget.currentSrc);
+        e.currentTarget.parentElement.children[0].style.display = 'block';
+        CheckRemaining();
+    },
+    'click .remain-edit': function() {
+        var _size = $('#size').find('button');
+        var _index_size = -1;
+        for(var i=0; i<_size.length; i++) {
+            var _style = _size.eq(i).attr('style');
+            if(_style == "background: orange;") {
+                _index_size = i;
+                break;
+            }
+        }
+        var _color = $('#color').find('div').find('div');
+        var _index_color = -1;
+        for(var i=0; i<_color.length; i++) {
+            var _style = _color.eq(i).attr('style');
+            if(_style == "display: block;") {
+                _index_color = i;
+                break;
+            }
+        }
+
+        var _hash = location.hash;
+        var _product_id = _hash.replace("#","");
+        var _product = Products.findOne({_id:_product_id});
+        var _index = _index_color * _size.length + _index_size;
+        if(_index_color >= 0) {
+            for(var i=0; i<_size.length; i++) {
+                var _checking_index = _index_color * _size.length + i;
+                if(_product.remain[_checking_index] <= 0) {
+                }
+            }
+        }
+        if(_index_size >= 0) {
+            for (var i = 0; i < _color.length; i++) {
+                var _checking_index = i * _size.length + _index_size;
+                if (_product.remain[_checking_index] <= 0) {
+                }
+            }
+        }
+        if(_index_color == -1 || _index_size == -1) {
+            _index = 0;
+        }
+
+        if(_index >= 0) {
+            var _value = $('#remain-set').val();
+            var _remain = _product.remain;
+            _remain[_index] = parseInt(_value);
+            Products.update(_product_id, {$set:{remain:_remain}});
+        }
+        $('#remain').html(_value);
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Go To Main Page
     'click .btn_mainpage': function() {
         location = "/";
@@ -352,14 +708,14 @@ Template.Dashboard.events({
     },
 
     // Click to select the size
-    'click .btn-select-a-size': function(e) {
+    'click .btn-select-a-size2': function(e) {
         $('#SizeSelection').find('button').css({"background":'none'});
         e.currentTarget.style.background = 'orange';
         CheckRemaining();
     },
 
     // Click to select the color
-    'click .btn-select-a-color': function(e) {
+    'click .btn-select-a-color2': function(e) {
         $('#ColorSelection').find('div').find('div').hide();
         $('#label_product_img_main').attr('src', e.currentTarget.currentSrc);
         e.currentTarget.parentElement.children[0].style.display = 'block';
@@ -547,38 +903,157 @@ Template.Dashboard.events({
     }
 });
 
-function CheckRemaining() {
-    var _size = $('#SizeSelection').find('button');
-    var _index_size = -1;
-    for(var i=0; i<_size.length; i++) {
-        var _style = _size.eq(i).attr('style');
-        if(_style == "background: orange;") {
-            _index_size = i;
-            break;
-        }
-    }
-    var _color = $('#ColorSelection').find('div').find('div');
-    var _index_color = -1;
-    for(var i=0; i<_color.length; i++) {
-        var _style = _color.eq(i).attr('style');
-        if(_style == "display: block;") {
-            _index_color = i;
-            break;
-        }
-    }
-
-    var _id = $('#label_product_id').html();
-    var _product = Products.findOne({_id:_id});
-    var _index = _index_color * _size.length + _index_size;
-    if(_index_color == -1 || _index_size == -1) { _index = 0; }
-    var _value = _product.remain[_index];
-    if(_index_color == -1 || _index_size == -1) { _index = -1; _value = 0; }
-    $('#label_product_rest').html(_value);
-    $('#label_product_rest_edit').val(_value);
-    $('#label_product_rest').val(_index);
-};
+//function CheckRemaining() {
+//    var _size = $('#SizeSelection').find('button');
+//    var _index_size = -1;
+//    for(var i=0; i<_size.length; i++) {
+//        var _style = _size.eq(i).attr('style');
+//        if(_style == "background: orange;") {
+//            _index_size = i;
+//            break;
+//        }
+//    }
+//    var _color = $('#ColorSelection').find('div').find('div');
+//    var _index_color = -1;
+//    for(var i=0; i<_color.length; i++) {
+//        var _style = _color.eq(i).attr('style');
+//        if(_style == "display: block;") {
+//            _index_color = i;
+//            break;
+//        }
+//    }
+//
+//    var _hash = location.hash;
+//    var _product_id = _hash.replace("#","");
+//    var _product = Products.findOne({_id:_product_id});
+//    var _index = _index_color * _size.length + _index_size;
+//    if(_index_color == -1 || _index_size == -1) { _index = 0; }
+//    var _value = _product.remain[_index];
+//    if(_index_color == -1 || _index_size == -1) { _index = -1; _value = 0; }
+//    $('#label_product_rest').html(_value);
+//    $('#label_product_rest_edit').val(_value);
+//    $('#label_product_rest').val(_index);
+//};
 
 Template.Dashboard.helpers({
+    'ProductList': function() {
+        return Products.find();
+    },
+    'Icon': function(imageid) {
+        var _image = ProductImages.findOne({_id:imageid});
+        if(_image != null && _image.icon != null) {
+            return _image.icon;
+        } else {
+            return "";
+        }
+
+    },
+    'Publishing': function(result) {
+        return result.toString();
+    },
+    'HashProduct': function() {
+        var _hash = location.hash;
+        var _id = _hash.replace("#","");
+        return Products.find({_id:_id});
+    },
+    'MainImage': function() {
+        var _hash = location.hash;
+        var _product_id = _hash.replace("#","");
+        var _product = Products.findOne({_id:_product_id});
+        var _imageid = "";
+        if(_product != null) {
+            _imageid = _product.image;
+        }
+        var _image = ProductImages.findOne({_id:_imageid});
+        return _image.main;
+    },
+    'SubImages': function() {
+        var _hash = location.hash;
+        var _product_id = _hash.replace("#","");
+        var _product = Products.findOne({_id:_product_id});
+        var _imageid = "";
+        if(_product != null) {
+            _imageid = _product.image;
+        }
+        var _image = ProductImages.findOne({_id:_imageid});
+        if(_image != null && _image.sub != null) {
+            return _image.sub;
+        } else {
+            return [];
+        }
+    },
+    'Sizes': function() {
+        var _hash = location.hash;
+        var _product_id = _hash.replace("#","");
+        var _product = Products.findOne({_id:_product_id});
+        return _product.size;
+    },
+    'Colors': function() {
+        var _hash = location.hash;
+        var _product_id = _hash.replace("#","");
+        var _product = Products.findOne({_id:_product_id});
+        var _imageid = "";
+        if(_product != null) {
+            _imageid = _product.image;
+        }
+        var _image = ProductImages.findOne({_id:_imageid});
+        if(_image != null && _image.color != null) {
+            return _image.color;
+        } else {
+            return [];
+        }
+    },
+    'OrderList': function() {
+        return Orders.find({}, {sort: {createAt: -1}});
+    },
+    'check_status': function(status) {
+        switch(status) {
+            case "Waiting Confirm":
+                return "info";
+            case "Confirmed":
+                return "success";
+            case "Canceled":
+                return "danger";
+            default:
+                return "";
+                break;
+        }
+    },
+    'OrderItem': function() {
+        var _items = [];
+        var _orderID = $('#order_detail').find('label').eq(1).html();
+        var _order = Orders.findOne({_id:_orderID});
+        if(_order != null) {
+            var i;
+            for(i in _order.products) {
+                console.log(_order.products[i]);
+                var _product = Products.findOne({_id:_order.products[i].id});
+                var _images = ProductImages.findOne({_id:_product.image});
+                var _icon = "";
+                var _quantity = _order.products[i].quantity;
+                var _weight =   _quantity * _product.weight;
+                var _price =    _quantity * _product.price;
+                if(_images != null) {
+                    _icon = _images.sub[_order.products[i].color];
+                }
+                _items.push({
+                    id:         _order.products[i].id,
+                    icon:       _icon,
+                    name:       _product.name,
+                    quantity:   _quantity,
+                    weight:     _weight,
+                    price:      _price
+                })
+            }
+        }
+        return _items;
+    },
+
+
+
+
+
+
     'GetProductList': function() {
         return Products.find();
     }
