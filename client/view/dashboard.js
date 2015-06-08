@@ -19,36 +19,39 @@ Template.Dashboard.rendered = function() {
 }
 
 var sidebar_events = {
-    SelectTab: function(tab_name) {
-        Dashboard_Log.Show("SelectTab", tab_name);
-        $('.container_item').hide();
-        switch(tab_name) {
-            case "Overview":
-                $('#Dashboard_Overview').show();
-                break;
-            case "Create Product":
-                $('#Dashboard_CreateProduct').show();
-                break;
-            case "Products List":
-                $('#Dashboard_ProductList').show();
-                break;
-            case "Product Detail":
-                $('#Dashboard_ProductDetail').show();
-                break;
-            case "Invitation Key List":
-                $('#Dashboard_InvitationKeyList').show();
-                break;
-            case "Orders List":
-                $('#Dashboard_OrderList').show();
-                break;
-            case "Order Detail":
-                $('#Dashboard_OrderDetail').show();
-                break;
-            default:
-                Dashboard_Log.Show("SelectTab", "Tab of '" + tab_name + "' have not set an events");
-                break;
-        }
-    }
+    //SelectTab: function(tab_name) {
+    //    Helpers.Log.Show("SelectTab", tab_name);
+    //    $('.container_item').hide();
+    //    switch(tab_name) {
+    //        case "Overview":
+    //            $('#Dashboard_Overview').show();
+    //            break;
+    //        case "Create Product":
+    //            $('#Dashboard_CreateProduct').show();
+    //            break;
+    //        case "Products List":
+    //            $('#Dashboard_ProductList').show();
+    //            break;
+    //        case "Product Detail":
+    //            $('#Dashboard_ProductDetail').show();
+    //            break;
+    //        case "Invitation Key List":
+    //            $('#Dashboard_InvitationKeyList').show();
+    //            break;
+    //        case "Orders List":
+    //            $('#Dashboard_OrderList').show();
+    //            break;
+    //        case "Order Detail":
+    //            $('#Dashboard_OrderDetail').show();
+    //            break;
+    //        case "Invitation Key List":
+    //            $('#invitation_key_list').show();
+    //            break;
+    //        default:
+    //            Dashboard_Log.Show("SelectTab", "Tab of '" + tab_name + "' have not set an events");
+    //            break;
+    //    }
+    //}
 }
 
 function CheckRemaining() {
@@ -121,6 +124,12 @@ Template.Dashboard.events({
                 break;
             case "Order List":
                 $('#order_list').show();
+                break;
+            case "Invitation Key List":
+                $('#invitation_key_list').show();
+                break;
+            case "Cashback List":
+                $('#cashback_list').show();
                 break;
             default :
                 break;
@@ -380,16 +389,149 @@ Template.Dashboard.events({
         $('#remain').html(_value);
     },
 
+    // Order Detail
+    'click .an-order': function() {
+        console.log("Click An Order");
+        $('#order_detail').find('label').eq(1).html(this._id);
+        $('#order_detail').find('label').eq(3).html(this.createAt);
+        $('#order_detail').find('label').eq(5).html(this.user);
+        $('#order_detail').find('label').eq(7).html(this.status);
+        $('#order_detail').find('label').eq(9).html(this.payment.payment_total);
+        $('#order_detail').find('label').eq(11).html(this.payment.cashback_use);
+        $('#order_detail').find('label').eq(13).html(this.payment.payment_final);
+        $('#order_detail').find('label').eq(15).html(this.payment.cashback_get);
+        $('#order_detail').find('label').eq(17).html(this.payment.payment_method);
+        $('#order_detail').find('label').eq(19).html(this.payment.shipping_method);
+        $('#order_detail').find('label').eq(21).html(this.payment.count);
+        $('#order_detail').find('label').eq(23).html(this.payment.weight);
+
+        $('#order_detail_address').find('label').eq(1).html(this.address.country);
+        $('#order_detail_address').find('label').eq(3).html(this.address.city);
+        $('#order_detail_address').find('label').eq(5).html(this.address.state);
+        $('#order_detail_address').find('label').eq(7).html(this.address.address);
+        $('#order_detail_address').find('label').eq(9).html(this.address.zipcode);
+        $('#order_detail_address').find('label').eq(11).html(this.address.phone);
+
+        var ProductListHTML = "";
+        var i;
+        for(i in this.products) {
+            var _product = Products.findOne({_id:this.products[i].id});
+            var _images = Helpers.Image.GetImageByID.Color(_product.image);
+            ProductListHTML += "" +
+                "<tr id='"+this.products[i].id+"' class='order-detail-a-product'>" +
+                "<td><img src='"+_images[this.products[i].color]+"' width='64px' height='64px'></td>" +
+                "<td><br>"+_product.name+"</td>" +
+                "<td><br>"+this.products[i].size+"</td>" +
+                "<td><br>"+this.products[i].color+"</td>" +
+                "<td><br>"+this.products[i].quantity+"</td>" +
+                "<td><br>"+(_product.weight * this.products[i].quantity)+" g</td>" +
+                "<td><br>"+(_product.price * this.products[i].quantity)+" HKD</td>" +
+                "</tr>";
+        }
+        $('#order_detail_product_list').html(ProductListHTML);
+
+        $('#order_list').hide();
+        $('#order_detail').show();
+    },
+    'click .btn-confirm-order': function() {
+
+        var _orderID = $('#order_detail').find('label').eq(1).html();
+        var _current_userid = $('#order_detail').find('label').eq(5).html();
+        var _current_user = Meteor.users.findOne({_id:_current_userid});
+
+        switch($('#order_detail').find('label').eq(7).html()) {
+            case "Waiting Confirm":
+                var Rates = Helpers.CashbackRate();
+                var _date = new Date();
+                var _method = "get";
+
+                var _cashback_add = parseFloat($('#order_detail').find('label').eq(15).html());
 
 
+                var _invitation_remain = _current_user.invitation;
+                if(_invitation_remain == null || _invitation_remain == "" || _invitation_remain == NaN) {
+                    _invitation_remain = 0;
+                }
+                var _payment_total =  parseFloat($('#order_detail').find('label').eq(9).html());
+                var _invitation_add = parseInt($('#order_detail').find('label').eq(21).html());
+                var _invitation_new = parseInt(_invitation_remain) + _invitation_add;
 
+                Cashbacks.insert({
+                    user: _current_userid,
+                    order: _orderID,
+                    method: _method,
+                    payment: 0,
+                    value: _cashback_add,
+                    date: _date
+                });
 
+                Meteor.users.update(_current_userid, {$set: {
+                    invitation: _invitation_new
+                }});
 
+                Orders.update(_orderID, {$set: {
+                    status: "Confirmed"
+                }});
+                $('#order_detail').find('label').eq(7).html("Confirmed");
 
-
-
-
-
+                var _count = 1;
+                do {
+                    var _user_invitation = Invitations.findOne({to:_current_user.emails[0].address, verified:true});
+                    if(_user_invitation != null) {
+                        var _user_invite_by = Meteor.users.findOne({_id:_user_invitation.fromid});
+                        if(_user_invite_by != null) {
+                            //var _user_invite_by_cashback = _user_invite_by.cashback;
+                            //var _user_invite_by_cashback_new = parseInt(_user_invite_by_cashback) + (_cashback_add / 4 * _cashback_count);
+                            //Meteor.users.update(_user_invite_by._id, {
+                            //    $set: {
+                            //        cashback: _user_invite_by_cashback_new
+                            //    }
+                            //});
+                            var _targetuserID = _user_invite_by._id;
+                            var _cashback_get = parseFloat(_payment_total * Rates[_count]);
+                            Cashbacks.insert({
+                                user: _targetuserID,
+                                order: _orderID,
+                                method: _method,
+                                payment: 0,
+                                value: _cashback_get,
+                                date: _date
+                            });
+                            _current_user = _user_invite_by;
+                        } else {
+                            _count = Rates.length;
+                            alert("An Error is found!");
+                            break;
+                        }
+                    } else {
+                        _count = Rates.length;
+                        break;
+                    }
+                    _count ++;
+                } while(_count < Rates.length);
+                alert("Confirmed Order Process is success");
+                break;
+            case "Confirmed":
+                alert("This Order is already Confirmed!");
+                break;
+            case "Cancel":
+                break;
+            default:
+                break;
+        }
+    },
+    'click .btn-cancel-order': function() {
+        var _orderID = $('#order_detail').find('label').eq(1).html();
+        Orders.update(_orderID, {$set: {
+            status: "Cancel"
+        }});
+        alert("Order is Canceled!");
+    },
+    'click .order-detail-a-product': function(e) {
+        var _host = location.host;
+        var _url = "/#" + e.currentTarget.id;
+        window.open(_url);
+    },
 
 
 
@@ -402,22 +544,22 @@ Template.Dashboard.events({
 
 
     // Go To Main Page
-    'click .btn_mainpage': function() {
-        location = "/";
-    },
-
-    // Logout
-    'click .btn_logout': function() {
-        Meteor.logout();
-        location = "/login";
-    },
+    //'click .btn_mainpage': function() {
+    //    location = "/";
+    //},
+    //
+    //// Logout
+    //'click .btn_logout': function() {
+    //    Meteor.logout();
+    //    location = "/login";
+    //},
 
     // Select Tab on sidebar
-    'click .sidebar_tab': function(e) {
-        $('.sidebar_tab').removeClass("active");
-        e.target.classList.add("active");
-        sidebar_events.SelectTab(e.target.innerText);
-    },
+    //'click .sidebar_tab': function(e) {
+    //    $('.sidebar_tab').removeClass("active");
+    //    e.target.classList.add("active");
+    //    sidebar_events.SelectTab(e.target.innerText);
+    //},
 
     // Check data is collect
     'change #input_price': function() {
@@ -1048,7 +1190,26 @@ Template.Dashboard.helpers({
         }
         return _items;
     },
-
+    'InvitationKeyList': function() {
+        return Invitations.find({},{sort:{createAt: -1}});
+    },
+    'check_verified': function(verified) {
+        if(verified) {
+            return "success";
+        } else {
+            return "warning";
+        }
+    },
+    'CashbackList': function() {
+        return Cashbacks.find({},{sort:{date: -1}});
+    },
+    'check_cashbackmethod': function(method) {
+        if(method == "get") {
+            return "success";
+        } else {
+            return "warning";
+        }
+    },
 
 
 

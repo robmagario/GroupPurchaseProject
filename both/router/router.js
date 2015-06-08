@@ -16,7 +16,7 @@ if (Meteor.isClient) {
     Router.route("login_hk", {path: "/hk/login", controller: "LoginController"});
     Router.route("login_br", {path: "/br/login", controller: "LoginController"});
 
-    Router.route("resigner_en", {path: "/resigner", controller: "ResignerController"});
+    Router.route("resigner_en", {path: "/en/resigner", controller: "ResignerController"});
     Router.route("resigner_jp", {path: "/jp/resigner", controller: "ResignerController"});
     Router.route("resigner_cn", {path: "/cn/resigner", controller: "ResignerController"});
     Router.route("resigner_hk", {path: "/hk/resigner", controller: "ResignerController"});
@@ -26,7 +26,9 @@ if (Meteor.isClient) {
     Router.route("order", {path: "/order", controller: "OrderController"});
     Router.route("logout", {path: "/logout", controller: "LogoutController"});
     Router.route("profile", {path: "/profile", controller: "ProfileController"});
+    Router.route("resigner", {path: "/resigner", controller: "ResignerController"});
     Router.route("purchase", {path: "/purchase", controller: "PurchaseController"});
+    Router.route("invitation", {path: "/invitation", controller: "InvitationController"});
     Router.route("create_order", {path: "/createorder", controller: "CreateOrderController"});
 
 

@@ -3,12 +3,14 @@
  */
 function InitializeData() {
     var _address = Helpers.User.Profile.Address();
-    $('#ConfirmAddress').find('input').eq(0).val(_address.country);
-    $('#ConfirmAddress').find('input').eq(1).val(_address.city);
-    $('#ConfirmAddress').find('input').eq(2).val(_address.state);
-    $('#ConfirmAddress').find('input').eq(3).val(_address.address);
-    $('#ConfirmAddress').find('input').eq(4).val(_address.zipcode);
-    $('#ConfirmAddress').find('input').eq(5).val(_address.phone);
+    if(_address != null) {
+        $('#ConfirmAddress').find('input').eq(0).val(_address.country);
+        $('#ConfirmAddress').find('input').eq(1).val(_address.city);
+        $('#ConfirmAddress').find('input').eq(2).val(_address.state);
+        $('#ConfirmAddress').find('input').eq(3).val(_address.address);
+        $('#ConfirmAddress').find('input').eq(4).val(_address.zipcode);
+        $('#ConfirmAddress').find('input').eq(5).val(_address.phone);
+    }
 }
 
 // Get the Value from a radio group.
@@ -190,11 +192,19 @@ Template.CreateOrderPage.events({
                 $('#ConfirmOrder').find('label').eq(9).html(_payment_method);
                 var _shipping_method = GetRadioValue('method_shipping');
                 $('#ConfirmOrder').find('label').eq(11).html(_shipping_method);
-                var _address = Helpers.User.Profile.Address();
                 var _quantity = Calculator.Quantity();
                 $('#ConfirmOrder').find('label').eq(13).html(_quantity);
                 var _weight = Calculator.Weight();
                 $('#ConfirmOrder').find('label').eq(15).html(_weight + " g");
+                //var _address = Helpers.User.Profile.Address();
+                var _address = [{
+                    country: $('#ConfirmAddress').find('input').eq(0).val(),
+                    city:    $('#ConfirmAddress').find('input').eq(1).val(),
+                    state:   $('#ConfirmAddress').find('input').eq(2).val(),
+                    address: $('#ConfirmAddress').find('input').eq(3).val(),
+                    zipcode: $('#ConfirmAddress').find('input').eq(4).val(),
+                    phone: $('#ConfirmAddress').find('input').eq(5).val()
+                }];
                 $('#ConfirmOrder').find('label').eq(17).html(_address.country);
                 $('#ConfirmOrder').find('label').eq(19).html(_address.city);
                 $('#ConfirmOrder').find('label').eq(21).html(_address.state);
@@ -285,6 +295,11 @@ Template.CreateOrderPage.events({
                             }
                         }
                     }
+
+                    Meteor.call('submit_buy_product',
+                        _products
+                    );
+
                     if(_cart_rest.length > 0) {
                         window.localStorage.setItem('CartItemValue', _cart_value_rest.toString());
                         window.localStorage.setItem('CartItemSelect', "");
@@ -308,30 +323,42 @@ Template.CreateOrderPage.events({
 Template.CreateOrderPage.helpers({
     'CartItem': function() {
         var _string = window.localStorage.getItem("CartItemValue");
-        if(_string != null && _string != "") {
+        var _select_string = window.localStorage.getItem("CartItemSelect");
+        if(_string != null && _string != "" && _select_string != null && _select_string != "") {
             var _array = _string.split(',');
+            var _select_array = _select_string.split(',');
             var items = [];
             var _column = 5;
             for(var i=0; i<_array.length; i+=_column) {
-                var _product = Products.findOne({_id:_array[i+1]});
-                if(_product != null) {
-                    var _images = ProductImages.findOne({_id:_product.image});
-                    var _icon = "";
-                    var _quantity = _array[i+4];
-                    var _weight =   _quantity * _product.weight;
-                    var _price =    _quantity * _product.price;
-                    if(_images != null) {
-                        _icon = _images.sub[_array[i+2]];
+                var _selected = false;
+                for(var j=0; j<_select_array.length; j++) {
+                    if(_select_array[j] == _array[i]) {
+                        _selected = true;
+                        break;
                     }
-                    items.push({
-                        id:         _array[i],
-                        icon:       _icon,
-                        name:       _product.name,
-                        quantity:   _quantity,
-                        weight:     _weight,
-                        price:      _price
-                    })
                 }
+                if(_selected) {
+                    var _product = Products.findOne({_id: _array[i + 1]});
+                    if (_product != null) {
+                        var _images = ProductImages.findOne({_id: _product.image});
+                        var _icon = "";
+                        var _quantity = _array[i + 4];
+                        var _weight = _quantity * _product.weight;
+                        var _price = _quantity * _product.price;
+                        if (_images != null) {
+                            _icon = _images.color[_array[i + 2]];
+                        }
+                        items.push({
+                            id: _array[i],
+                            icon: _icon,
+                            name: _product.name,
+                            quantity: _quantity,
+                            weight: _weight,
+                            price: _price
+                        })
+                    }
+                }
+                console.log(items);
             }
             return items;
         } else {

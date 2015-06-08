@@ -97,10 +97,6 @@ Meteor.methods({
 
     // Update Invitation Left
     invitation_use: function(_id, _left, _use) {
-        console.log("Teting");
-        console.log(_id);
-        console.log(_left);
-        console.log(_use);
         Meteor.users.update(_id, {$set:{
             invitation:     _left,
             invitation_use: _use
@@ -129,6 +125,11 @@ Meteor.methods({
     },
 
     cashback_handle: function(userid, orderid, method, payment, value) {
+        if(method == "buy") {
+            if(value > 0) {
+                value *= -1;
+            }
+        }
         var date = new Date();
         Cashbacks.insert({
             user:    userid,
@@ -138,6 +139,25 @@ Meteor.methods({
             value:   value,
             date:    date
         })
+    },
+
+    'submit_buy_product': function(products) {
+        var i;
+        for(i in products) {
+            console.log("Product Processing: " + i);
+            var _product = Products.findOne({_id:products[i].id});
+            var _remain = _product.remain;
+            var _index = parseInt(products[i].color) * _product.size.length + parseInt(products[i].size);
+            console.log(_index);
+            console.log(products[i].color);
+            console.log(products[i].size);
+            console.log(_product.size.length);
+            console.log(_remain[_index]);
+            console.log(products[i].quantity);
+            _remain[_index] = _remain[_index] - parseInt(products[i].quantity);
+            console.log(_remain[_index]);
+            Products.update(products[i].id, {$set:{remain:_remain}});
+        }
     }
 });
 

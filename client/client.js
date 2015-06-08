@@ -77,7 +77,7 @@ Helpers.User = {
     },
     CashBack: {
         Remain: function() {
-            var _cashbackdb = Cashbacks.find({user:Meteor.userId()}, {sort: {createdAt: -1}});
+            var _cashbackdb = Cashbacks.find({user:Meteor.userId()}, {sort: {date: -1}});
             if(_cashbackdb != null) {
                 var _cashbackremin = _cashbackdb.fetch();
                 var _remain = 0;
@@ -90,7 +90,7 @@ Helpers.User = {
             }
         },
         ListAll: function() {
-            return Cashbacks.find({user:Meteor.userId()}, {sort: {createdAt: -1}});
+            return Cashbacks.find({user:Meteor.userId()}, {sort: {date: -1}});
         }
     },
     IsAdmin: function() {

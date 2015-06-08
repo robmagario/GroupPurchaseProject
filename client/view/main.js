@@ -254,8 +254,13 @@ function CheckOrderColumn() {
         _result = false;
     }
 
-    var _quantity = $('#label_product_quantity').val();
-    if(_quantity == "" || _quantity == "0") {
+    var _quantity = $('#quantity').val();
+    if(_quantity == "" || _quantity == "0" || quantity == null) {
+        _result = false;
+    }
+
+    var _remain = $('#remain').html();
+    if(parseInt(_quantity) > parseInt(_remain)) {
         _result = false;
     }
     return _result;

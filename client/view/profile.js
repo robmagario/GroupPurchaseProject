@@ -5,15 +5,17 @@ function InitializeData() {
     $('#profile').find('label').eq(1).html(Helpers.User.Profile.Name());
     $('#profile').find('label').eq(3).html(Helpers.User.Profile.Email());
     $('#profile').find('label').eq(6).html(Helpers.User.Profile.CreateAt());
-    var _address = Helpers.User.Profile.Address();
-    $('#address').find('label').eq(1).html(_address.country);
-    $('#address').find('label').eq(3).html(_address.city);
-    $('#address').find('label').eq(5).html(_address.state);
-    $('#address').find('label').eq(7).html(_address.address);
-    $('#address').find('label').eq(9).html(_address.zipcode);
-    $('#address').find('label').eq(11).html(_address.phone);
     $('#invitation').find('label').eq(1).html(Helpers.User.Profile.Invite.Remain());
     $('#invitation').find('label').eq(3).html(Helpers.User.Profile.Invite.InviteBy());
+    var _address = Helpers.User.Profile.Address();
+    if(_address != null) {
+        $('#address').find('label').eq(1).html(_address.country);
+        $('#address').find('label').eq(3).html(_address.city);
+        $('#address').find('label').eq(5).html(_address.state);
+        $('#address').find('label').eq(7).html(_address.address);
+        $('#address').find('label').eq(9).html(_address.zipcode);
+        $('#address').find('label').eq(11).html(_address.phone);
+    }
 }
 
 Template.ProfilePage.rendered = function() {
@@ -104,8 +106,20 @@ Template.ProfilePage.events({
                 var _fromid = Meteor.userId();
                 var _text = $('#Invite').find('textarea').eq(0).val();
                 var _check = true;
+                var _error = "";
                 if(_to == "" || _to == null || _to.search('@') < 0 || _to.search('.') < 0) {
                     _check = false;
+                    _error = "Please fill the email column";
+                }
+
+                var _users = Meteor.users.find().fetch();
+                var uIndex;
+                for(uIndex in _users) {
+                    if(_users[uIndex].emails[0].address == _to) {
+                        _check = false;
+                        _error = "The invitees is already have an account."
+                        break;
+                    }
                 }
 
                 if(_check) {
@@ -122,7 +136,7 @@ Template.ProfilePage.events({
                     );
                     location = "/";
                 } else {
-                    alert("Please fill the email column");
+                    alert(_error);
                 }
                 break;
             case "BackProfile":

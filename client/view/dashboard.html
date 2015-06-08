@@ -8,6 +8,8 @@
             <li class="list-group-item">Create Product</li>
             <li class="list-group-item">Product List</li>
             <li class="list-group-item">Order List</li>
+            <li class="list-group-item">Invitation Key List</li>
+            <li class="list-group-item">Cashback List</li>
         </ul>
     </div>
     <div class="col-sm-10">
@@ -288,13 +290,31 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label col-sm-3">User ID:</label>
+                            <div class="col-sm-9">
+                                <label class="form-control"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">State:</label>
+                            <div class="col-sm-5">
+                                <label class="form-control"></label>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-success btn-confirm-order">Confirm</button>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-danger btn-cancel-order">Cancel</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label col-sm-3">Payment:</label>
                             <div class="col-sm-9">
                                 <label class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Cashback Remain:</label>
+                            <label class="control-label col-sm-3">Cashback Use:</label>
                             <div class="col-sm-9">
                                 <label class="form-control"></label>
                             </div>
@@ -333,12 +353,14 @@
                             <tr>
                                 <th width="80px"></th>
                                 <th>Name</th>
+                                <th>Size</th>
+                                <th>Color</th>
                                 <th>Quantity</th>
                                 <th>Weight</th>
                                 <th>Price</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="order_detail_product_list">
                             {{#each OrderItem}}
                                 <tr>
                                     <td><img src="{{icon}}" width="64px" height="64px"></td>
@@ -351,19 +373,21 @@
                             </tbody>
                         </table>
                         <div class="form-group">
-                            <label class="control-label col-sm-2">Total Quantity:</label>
-                            <div class="col-sm-10">
+                            <label class="control-label col-sm-4">Total Quantity:</label>
+                            <div class="col-sm-8">
                                 <label class="form-control"></label>
                             </div>
-                            <label class="control-label col-sm-2">Total Weight:</label>
-                            <div class="col-sm-10">
+                        </div>
+                        <div>
+                            <label class="control-label col-sm-4">Total Weight:</label>
+                            <div class="col-sm-8">
                                 <label class="form-control"></label>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Delivery Address</div>
-                <div class="panel-body">
+                <div class="panel-body" id="order_detail_address">
                     <div class="form-horizontal" role="form">
                         <div class="form-group">
                             <label class="control-label col-sm-2">{{_ "Profile_Country"}}:</label>
@@ -410,6 +434,62 @@
                 </div>
             </div>
         </div>
+        <div id="invitation_key_list" class="panel-group content_item" style="display:none;">
+            <div class="panel panel-info panel-width-80">
+                <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Invitation Key List</div>
+                <div class="panel-body" id="profile">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>Key</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Verified</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each InvitationKeyList}}
+                            <tr class="{{check_verified verified}}">
+                                <td>{{_id}}</td>
+                                <td>{{from}}</td>
+                                <td>{{to}}</td>
+                                <td>{{verified}}</td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="cashback_list" class="panel-group content_item" style="display:none;">
+            <div class="panel panel-info panel-width-80">
+                <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Cashback List</div>
+                <div class="panel-body" id="profile">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Order ID</th>
+                            <th>Method</th>
+                            <th>Payment</th>
+                            <th>Cashback</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each CashbackList}}
+                            <tr class="{{check_cashbackmethod method}}">
+                                <td>{{date}}</td>
+                                <td>{{order}}</td>
+                                <td>{{method}}</td>
+                                <td>{{payment}} HKD</td>
+                                <td>{{value}} HKD</td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -448,6 +528,13 @@
         <!--</div>-->
     <!--</div>-->
 </template>
+
+
+
+
+
+
+<!-- The following is not using -->
 
 <template name="Dashboard_Overview">
     <h1>Overview</h1>

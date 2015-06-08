@@ -18,10 +18,10 @@ Template.ResignerPage.rendered = function() {
 Template.ResignerPage.events({
     // Click Login Button
    'click .btn_resigner': function() {
-       var _name = $('#input_name').val();
-       var _email = $('#input_email').val();
-       var _password = $('#input_password').val();
-       var _key = $('#input_key').val();
+       var _name = $('#resign').find('input').eq(0).val();
+       var _email = $('#resign').find('input').eq(1).val();
+       var _password = $('#resign').find('input').eq(2).val();
+       var _key = $('#resign').find('input').eq(3).val();
        var _empty = false;
        var _error = "";
        if(_name == "" || _name == null) {

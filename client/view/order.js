@@ -2,18 +2,19 @@
  * Created by chinhong on 6/2/15.
  */
 function InitializeData() {
-    $('#profile').find('label').eq(1).html(Helpers.User.Profile.Name());
-    $('#profile').find('label').eq(3).html(Helpers.User.Profile.Email());
-    $('#profile').find('label').eq(6).html(Helpers.User.Profile.CreateAt());
-    var _address = Helpers.User.Profile.Address();
-    $('#address').find('label').eq(1).html(_address.country);
-    $('#address').find('label').eq(3).html(_address.city);
-    $('#address').find('label').eq(5).html(_address.state);
-    $('#address').find('label').eq(7).html(_address.address);
-    $('#address').find('label').eq(9).html(_address.zipcode);
-    $('#address').find('label').eq(11).html(_address.phone);
-    $('#invitation').find('label').eq(1).html(Helpers.User.Profile.Invite.Remain());
-    $('#invitation').find('label').eq(3).html(Helpers.User.Profile.Invite.InviteBy());
+    //$('#OrderList').find('label').eq(1).html();
+    //$('#profile').find('label').eq(1).html(Helpers.User.Profile.Name());
+    //$('#profile').find('label').eq(3).html(Helpers.User.Profile.Email());
+    //$('#profile').find('label').eq(6).html(Helpers.User.Profile.CreateAt());
+    //var _address = Helpers.User.Profile.Address();
+    //$('#address').find('label').eq(1).html(_address.country);
+    //$('#address').find('label').eq(3).html(_address.city);
+    //$('#address').find('label').eq(5).html(_address.state);
+    //$('#address').find('label').eq(7).html(_address.address);
+    //$('#address').find('label').eq(9).html(_address.zipcode);
+    //$('#address').find('label').eq(11).html(_address.phone);
+    //$('#invitation').find('label').eq(1).html(Helpers.User.Profile.Invite.Remain());
+    //$('#invitation').find('label').eq(3).html(Helpers.User.Profile.Invite.InviteBy());
 }
 
 Template.OrderPage.rendered = function() {
@@ -25,23 +26,42 @@ Template.OrderPage.events({
         var _action = e.target.value;
         Helpers.Log.Show("Button", _action + " in order.");
         switch(_action) {
+            case "Back":
+                $('#OrderList').show()
+                $('#OrderDetail').hide();
+                break;
             default :
                 Helpers.Log.Show("Button", _action + " is undefind in profile.");
                 break;
         }
     },
     'click .order': function() {
-        //$('#OrderList').hide()
+        $('#OrderList').hide()
         $('#OrderDetail').show();
         $('#OrderDetail').find('label').eq(1).html(this._id);
         $('#OrderDetail').find('label').eq(3).html(this.createAt);
+        $('#OrderDetail').find('label').eq(5).html(this.status);
+        $('#OrderDetail').find('label').eq(7).html(this.payment.payment_total);
+        $('#OrderDetail').find('label').eq(9).html(this.payment.cashback_remain);
+        $('#OrderDetail').find('label').eq(11).html(this.payment.payment_final);
+        $('#OrderDetail').find('label').eq(13).html(this.payment.cashback_get);
+        $('#OrderDetail').find('label').eq(15).html(this.payment.payment_method);
+        $('#OrderDetail').find('label').eq(17).html(this.payment.shipping_method);
+        $('#OrderDetail').find('label').eq(19).html(this.payment.count);
+        $('#OrderDetail').find('label').eq(21).html(this.payment.weight);
+        $('#OrderDetail').find('label').eq(23).html(this.address.country);
+        $('#OrderDetail').find('label').eq(25).html(this.address.city);
+        $('#OrderDetail').find('label').eq(27).html(this.address.state);
+        $('#OrderDetail').find('label').eq(29).html(this.address.address);
+        $('#OrderDetail').find('label').eq(31).html(this.address.zipcode);
+        $('#OrderDetail').find('label').eq(33).html(this.address.phone);
 
         var ProductListHTML = "";
         var x;
         for(x in this.products) {
             var _product = Products.findOne({_id:this.products[x].id});
             var _images = ProductImages.findOne({_id:_product.image});
-            var _icon = _images.sub[this.products[x].color];
+            var _icon = _images.color[this.products[x].color];
             var _quantity = this.products[x].quantity;
             var _weight =   _quantity * _product.weight;
             var _price =    _quantity * _product.price;
@@ -60,8 +80,11 @@ Template.OrderPage.events({
 });
 
 Template.OrderPage.helpers({
+    'CountOfWaiting': function() {
+        return Orders.find({user:Meteor.userId(), status:"Waiting Confirm"}).count();
+    },
     'OrderList': function() {
-        return Orders.find({user:Meteor.userId()}, {sort: {createAt: -1}});;
+        return Orders.find({user:Meteor.userId()}, {sort: {createAt: -1}});
     },
     'check_status': function(status) {
         switch(status) {

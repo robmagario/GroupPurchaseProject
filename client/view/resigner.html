@@ -1,29 +1,73 @@
 <template name="ResignerPage">
-    <div class="panel">
-        <div class="header">Resigner</div>
+    <div id="resign" class="panel-group">
         <br>
-        <div class="column">
-            <div>Username</div>
-            <input type="text" id="input_name">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="panel panel-info panel-width-60">
+            <div class="panel-heading">Resigner</div>
+            <div class="panel-body">
+                <div class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Username:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" placeholder="Your Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Email:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" placeholder="Your Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Password:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="password" placeholder="Your Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Invite Key:</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" placeholder="Invite Key ">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-5 col-sm-2">
+                            <button class="btn btn-default btn_resigner" value="Resign">Resign</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <br>
-        <div class="column">
-              <div>Email</div>
-              <input type="text" id="input_email">
-        </div>
-        <br>
-        <div class="column">
-              <div>Password</div>
-              <input type="password" id="input_password">
-        </div>
-        <br>
-        <div class="column">
-            <div>Invite Key</div>
-            <input type="text" id="input_key">
-        </div>
-        <br>
-        <button class="btn_resigner button-1-col">Resigner</button>
-        <br>
-        <br>
     </div>
+    <!--<div class="panel">-->
+        <!--<div class="header">Resigner</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Username</div>-->
+            <!--<input type="text" id="input_name">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+              <!--<div>Email</div>-->
+              <!--<input type="text" id="input_email">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+              <!--<div>Password</div>-->
+              <!--<input type="password" id="input_password">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Invite Key</div>-->
+            <!--<input type="text" id="input_key">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<button class="btn_resigner button-1-col">Resigner</button>-->
+        <!--<br>-->
+        <!--<br>-->
+    <!--</div>-->
 </template>
