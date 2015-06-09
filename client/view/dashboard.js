@@ -253,6 +253,24 @@ Template.Dashboard.events({
         var _weight = $('#product_weight').val();
         var _description = $('#product_description').val();
         var _empty = false;
+
+
+        var _country_type = [];
+        var _country_array = $('#create-product-country').find('input');
+        for(var i=0; i<_country_array.length; i++) {
+            var _show;
+            if(_country_array[i].checked) {
+                _show = "true";
+            } else {
+                _show = "false";
+            }
+            _country_type.push({
+                country: _country_array[i].value,
+                show_on: _show
+            })
+
+        }
+
         var _error = "";
         Dashboard_Log.Show("Name", _name);
         Dashboard_Log.Show("Price", _price + " HKD");
@@ -291,6 +309,7 @@ Template.Dashboard.events({
                 image:          _img_id,
                 size:           _selection_size,
                 remain:         _item_remain,
+                show_for:       _country_type,
                 publish:        false,
                 createAt:       _date
             });

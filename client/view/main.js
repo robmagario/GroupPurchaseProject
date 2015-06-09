@@ -316,6 +316,26 @@ Template.MainPage.events({
         location.reload();
     },
 
+    // Select Country
+    'click .select-show-country': function(e) {
+        console.log(e.currentTarget.value);
+        console.log(e.currentTarget.checked);
+        var a = $('.each-product').find('labela');
+        for(var i=0; i< a.length; i++) {
+            var _array = a[i].innerHTML.split(',');
+            var j;
+            for(j in _array) {
+                if(_array[j] == e.currentTarget.value) {
+                    if(e.currentTarget.checked) {
+                        $('.each-product').eq(i).show();
+                    } else {
+                        $('.each-product').eq(i).hide();
+                    }
+                }
+            }
+        }
+    },
+
     // Click to select the color
     'click .btn-select-a-color': function(e) {
         if(e.currentTarget.parentElement.children[0].style.display == 'block') {
@@ -898,6 +918,22 @@ var MainPage_Log = {
         }
     }
 }
+
+Template.FindProduct_MainPage.helpers({
+    'ListPublished': function() {
+        return Products.find({publish: true});
+    },
+    'ToShow': function(array) {
+        var _show = [];
+        var i;
+        for(i in array) {
+            if(array[i].show_on == "true") {
+                _show.push(array[i].country);
+            }
+        }
+        return _show;
+    }
+});
 
 Template.ProductInfo.helpers({
     'HashProduct': function() {

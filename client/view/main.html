@@ -389,8 +389,24 @@
     <br>
     <br>
     <br>
+    <div class="panel-group">
+        <div class="panel panel-info panel-width-60">
+            <div class="panel-heading">Select Country that want to show</div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="checkbox-inline"><input type="checkbox" class="select-show-country" checked value="Brazil">Brazil</label>
+                        <label class="checkbox-inline"><input type="checkbox" class="select-show-country" checked value="China">China</label>
+                        <label class="checkbox-inline"><input type="checkbox" class="select-show-country" checked value="Hong Kong">Hong Kong</label>
+                        <label class="checkbox-inline"><input type="checkbox" class="select-show-country" checked value="Japan">Japan</label>
+                        <label class="checkbox-inline"><input type="checkbox" class="select-show-country" checked value="Other">Other</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div style="display:flex; display:-webkit-flex; flex-wrap:wrap;">
-        {{#each Product.ListPublished}}
+        {{#each ListPublished}}
         <div class="panel-group panel-width-25 each-product">
             <div class="panel panel-info panel-width-80">
                 <div class="panel-heading">{{name}}</div>
@@ -405,6 +421,7 @@
                                 <label class="form-control">{{price}} HKD</label>
                             </div>
                         </div>
+                        <labela class="item-country-show" style="display:none">{{ToShow show_for}}</labela>
                     </div>
                 </div>
             </div>
