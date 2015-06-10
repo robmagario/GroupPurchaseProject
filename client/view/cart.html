@@ -4,25 +4,25 @@
         <br>
         <br>
         <div class="panel panel-info panel-width-80">
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Cart Information</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-shopping-cart"></span> {{_ "Cart_Header"}}</div>
             <div class="panel-body" id="profile">
                 <div class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="email">Cashback Remain:</label>
+                        <label class="control-label col-sm-3" for="email">{{_ "Cart_CashbackRemain"}}:</label>
                         <div class="col-sm-9">
-                            <label class="form-control">0</label>
+                            <label class="form-control">0 HKD</label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="email">Total Price of Selected Products:</label>
+                        <label class="control-label col-sm-3" for="email">{{_ "Cart_TotalPrice"}}:</label>
                         <div class="col-sm-9">
-                            <label class="form-control">0</label>
+                            <label class="form-control">0 HKD</label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="email">Total Weight of Selected Products:</label>
+                        <label class="control-label col-sm-3" for="email">{{_ "Cart_TotalWeight"}}:</label>
                         <div class="col-sm-9">
-                            <label class="form-control">0</label>
+                            <label class="form-control">0 g</label>
                         </div>
                     </div>
                 </div>
@@ -31,26 +31,28 @@
                     <tr>
                         <th width="10px"></th>
                         <th width="80px"></th>
-                        <th>Name</th>
-                        <th>Quantity</th>
-                        <th>Weight</th>
-                        <th>Price</th>
+                        <th>{{_ "Cart_ProductName"}}</th>
+                        <th>{{_ "Cart_Quantity"}}</th>
+                        <th>{{_ "Cart_Weight"}}</th>
+                        <th>{{_ "Cart_Price"}}</th>
+                        <th width="20px"></th>
                     </tr>
                     </thead>
                     <tbody>
                     {{#each CartItem}}
-                    <tr>
+                    <tr id="{{id}}">
                         <td><br><input class="select-item" type="checkbox" checked value="{{id}}"></td>
                         <td><img src="{{icon}}" width="64px" height="64px"></td>
                         <td><br>{{name}}</td>
                         <td><br>{{quantity}}</td>
                         <td><br>{{weight}} g</td>
                         <td><br>{{price}} HKD</td>
+                        <td><button class="btn btn-danger" value="RemoveProduct"><span class="glyphicon glyphicon-remove"></span></button></td>
                     </tr>
                     {{/each}}
                     <tr>
                         <td><input class="select-all" type="checkbox" checked></td>
-                        <td>All</td>
+                        <td>{{_ "Label_SelectAll"}}</td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -60,7 +62,7 @@
                 </table>
                 <div class="form-horizontal" role="form">
                     <div class="col-sm-offset-5 col-sm-2">
-                        <button class="btn btn-default" value="StartOrder">Start Order</button>
+                        <button class="btn btn-default" value="StartOrder"><span class="glyphicon glyphicon-shopping-cart"></span> {{_ "Btn_StartOrder"}}</button>
                     </div>
                 </div>
             </div>

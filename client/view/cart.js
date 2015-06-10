@@ -64,16 +64,46 @@ Template.CartPage.rendered = function() {
 
 Template.CartPage.events({
     'click .btn': function(e) {
-        var _action = e.target.value;
+        var _action = e.currentTarget.value;
         Helpers.Log.Show("Button", _action + " in cart.");
         switch(_action) {
             case "StartOrder":
                 var _string = window.localStorage.getItem("CartItemSelect");
                 if(_string != null && _string != "") {
-                    location = "/createorder"
+                    Helpers.System.LocateTo("/createorder");
                 } else {
                     alert('Please select at least an item');
                 }
+                break;
+            case "RemoveProduct":
+                console.log(this);
+                var _id = this.id;
+                var _CartItemSelects = window.localStorage.getItem("CartItemSelect");
+                var _CartItemValues = window.localStorage.getItem("CartItemValue");
+                var _array_select = _CartItemSelects.split(',');
+                var _array_value = _CartItemValues.split(',');
+
+                var _new_array_select = [];
+                var _new_array_value = [];
+                var i;
+                for(i in _array_select) {
+                    if(_array_select[i] != _id && _array_select[i] != "") {
+                        _new_array_select.push(_array_select[i]);
+                    }
+                }
+                var j;
+                for(j in _array_value) {
+                    if((j%5) == 0 && _array_value[j] != _id && _array_value[j] != "") {
+                        _new_array_value.push(_array_value[j]);
+                        _new_array_value.push(_array_value[j+1]);
+                        _new_array_value.push(_array_value[j+2]);
+                        _new_array_value.push(_array_value[j+3]);
+                        _new_array_value.push(_array_value[j+4]);
+                    }
+                }
+                window.localStorage.setItem("CartItemSelect", _new_array_select);
+                window.localStorage.setItem("CartItemValue", _new_array_value);
+                $('#'+_id).remove();
                 break;
             default :
                 Helpers.Log.Show("Button", _action + " is undefind in profile.");

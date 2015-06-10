@@ -11,37 +11,53 @@
         <div class="container-fluid">
             {{#if User.Logged.In}}
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">{{_ "WebsiteTitle"}}</a>
+                <a class="navbar-brand" onclick="Helpers.System.LocateTo('/home');">{{_ "WebsiteTitle"}}</a>
             </div>
             <div>
                 <ul class="nav navbar-nav">
-                    <li><a href="/cart">Cart</a></li>
-                    <li><a href="/order">Order</a></li>
-                    <li><a href="/purchase">Purchase</a></li>
+                    <li><a onclick="Helpers.System.LocateTo('/cart');"><span class="glyphicon glyphicon-shopping-cart"></span> {{_ "Navbar_Cart"}}</a></li>
+                    <li><a onclick="Helpers.System.LocateTo('/order');"><span class="glyphicon glyphicon-hdd"></span> {{_ "Navbar_Order"}}</a></li>
+                    <li><a onclick="Helpers.System.LocateTo('/purchase');"><span class="glyphicon glyphicon-credit-card"></span> {{_ "Navbar_Purchase"}}</a></li>
                     {{#if User.IsAdmin}}
-                        <li><a href="/dashboard">Dashboard</a></li>
+                        <li><a onclick="Helpers.System.LocateTo('/dashboard');"><span class="glyphicon glyphicon-dashboard"></span> {{_ "Navbar_Dashboard"}}</a></li>
                     {{/if}}
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-book"></span> {{_ "Language_Header"}}
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a onclick="Helpers.System.SelectLanguage('en')">{{_ "Language_en"}}</a></li>
+                            <li><a onclick="Helpers.System.SelectLanguage('jp')">{{_ "Language_jp"}}</a></li>
+                            <li><a onclick="Helpers.System.SelectLanguage('br')">{{_ "Language_br"}}</a></li>
+                            <li><a onclick="Helpers.System.SelectLanguage('hk')">{{_ "Language_hk"}}</a></li>
+                            <li><a onclick="Helpers.System.SelectLanguage('cn')">{{_ "Language_cn"}}</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <!--<li class="dropdown">-->
-                        <!--<a class="dropdown-toggle" data-toggle="dropdown" href="#">Language-->
-                            <!--<span class="caret"></span></a>-->
-                        <!--<ul class="dropdown-menu">-->
-                            <!--<li><a href="#">Page 1-1</a></li>-->
-                            <!--<li><a href="#">Page 1-2</a></li>-->
-                            <!--<li><a href="#">Page 1-3</a></li>-->
-                        <!--</ul>-->
-                    <!--</li>-->
-                    {{#if User.Logged.In}}
-                        <li><a href="/invitation">Invitation List</a></li>
-                        <li><a href="/profile"><span class="glyphicon glyphicon-user"></span> {{_ "Navbar_Profile"}}</a></li>
-                        <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> {{_ "Navbar_Logout"}}</a></li>
-                    {{/if}}
-                    {{#if User.Logged.Out}}
-                        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> {{_ "Navbar_Login"}}</a></li>
-                    {{/if}}
+                    <li><a href="/invitation"><span class="glyphicon glyphicon-list"></span> Invitation List</a></li>
+                    <li><a onclick="Helpers.System.LocateTo('/profile');"><span class="glyphicon glyphicon-user"></span> {{_ "Navbar_Profile"}}</a></li>
+                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> {{_ "Navbar_Logout"}}</a></li>
                 </ul>
             </div>
+            {{/if}}
+            {{#if User.Logged.Out}}
+                <div class="navbar-header">
+                    <a class="navbar-brand" onclick="Helpers.Reload();">{{_ "WebsiteTitle"}}</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a onclick="Helpers.System.LocateTo('/');"><span class="glyphicon glyphicon-question-sign"></span> {{_ "Navbar_HowItWorks"}}</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-book"></span> {{_ "Language_Header"}}
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a onclick="Helpers.System.SelectLanguage('en')">{{_ "Language_en"}}</a></li>
+                            <li><a onclick="Helpers.System.SelectLanguage('jp')">{{_ "Language_jp"}}</a></li>
+                            <li><a onclick="Helpers.System.SelectLanguage('br')">{{_ "Language_br"}}</a></li>
+                            <li><a onclick="Helpers.System.SelectLanguage('hk')">{{_ "Language_hk"}}</a></li>
+                            <li><a onclick="Helpers.System.SelectLanguage('cn')">{{_ "Language_cn"}}</a></li>
+                        </ul>
+                    </li>
+                </ul>
             {{/if}}
         </div>
     </nav>

@@ -4,72 +4,72 @@
         <br>
         <br>
         <div class="panel panel-info panel-width-60">
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>{{_ "Profile_Title"}}</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span> {{_ "Profile_Header"}}</div>
             <div class="panel-body" id="profile">
                 <div class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="email">Username:</label>
+                        <label class="control-label col-sm-2">{{_ "Profile_Username"}}:</label>
                         <div class="col-sm-10">
-                            <label class="form-control"></label>
+                            <label class="form-control">{{Username}}</label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="email">Email:</label>
+                        <label class="control-label col-sm-2">{{_ "Profile_Email"}}:</label>
                         <div class="col-sm-10">
-                            <label class="form-control"></label>
+                            <label class="form-control">{{Email}}</label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="email">Password:</label>
+                        <label class="control-label col-sm-2">{{_ "Profile_Password"}}:</label>
                         <div class="col-sm-10">
-                            <button class="btn btn-default" value="ResetPW">{{_ "Btn_Reset"}}</button>
+                            <button class="btn btn-default" value="ResetPW"><span class="glyphicon glyphicon-edit"></span> {{_ "Btn_Reset"}}</button>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="email">Create Date:</label>
+                        <label class="control-label col-sm-2">{{_ "Profile_CreateDate"}}:</label>
                         <div class="col-sm-10">
-                            <label class="form-control"></label>
+                            <label class="form-control">{{CreateAt}}</label>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Address Information</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-home"></span> {{_ "Address_Header"}}</div>
             <div class="panel-body" id="address">
                 <div class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_Country"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_Country"}}:</label>
                         <div class="col-sm-10">
-                            <label class="form-control"></label>
+                            <label class="form-control">{{Country}}</label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_City"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_City"}}:</label>
                         <div class="col-sm-10">
-                            <label class="form-control"></label>
+                            <label class="form-control">{{City}}</label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_State"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_State"}}:</label>
                         <div class="col-sm-10">
-                            <label class="form-control"></label>
+                            <label class="form-control">{{State}}</label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_Address"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_Address"}}:</label>
                         <div class="col-sm-10">
-                            <label class="form-control"></label>
+                            <label class="form-control">{{Address}}</label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_Zipcode"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_Zipcode"}}:</label>
                         <div class="col-sm-10">
-                            <label class="form-control"></label>
+                            <label class="form-control">{{Zipcode}}</label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_Phone"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_Phone"}}:</label>
                         <div class="col-sm-10">
-                            <label class="form-control"></label>
+                            <label class="form-control">{{Phone}}</label>
                         </div>
                     </div>
                     <div class="form-group">
@@ -79,24 +79,24 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>{{_ "Profile_Invitation"}}</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-tags"></span> {{_ "Invite_Header"}}</div>
             <div class="panel-body" id="invitation">
                 <div class="form-horizontal" role="form">
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="email">{{_ "Invite_Remain"}}:</label>
                         <div class="col-sm-10">
-                            <label class="form-control"></label>
+                            <label class="form-control">{{Remain}}</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button class="btn btn-default" value="WriteInvite">{{_ "Btn_Invite"}}</button>
+                            <button class="btn btn-default" value="WriteInvite"><span class="glyphicon glyphicon-tag"></span> {{_ "Btn_Invite"}}</button>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="email">{{_ "Invite_By"}}:</label>
                         <div class="col-sm-10">
-                            <label class="form-control"></label>
+                            <label class="form-control">{{InviteBy}}</label>
                         </div>
                     </div>
                 </div>
@@ -107,8 +107,14 @@
         <br>
         <br>
         <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
         <div class="panel panel-info panel-width-60">
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>{{_ "ResetPW_Title"}}</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-edit"></span> {{_ "ResetPW_Header"}}</div>
             <div class="panel-body">
                 <div class="form-horizontal" role="form">
                     <div class="form-group">
@@ -146,7 +152,7 @@
         <br>
         <br>
         <div class="panel panel-info panel-width-60">
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>{{_ "Profile_EditAddress"}}</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-home"></span> {{_ "Address_Edit"}}</div>
             <div class="panel-body">
                 <div class="form-horizontal" role="form">
                     <div class="form-group">
@@ -202,7 +208,7 @@
         <br>
         <br>
         <div class="panel panel-info panel-width-60">
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>{{_ "Invite_Title"}}</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-tag"></span>{{_ "Invite_Title"}}</div>
             <div class="panel-body">
                 <div class="form-horizontal" role="form">
                     <div class="form-group">
@@ -219,10 +225,10 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-4">
-                            <button class="btn btn-default" value="SendInvite">{{_ "Btn_Invite"}}</button>
+                            <button class="btn btn-default" value="SendInvite"><span class="glyphicon glyphicon-send"></span> {{_ "Btn_Invite"}}</button>
                         </div>
                         <div class="col-sm-offset-2 col-sm-2">
-                            <button class="btn btn-default" value="BackProfile">{{_ "Btn_Back"}}</button>
+                            <button class="btn btn-default" value="BackProfile"><span class="glyphicon glyphicon-backward"></span> {{_ "Btn_Back"}}</button>
                         </div>
                     </div>
                 </div>

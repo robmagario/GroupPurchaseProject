@@ -33,33 +33,24 @@ function GetRadioValue(header) {
 }
 
 Template.MainPage.rendered = function() {
-    // Turn to Login Page if haven't login
-    var _id = Meteor.userId();
-    if(_id == null) {
-        LocatToLogin();
-    } else {
-        var _cart_item = window.localStorage.getItem("CartItemValue");
-        var _cart_select = window.localStorage.getItem("CartItemSelect");
-        if(_cart_item == null) {
-            window.localStorage.setItem('CartItemValue','');
-        }if(_cart_select == null) {
-            window.localStorage.setItem('CartItemSelect','');
-        }
-        window.setTimeout(function() {
-            var _location = location.hash;
-            if(_location == "") {
-                tab_events.SelectTab("Find Products");
+    var _cart_item = window.localStorage.getItem("CartItemValue");
+    var _cart_select = window.localStorage.getItem("CartItemSelect");
+    if(_cart_item == null) { window.localStorage.setItem('CartItemValue',''); }
+    if(_cart_select == null) { window.localStorage.setItem('CartItemSelect',''); }
+    window.setTimeout(function() {
+        var _location = location.hash;
+        if(_location == "") {
+            tab_events.SelectTab("Find Products");
+        } else {
+            _location = _location.replace("#", "");
+            var _count = Products.find({_id: _location}).count();
+            if (_count > 0) {
+                InitializeProductInfo(_location);
             } else {
-                _location = _location.replace("#", "");
-                var _count = Products.find({_id: _location}).count();
-                if (_count > 0) {
-                    InitializeProductInfo(_location);
-                } else {
-                    Helpers.Log.Show("Products", "No This Products by " + _location);
-                }
+                Helpers.Log.Show("Products", "No This Products by " + _location);
             }
-        }, 1000);
-    }
+        }
+    }, 1000);
 }
 
 var tab_events = {
@@ -71,44 +62,6 @@ var tab_events = {
         $('.sidebar_subhead').hide();
         $('.sidebar_tab').removeClass("active");
         switch(tab_name) {
-            //case "Profile":
-            //    $('#MainPage_Profile').show();
-            //    $('#Profile_Overview').show();
-            //    break;
-            //case "ResetPassword":
-            //    $('#MainPage_Profile').show();
-            //    $('#Profile_ResetPassword').show();
-            //    break;
-            //case "SetAddress":
-            //    $('#MainPage_Profile').show();
-            //    $('#Profile_DefaultAddress').show();
-            //    var _temp = Meteor.user().profile;
-            //    $('#label_country').html(_temp.country);
-            //    $('#label_city').html(_temp.city);
-            //    $('#label_address').html(_temp.address);
-            //    $('#label_phone').html(_temp.phone);
-            //    $('#label_zipcode').html(_temp.zipcode);
-            //    break;
-            //case "ChangeAddress":
-            //    $('#MainPage_Profile').show();
-            //    $('#Profile_ChangeAddress').show();
-            //    var _temp = Meteor.user().profile;
-            //    $('#input_country').val(_temp.country);
-            //    $('#input_city').val(_temp.city);
-            //    $('#input_address').val(_temp.address);
-            //    $('#input_phone').val(_temp.phone);
-            //    $('#input_zipcode').val(_temp.zipcode);
-            //    break;
-            //case "Invitation":
-            //    $('#MainPage_Profile').show();
-            //    $('#Profile_SendInvite').show();
-            //    break;
-            //case "Overview":
-            //    $('#MainPage_Overview').show();
-            //    break;
-            //case "Order Detail":
-            //    $('#MainPage_OrderDetail').show();
-            //    break;
             case "Find Products":
                 $('#MainPage_FindProducts').show();
                 $('#FindProducts_Tab').show();
@@ -119,101 +72,6 @@ var tab_events = {
                 $('#FindProducts_Tab').show();
                 $('#ProductInfo').show();
                 break;
-            //case "Start Order":
-            //    $('#MainPage_FindProducts').show();
-            //    $('#FindProducts_Order_Step1').show();
-            //
-            //    // Fill Column
-            //    var _ids = window.localStorage.getItem('CartItem_selected').split(',');
-            //    var _count = 0;
-            //    var _weight = 0;
-            //    var _price = 0;
-            //    var _cashback = 0;
-            //    for(var i=0; i< _ids.length; i++) {
-            //        if(_ids[i] != "") {
-            //            _weight += Helpers.Product.GetProductByCartID.Weight(_ids[i]);
-            //            _price += Helpers.Product.GetProductByCartID.Price(_ids[i]);
-            //            _cashback += parseInt(Helpers.Product.GetProductByCartID.Price(_ids[i]) * 0.04);
-            //            _count += Helpers.Product.GetProductByCartID.Quantity(_ids[i]);
-            //        }
-            //    }
-            //    var _remain = Helpers.User.CashBackStatus.UserTotalRemain();
-            //    var _cashback_use = Helpers.Product.CalculateCashbackByUseCashback(_price, _remain);
-            //    var _price_new = Helpers.Product.CalculatePriceByUseCashback(_price, _remain);
-            //    $('#step1_label_cart').html(_count);
-            //    $('#step1_label_weight').html(_weight + " g");
-            //    $('#step1_label_payment').html(_price_new + " HKD");
-            //    $('#step1_label_cashback').html(_cashback + " HKD");
-            //    $('#step1_label_cashback_use').html(_cashback_use + " HKD");
-            //    break;
-            //case "Start Order Step2":
-            //    $('#MainPage_FindProducts').show();
-            //    $('#FindProducts_Order_Step2').show();
-            //    var _temp = Meteor.user().profile;
-            //    $('#step2_label_country').val(_temp.country);
-            //    $('#step2_label_city').val(_temp.city);
-            //    $('#step2_label_address').val(_temp.address);
-            //    $('#step2_label_phone').val(_temp.phone);
-            //    $('#step2_label_zipcode').val(_temp.zipcode);
-            //    break;
-            //case "Start Order Step3":
-            //    $('#MainPage_FindProducts').show();
-            //    $('#FindProducts_Order_Step3').show();
-            //
-            //    // Fill column
-            //    $('#step3_label_payment').html($('#step1_label_payment').html());
-            //    break;
-            //case "Start Order Step4":
-            //    $('#MainPage_FindProducts').show();
-            //    $('#FindProducts_Order_Step4').show();
-            //
-            //    // Fill Payment Column
-            //    var _products = Helpers.Product.GetProductListInCart();
-            //    var _count = 0;
-            //    for(var i=0; i<_products.length; i++) {
-            //        if(_products[i] != "" && _products[i] != null) {
-            //            _count++;
-            //        }
-            //    }
-            //    $('#step4_label_total').html($('#step3_label_payment').html());
-            //    $('#step4_label_cashback').html($('#step1_label_cashback').html());
-            //    $('#step4_label_cashback_use').html($('#step1_label_cashback_use').html());
-            //    $('#step4_label_count').html(_count);
-            //    $('#step4_label_weight').html($('#step1_label_weight').html());
-            //    $('#step4_label_payment_method').html(GetRadioValue("payment"));
-            //    $('#step4_label_shipping_method').html(GetRadioValue("shipping"));
-            //
-            //    // Fill Address Column
-            //    $('#step4_label_country').html($('#step2_label_country').val());
-            //    $('#step4_label_city').html($('#step2_label_city').val());
-            //    $('#step4_label_address').html($('#step2_label_address').val());
-            //    $('#step4_label_phone').html($('#step2_label_phone').val());
-            //    $('#step4_label_zipcode').html($('#step2_label_zipcode').val());
-            //
-            //    // Fill the Product List
-            //    var SelectedProductHTML = "";
-            //    var _selected_products = Helpers.Product.GetProductListInSelected();
-            //    for(var i=0; i<_selected_products.length; i++) {
-            //        SelectedProductHTML += "<div class='product-col' style='width:80%; margin-left:auto; margin-right:auto;'>" +
-            //                                    "<img width='64px' src='"+Helpers.Product.GetProductByCartID.Image(_selected_products[i])+"'>" +
-            //                                    "<div class='product-col-detail'>" +
-            //                                        "<div class='product-col-header'>"+Helpers.Product.GetProductByCartID.Name(_selected_products[i])+"</div>" +
-            //                                        "<div class='product-col-info'>" +
-            //                                            "<div class='product-col-info-price'>"+Helpers.Product.GetProductByCartID.Price(_selected_products[i])+" HKD</div>" +
-            //                                            "<div class='product-col-info-weight'>"+Helpers.Product.GetProductByCartID.Weight(_selected_products[i])+" g</div>" +
-            //                                            "<div class='product-col-info-quantity'>Quantity: "+Helpers.Product.GetProductByCartID.Quantity(_selected_products[i])+"</div>" +
-            //                                        "</div>" +
-            //                                    "</div>" +
-            //                                    "<br>" +
-            //                                "</div>";
-            //    }
-            //    $('#step4_selected_products').html(SelectedProductHTML);
-            //
-            //    break;
-            //case "Submit Order":
-            //    $('#MainPage_Overview').show();
-            //    alert("Order is sent");
-            //    break;
             case "Check Cart":
                 $('#MainPage_FindProducts').show();
                 $('#FindProducts_Cart').show();
@@ -302,7 +160,6 @@ function AddProductToCart(loc) {
             }
         }
     }
-    //window.localStorage.setItem('CartItem', _newtemp.toString());
     window.localStorage.setItem('CartItemSelect', _randomID.toString());
     window.localStorage.setItem('CartItemValue', _newtemp.toString());
 
@@ -312,26 +169,32 @@ function AddProductToCart(loc) {
 Template.MainPage.events({
     // Click in a Product
     'click .each-product': function() {
-        location = '/#' + this._id;
+        Helpers.System.LocateTo('/home#' + this._id);
         location.reload();
     },
 
     // Select Country
     'click .select-show-country': function(e) {
-        console.log(e.currentTarget.value);
-        console.log(e.currentTarget.checked);
-        var a = $('.each-product').find('labela');
-        for(var i=0; i< a.length; i++) {
-            var _array = a[i].innerHTML.split(',');
-            var j;
-            for(j in _array) {
-                if(_array[j] == e.currentTarget.value) {
-                    if(e.currentTarget.checked) {
-                        $('.each-product').eq(i).show();
-                    } else {
-                        $('.each-product').eq(i).hide();
+        var _boxes = $('.select-show-country');
+        var _items = $('.each-product').find('labela');
+        for(var i=0; i< _items.length; i++) {
+            var _item_values = _items[i].innerHTML.split(',');
+            var _item_index;
+            var _should_show = false;
+            for(_item_index in _item_values) {
+                for(var j=0; j<_boxes.length; j++) {
+                    if(_boxes[j].checked) {
+                        if(_boxes[j].value == _item_values[_item_index]) {
+                            _should_show = true;
+                            break;
+                        }
                     }
                 }
+            }
+            if(_should_show) {
+                $('.each-product').eq(i).show();
+            } else {
+                $('.each-product').eq(i).hide();
             }
         }
     },
@@ -415,201 +278,12 @@ Template.MainPage.events({
         }
     },
 
-    // Click Logout Button
-    //'click .btn_logout': function() {
-    //    Meteor.logout(function() {
-    //        LocatToLogin();
-    //    });
-    //},
-    //
-    //// Click Profile Button
-    //'click .btn_profile': function() {
-    //    tab_events.SelectTab("Profile");
-    //    $('#label_username').html(Helpers.User.Name());
-    //    $('#label_useremail').html(Helpers.User.Email());
-    //    $('#label_invitation').html(Helpers.User.Invitation());
-    //    $('#label_invite_by').html(Helpers.User.InviteBy());
-    //    $('#label_create').html(Helpers.User.CreateAt());
-    //},
-    //
-    //// Click Dashboard Button
-    //'click .btn_dashboard': function() {
-    //    location = "/dashboard";
-    //},
-
-    // Click Reset Button from Profile
-    //'click .btn_reset_password': function() {
-    //    tab_events.SelectTab("ResetPassword");
-    //},
-    //
-    //// Click to Set Address
-    //'click .btn_address_set': function() {
-    //    tab_events.SelectTab("SetAddress");
-    //},
-    //
-    //// Click 'Change' in Address
-    //'click .btn_address_change': function() {
-    //    tab_events.SelectTab("ChangeAddress");
-    //},
-    //
-    //// Click 'Back' in Address
-    //'click .btn_address_back': function() {
-    //    tab_events.SelectTab("Profile");
-    //},
-
-    // Click 'Change' in Changing Address
-    //'click .btn_address_change_submit': function() {
-    //    tab_events.SelectTab("SetAddress");
-    //    var _country = $('#input_country').val();
-    //    var _city = $('#input_city').val();
-    //    var _address = $('#input_address').val();
-    //    var _phone = $('#input_phone').val();
-    //    var _zipcode = $('#input_zipcode').val();
-    //    Users.update('QoGdZ46BzbRtKz4JA', {$set:{profile:{
-    //        country: _country,
-    //        city: _city,
-    //        address: _address,
-    //        phone: _phone,
-    //        zipcode: _zipcode
-    //    }}})
-    //},
-    //
-    //// Click 'Back' in Changing Address
-    //'click .btn_address_change_back': function() {
-    //    tab_events.SelectTab("SetAddress");
-    //},
-
-    // Click Invite Button from Profile
-    //'click .btn_invite': function() {
-    //    var _count = parseInt($('#label_invitation').html());
-    //    if(_count > 0) {
-    //        tab_events.SelectTab("Invitation");
-    //    } else {
-    //        alert('You haven not enough invite letter.\n' +
-    //            "You can buy something to increase it.");
-    //    }
-    //},
-    //
-    //// Click Reset Button form Reset Password
-    //'click .btn_reset_password_submit': function() {
-    //    var _pw_old = $('#input_reset_origin').val();
-    //    var _pw_new = $('#input_reset_new').val();
-    //    var _pw_con = $('#input_reset_confirm').val();
-    //    if(_pw_new != _pw_con) {
-    //        Helpers.ErrorMessage.ConfirmPW();
-    //    } else {
-    //        Accounts.changePassword(_pw_old,_pw_new,function(err){
-    //            if (err) {
-    //                alert(err.reason);
-    //                return false;
-    //            } else {
-    //                Meteor.logout(function() {
-    //                    alert('Password have Reset');
-    //                    location = "/login";
-    //                });
-    //            }
-    //        });
-    //    }
-    //},
-
-    // Click Back Button from Reset Password
-    //'click .btn_reset_password_back': function() {
-    //    tab_events.SelectTab("Profile");
-    //},
-    //
-    //// Click Invite Button from Invitation
-    //'click .btn_invite_send': function() {
-    //    var _to = $('#input_invitees_email').val();
-    //    var _from = Helpers.User.Email();
-    //    var _fromid = Meteor.userId();
-    //    var _text = $('#input_invite_message').val();
-    //    var _check = true;
-    //    if(_to == "" || _to == null || _to.search('@') < 0 || _to.search('.') < 0) {
-    //        _check = false;
-    //    }
-    //
-    //    var _invitation_left = parseInt(Meteor.user().invitation) - 1;
-    //    var _invitation_use = parseInt(Meteor.user().invitation_use) + 1;
-    //    if(_check) {
-    //        Meteor.call(
-    //            'invitation_use',
-    //            Meteor.userId(), _invitation_left, _invitation_use
-    //        )
-    //        Meteor.call(
-    //            'invitation_insert',
-    //            _to, _from, _fromid, _text
-    //        );
-    //        location.hash = "";
-    //        location.reload();
-    //    } else {
-    //        alert("Send fail");
-    //    }
-    //},
-
-    // Click Sidebar Tab
-    //'click .sidebar_tab': function(e) {
-    //    tab_events.SelectTab(e.target.innerText);
-    //    $('.sidebar_tab').removeClass("active");
-    //    e.target.classList.add("active");
-    //},
-
-    // Click to see an order information
-    //'click .user-order-each': function() {
-    //    tab_events.SelectTab("Order Detail");
-    //
-    //    // Fill Column for Order Information
-    //
-    //    $('#label_detail_orderid').html(this._id);
-    //    $('#label_detail_username').html(Meteor.users.find({_id:this.user}).fetch()[0].username);
-    //    $('#label_detail_status').html(this.status);
-    //    $('#label_detail_payment').html(this.payment.payment);
-    //    $('#label_detail_cashback').html(this.payment.cashback);
-    //    $('#label_detail_count').html(this.payment.count);
-    //    $('#label_detail_weight').html(this.payment.weight);
-    //    $('#label_detail_payment_method').html(this.payment.payment_method);
-    //    $('#label_detail_shipping_method').html(this.payment.shipping_method);
-    //    $('#label_detail_country').html(this.address.country);
-    //    $('#label_detail_city').html(this.address.city);
-    //    $('#label_detail_address').html(this.address.address);
-    //    $('#label_detail_phone').html(this.address.phone);
-    //    $('#label_detail_zipcode').html(this.address.zipcode);
-    //
-    //    var ProductListHTML = "";
-    //    var _productIDs = this.products;
-    //    for(var i=0; i<_productIDs.length; i++) {
-    //        var _product_name = Helpers.Product.GetProductByID.Name(_productIDs[i]);
-    //        var _product_price = Helpers.Product.GetProductByID.Price(_productIDs[i]);
-    //        var _product_weight = Helpers.Product.GetProductByID.Weight(_productIDs[i]);
-    //
-    //        ProductListHTML +=
-    //            "<div class='product-col to-see-product' value='"+_productIDs[i]+"'>" +
-    //            "<img width='64px' src='"+Helpers.Product.GetProductByID.Image(_productIDs[i])+"'>" +
-    //            "<div class='product-col-detail'>" +
-    //            "<div class='product-col-header'>" + _product_name + "</div>" +
-    //            "<div class='product-col-info'>" +
-    //            "<div class='product-col-info-price'>" + _product_price + " HKD</div>" +
-    //            "<div class='product-col-info-weight'>" + _product_weight + " g</div>" +
-    //            "</div>" +
-    //            "</div>" +
-    //            "<br>" +
-    //            "</div>";
-    //    }
-    //
-    //    $('#Order_detail_ProductList').html(ProductListHTML);
-    //},
-
     // Click to see the product
     'click .to-see-product': function(e) {
         location = '/#' + e.currentTarget.attributes.value.value;
         location.reload();
-
-        //location.reload();
     },
 
-    // Click 'Back' in Order Detail
-    //'click .btn_order_detail_back': function() {
-    //    tab_events.SelectTab("Overview");
-    //},
 
 
 
@@ -728,135 +402,6 @@ Template.MainPage.events({
         location.hash = '#STARTORDER';
         location.reload();
     }
-
-    // Click 'Next Step' in Order
-    //'click .btn-step1-next': function() {
-    //    if(window.localStorage.getItem('CartItem_selected') == "" || window.localStorage.getItem('CartItem_selected') == null) {
-    //        Helpers.ErrorMessage.NoItemSelected();
-    //    } else {
-    //        tab_events.SelectTab('Start Order Step2');
-    //    }
-    //},
-    //
-    //// Click 'Previous Step' in Step2
-    //'click .btn-step2-previous': function() {
-    //    tab_events.SelectTab('Start Order');
-    //},
-    //
-    //// Click 'Next Step' in Step2
-    //'click .btn-step2-next': function() {
-    //    var _temp1 = $('#step2_label_country').val();
-    //    var _temp2 = $('#step2_label_city').val();
-    //    var _temp3 = $('#step2_label_address').val();
-    //    var _temp4 = $('#step2_label_phone').val();
-    //    var _temp5 = $('#step2_label_zipcode').val();
-    //    if(_temp1 == "" ||
-    //        _temp2 == "" ||
-    //        _temp3 == "" ||
-    //        _temp4 == "" ||
-    //        _temp5 == "") {
-    //        Helpers.ErrorMessage.BlankColumn();
-    //    } else {
-    //        tab_events.SelectTab('Start Order Step3');
-    //    }
-    //},
-    //
-    //// Click 'Previous Step' in Step3
-    //'click .btn-step3-previous': function() {
-    //    tab_events.SelectTab('Start Order Step2');
-    //},
-    //
-    //// Click 'Next Step' in Step3
-    //'click .btn-step3-next': function() {
-    //    tab_events.SelectTab('Start Order Step4');
-    //},
-    //
-    //// Click 'Previous Step' in Step4
-    //'click .btn-step4-previous': function() {
-    //    tab_events.SelectTab('Start Order Step3');
-    //},
-    //
-    //// Click 'Create Order' in Step4
-    //'click .btn-step4-next': function() {
-    //    var _userID =   Meteor.userId();
-    //    var _cart_products = window.localStorage.getItem('CartItem_selected').split(',');
-    //    var _products = [];
-    //    for(var i=0; i<_cart_products.length; i++) {
-    //        _products.push(Helpers.Product.GetProductByCartID.ID(_cart_products[i]));
-    //    }
-    //
-    //    var _payment =  $('#step4_label_total').html();
-    //    var _cashback = $('#step4_label_cashback').html();
-    //    var _cashbackuse = $('#step4_label_cashback_use').html();
-    //    var _count =    $('#step4_label_count').html();
-    //    var _weight =   $('#step4_label_weight').html();
-    //    var _payment_method = $('#step4_label_payment_method').html();
-    //    var _shipping_method = $('#step4_label_shipping_method').html();
-    //    var _country =  $('#step4_label_country').html();
-    //    var _city =     $('#step4_label_city').html();
-    //    var _address =  $('#step4_label_address').html();
-    //    var _phone =    $('#step4_label_phone').html();
-    //    var _zipcode =  $('#step4_label_zipcode').html();
-    //
-    //    var _status = "Waiting Confirm";
-    //    var _date = new Date();
-    //
-    //    Orders.insert({
-    //        user:     _userID,
-    //        products: _products,
-    //        payment: {
-    //            payment:  _payment,
-    //            cashback: _cashback,
-    //            count:    _count,
-    //            weight:   _weight,
-    //            cashbackuse: _cashbackuse,
-    //            payment_method:  _payment_method,
-    //            shipping_method: _shipping_method
-    //        },
-    //        address: {
-    //            country: _country,
-    //            city:    _city,
-    //            address: _address,
-    //            phone:   _phone,
-    //            zipcode: _zipcode
-    //        },
-    //        status:      _status,
-    //        createAt:    _date
-    //    }, function() {
-    //        var _cart_product = window.localStorage.getItem("CartItem").split(',');
-    //        var _cart_product_value = window.localStorage.getItem("CartItemValue").split(',');
-    //        var _cart_selected = window.localStorage.getItem("CartItem_selected").split(',');
-    //        var _cart_rest = [];
-    //        var _cart_value_rest = [];
-    //        for(var i=0; i<_cart_product.length; i++) {
-    //            var _buy = false;
-    //            if (_cart_product[i] == "") {
-    //                _buy = true;
-    //            } else {
-    //                for (var j = 0; j < _cart_selected.length; j++) {
-    //                    if(_cart_product[i] == _cart_selected[j]) {
-    //                        _buy = true;
-    //                    }
-    //                }
-    //            }
-    //            if(!_buy) {
-    //                _cart_rest.push(_cart_product[i]);
-    //                for(var j=0; j<ColumnInCartValue; j++) {
-    //                    _cart_value_rest.push(_cart_product_value[i*ColumnInCartValue+j]);
-    //                }
-    //            }
-    //        }
-    //        if(_cart_rest.length > 0) {
-    //            window.localStorage.setItem('CartItem', _cart_rest.toString());
-    //            window.localStorage.setItem('CartItemValue', _cart_value_rest.toString());
-    //            window.localStorage.removeItem('CartItem_selected');
-    //        } else {
-    //            window.localStorage.removeItem('CartItem');
-    //            window.localStorage.removeItem('CartItem_selected');
-    //        }
-    //        tab_events.SelectTab('Submit Order');
-    //    });
-    //}
 });
 
 function CheckRemaining() {
@@ -950,7 +495,11 @@ Template.ProductInfo.helpers({
             _imageid = _product.image;
         }
         var _image = ProductImages.findOne({_id:_imageid});
-        return _image.main;
+        if(_image != null) {
+            return _image.main;
+        } else {
+            return null;
+        }
     },
     'SubImages': function() {
         var _hash = location.hash;

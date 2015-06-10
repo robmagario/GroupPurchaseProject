@@ -5,41 +5,169 @@
     // Title
     "WebsiteTitle": "GroupPurchase",
 
+    // Language
+    "Language_Header": "Language",
+    "Language_en": "English",
+    "Language_jp": "Japanese",
+    "Language_br": "Portuguese",
+    "Language_hk": "Chinese (Traditional)",
+    "Language_cn": "Chinese (Simplified)",
+
     // Navbar Item
-    "Navbar_Profile": "Profile",
-    "Navbar_Login": "Login",
-    "Navbar_Logout": "Logout",
+    "Navbar_Profile":    "Profile",
+    "Navbar_Login":      "Login",
+    "Navbar_Logout":     "Logout",
+    "Navbar_HowItWorks": "How it works",
+    "Navbar_Cart":       "Cart",
+    "Navbar_Order":      "Order",
+    "Navbar_Purchase":   "Purchase",
+    "Navbar_Dashboard":  "Dashboard",
 
-    // Profile
-    "Profile_Title": "Profile",
-    "Profile_Email": "Email",
-    "Profile_EditAddress":  "Edit Address",
-    "Profile_Country": "Country",
-    "Profile_City": "City",
-    "Profile_State": "State",
-    "Profile_Address": "Address",
-    "Profile_Zipcode": "Zip-Code",
-    "Profile_Phone": "Phone Number",
-    "Profile_Invitation": "Invitation Information",
+    // Main Page
+    "Login_Header":  "Login",
+    "Login_Email":   "Email",
+    "Login_Email_P": "Your Email",
+    "Login_PW":      "Password",
+    "Login_PW_P":    "Your Password",
+
+    // Profile Basic
+    "Profile_Header":     "Profile",
+    "Profile_Username":   "Username",
+    "Profile_Email":      "Email",
+    "Profile_Password":   "Password",
+    "Profile_CreateDate": "Create Date",
+    // Profile Address
+    "Address_Header":   "Address Information",
+    "Address_Edit":     "Edit Address",
+    "Address_Delivery": "Delivery Address",
+    "Address_Country":  "Country",
+    "Address_City":     "City",
+    "Address_State":    "State",
+    "Address_Address":  "Address",
+    "Address_Zipcode":  "Zip-Code",
+    "Address_Phone":    "Phone Number",
+    // Profile Invitation
+    "Invite_Header": "Invitation Information",
     "Invite_Remain": "Remain",
-    "Invite_By": "Invited By",
-
+    "Invite_By":     "Invited By",
     // Reset Password
-    "ResetPW_Title":   "Reset Password",
+    "ResetPW_Header":  "Reset Password",
     "ResetPW_Origin":  "Origin Password",
     "ResetPW_New":     "New Password",
     "ResetPW_Confirm": "Confirm Password",
-
     // Invitation
-    "Invite_Title":     "Send Invitation",
-    "Invite_Invitees":  "Invitees Email",
-    "Invite_Email":     "Email",
-    "Invite_Message":   "Message",
+    "Invite_Title":    "Send Invitation",
+    "Invite_Invitees": "Invitees Email",
+    "Invite_Email":    "Email",
+    "Invite_Message":  "Message",
+
+    // Cart
+    "Cart_Header":      "Cart Information",
+    "Cart_CashbackRemain": "Cashback Remaining",
+    "Cart_TotalPrice":  "Total Price of Selected Products",
+    "Cart_TotalWeight": "Total Weight of Selected Products",
+    "Cart_ProductName": "Product Name",
+    "Cart_Quantity":    "Quantity",
+    "Cart_Weight":      "Weight",
+    "Cart_Price":       "Price",
+
+    // Order Processing
+    "Process_Header": "Order Processing",
+    "Process_Step1":  "Select Product",
+    "Process_Step2":  "Confirm Address",
+    "Process_Step3":  "Shipping Method",
+    "Process_Step4":  "Payment Method",
+    "Process_Step5":  "Submit Order",
+    "Process_Step6":  "Finish Order",
+    // Shipping Method
+    "Shipping_Seamail": "Seamail",
+    "Shipping_DHL":     "DHL",
+    "Shipping_Airmail": "Airmail",
+    // Payment Method
+    "Payment_Paybel": "Paybel",
+    "Payment_Other":  "Other",
+    // Finish Order Statment
+    "FinishStatment": "<br>Your Order is successfully sent.<br>Thank you for your order.<br>",
+
+    // Order List
+    "OrderList_Header":      "Order List",
+    "OrderList_WaitConfirm": "Waiting Confirm Order",
+    "OrderList_Date":    "Date",
+    "OrderList_ID":      "Order ID",
+    "OrderList_Payment": "Payment",
+    "OrderList_Method":  "Method",
+    "OrderList_Status":  "Status",
+
+    // Order Status
+    "OrderStatus_Waiting": "Waiting Confirm",
+    "OrderStatus_Confirm": "Confirmed",
+    "OrderStatus_Cancel":  "Canceled",
+
+    // Order Information
+    "OrderInfo_Header":   "Order Information",
+    "OrderInfo_ID":       "Order ID",
+    "OrderInfo_CreateAt": "Create Date",
+    "OrderInfo_Status":   "Status",
+    "OrderInfo_Payment":  "Payment",
+    "OrderInfo_CashbackRemain": "Cashback Remaining",
+    "OrderInfo_FinalPayment":   "Final Payment",
+    "OrderInfo_CashbackGet":    "Cashback Get",
+    "OrderInfo_PaymentMethod":  "Payment Method",
+    "OrderInfo_ShippingMethod": "Shipping Method",
+
+    // Product List
+    "ProductList_Header":        "Product List",
+    "ProductList_ProductName":   "Product Name",
+    "ProductList_Quantity":      "Quantity",
+    "ProductList_Weight":        "Weight",
+    "ProductList_Price":         "Price",
+    "ProductList_TotalQuantity": "Total Quantity",
+    "ProductList_TotalWeight":   "Total Weight",
+
+    // Product Page
+    "CountrySelection_Header": "Select Country that want to show",
+    "CountrySelection_Japan":   "Japan",
+    "CountrySelection_China":   "China",
+    "CountrySelection_HongKong":"Hong Kong",
+    "CountrySelection_Brazil":  "Brazil",
+    "CountrySelection_Other":   "Other",
+    "ProductPage_Price":   "Price",
+
+    // Product Information
+    "ProductInfo_Name":        "Product Name",
+    "ProductInfo_Description": "Description",
+    "ProductInfo_Price":       "Price",
+    "ProductInfo_Weight":      "Weight",
+    "ProductInfo_Size":        "Size",
+    "ProductInfo_Color":       "Color",
+    "ProductInfo_Quantity":    "Quantity",
+    "ProductInfo_Remain":      "Product Remaining",
+    "ProductInfo_CashbackGet": "Cashback Get",
+
+    // Purchase
+    "Purchase_Header":         "Purchase Information",
+    "Purchase_CashbaskRemain": "Cashback Remaining",
+    "Purchase_Date":     "Date",
+    "Purchase_ID":       "Order ID",
+    "Purchase_Method":   "Method",
+    "Purchase_Payment":  "Payment",
+    "Purchase_Cashback": "Cashback",
+
+    // Label
+    "Label_SelectAll": "Select All",
 
     // Button
+    "Btn_Login":  "Login",
     "Btn_Reset":  "Reset",
     "Btn_Invite": "Invite",
     "Btn_Edit":   "Edit",
     "Btn_Save":   "Save",
-    "Btn_Back":   "Back"
+    "Btn_Back":   "Back",
+    "Btn_Submit": "Submit",
+    "Btn_Order":  "Order",
+    "Btn_Cart":   "Add to Cart",
+    "Btn_StartOrder":    "Start Order",
+    "Btn_NextStep":      "Next Step",
+    "Btn_UseCashback":   "Use Cashback",
+    "Btn_UnuseCashback": "Unuse Cashback"
 }

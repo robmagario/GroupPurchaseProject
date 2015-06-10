@@ -197,14 +197,14 @@ Template.CreateOrderPage.events({
                 var _weight = Calculator.Weight();
                 $('#ConfirmOrder').find('label').eq(15).html(_weight + " g");
                 //var _address = Helpers.User.Profile.Address();
-                var _address = [{
+                var _address = {
                     country: $('#ConfirmAddress').find('input').eq(0).val(),
                     city:    $('#ConfirmAddress').find('input').eq(1).val(),
                     state:   $('#ConfirmAddress').find('input').eq(2).val(),
                     address: $('#ConfirmAddress').find('input').eq(3).val(),
                     zipcode: $('#ConfirmAddress').find('input').eq(4).val(),
                     phone: $('#ConfirmAddress').find('input').eq(5).val()
-                }];
+                };
                 $('#ConfirmOrder').find('label').eq(17).html(_address.country);
                 $('#ConfirmOrder').find('label').eq(19).html(_address.city);
                 $('#ConfirmOrder').find('label').eq(21).html(_address.state);
@@ -358,7 +358,6 @@ Template.CreateOrderPage.helpers({
                         })
                     }
                 }
-                console.log(items);
             }
             return items;
         } else {

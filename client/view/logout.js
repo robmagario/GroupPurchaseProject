@@ -3,6 +3,6 @@
  */
 Template.LogoutPage.rendered = function() {
     Meteor.logout(function() {
-        location = "/login";
+        Helpers.System.LocateTo("/");
     });
 };

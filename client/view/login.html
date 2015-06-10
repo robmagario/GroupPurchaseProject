@@ -10,45 +10,28 @@
         <br>
         <br>
         <div class="panel panel-info panel-width-60">
-            <div class="panel-heading"><span class="glyphicon glyphicon-log-in"></span> Login</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-log-in"></span> {{_ "Login_Header"}}</div>
             <div class="panel-body">
                 <div class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Email:</label>
+                        <label class="control-label col-sm-3">{{_ "Login_Email"}}:</label>
                         <div class="col-sm-9">
-                            <input class="form-control" type="text" placeholder="Your Email">
+                            <input class="form-control" type="text" placeholder="{{_ "Login_Email_P"}}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Password:</label>
+                        <label class="control-label col-sm-3">{{_ "Login_PW"}}:</label>
                         <div class="col-sm-9">
-                            <input class="form-control" type="password" placeholder="Your Password">
+                            <input class="form-control" type="password" placeholder="{{_ "Login_PW_P"}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-5 col-sm-2">
-                            <button class="btn btn-default" value="SetPW">Login</button>
+                            <button class="btn btn-default" value="SetPW">{{_ "Btn_Login"}}</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!--<div class="panel">-->
-        <!--<div class="header">Login</div>-->
-        <!--<br>-->
-        <!--<div class="column">-->
-              <!--<div>Email</div>-->
-              <!--<input type="text" id="input_email">-->
-        <!--</div>-->
-        <!--<br>-->
-        <!--<div class="column">-->
-              <!--<div>Password</div>-->
-              <!--<input type="password" id="input_password">-->
-        <!--</div>-->
-        <!--<br>-->
-        <!--<button class="btn_login button-1-col">Login</button>-->
-        <!--<br>-->
-        <!--<br>-->
-    <!--</div>-->
 </template>

@@ -1,26 +1,9 @@
 /**
  * Created by chinhong on 6/2/15.
  */
-function InitializeData() {
-    $('#profile').find('label').eq(1).html(Helpers.User.Profile.Name());
-    $('#profile').find('label').eq(3).html(Helpers.User.Profile.Email());
-    $('#profile').find('label').eq(6).html(Helpers.User.Profile.CreateAt());
-    $('#invitation').find('label').eq(1).html(Helpers.User.Profile.Invite.Remain());
-    $('#invitation').find('label').eq(3).html(Helpers.User.Profile.Invite.InviteBy());
-    var _address = Helpers.User.Profile.Address();
-    if(_address != null) {
-        $('#address').find('label').eq(1).html(_address.country);
-        $('#address').find('label').eq(3).html(_address.city);
-        $('#address').find('label').eq(5).html(_address.state);
-        $('#address').find('label').eq(7).html(_address.address);
-        $('#address').find('label').eq(9).html(_address.zipcode);
-        $('#address').find('label').eq(11).html(_address.phone);
-    }
-}
 
 Template.ProfilePage.rendered = function() {
-    window.setTimeout(InitializeData, 1000);
-}
+};
 
 Template.ProfilePage.events({
     'click .btn': function(e) {
@@ -88,7 +71,6 @@ Template.ProfilePage.events({
                         "Phone:   "+ _phone);
                     $('#EditAddress').hide();
                     $('#Profile').show();
-                    InitializeData();
                 });
                 break;
             case "WriteInvite":
@@ -148,6 +130,56 @@ Template.ProfilePage.events({
             default :
                 Helpers.Log.Show("Button", _action + " is undefind in profile.");
                 break;
+        }
+    }
+});
+
+Template.ProfilePage.helpers({
+    'Username': function() {
+        if(Meteor.user()) return Meteor.user().username;
+    },
+    'Email': function() {
+        if(Meteor.user()) return Meteor.user().emails[0].address;
+    },
+    'CreateAt': function() {
+        if(Meteor.user()) return Meteor.user().createdAt;
+    },
+    'Country': function() {
+        if(Meteor.user() && Meteor.user().profile) return Meteor.user().profile.country;
+    },
+    'City': function() {
+        if(Meteor.user() && Meteor.user().profile) return Meteor.user().profile.city;
+    },
+    'State': function() {
+        if(Meteor.user() && Meteor.user().profile) return Meteor.user().profile.state;
+    },
+    'Address': function() {
+        if(Meteor.user() && Meteor.user().profile) return Meteor.user().profile.address;
+    },
+    'Zipcode': function() {
+        if(Meteor.user() && Meteor.user().profile) return Meteor.user().profile.zipcode;
+    },
+    'Phone': function() {
+        if(Meteor.user() && Meteor.user().profile) return Meteor.user().profile.phone;
+    },
+    'Remain': function() {
+        if(Meteor.user()) {
+            var _temp = Meteor.user().invitation;
+            if(_temp == "" || _temp == null) {
+                return 0;
+            } else {
+                return _temp;
+            }
+        }
+    },
+    'InviteBy': function() {
+        if(Meteor.user()) {
+            var _temp = Invitations.findOne({to:Meteor.user().emails[0].address, verified:true});
+            if(_temp == "" || _temp == null) {
+                return "You are admin!";
+            } else {
+                return _temp.from;
+            }
         }
     }
 });

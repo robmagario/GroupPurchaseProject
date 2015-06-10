@@ -11,6 +11,20 @@ Template.PurchasePage.rendered = function() {
 
 Template.PurchasePage.events({
     'click .btn': function(e) {
-        console.log(e.target.innerText);
+    }
+
+});
+
+Template.PurchasePage.helpers({
+    'check_method': function (method) {
+        switch (method) {
+            case "buy":
+                return "warning";
+            case "get":
+                return "success";
+            default:
+                return "default";
+                break;
+        }
     }
 });

@@ -391,15 +391,15 @@
     <br>
     <div class="panel-group">
         <div class="panel panel-info panel-width-60">
-            <div class="panel-heading">Select Country that want to show</div>
+            <div class="panel-heading">{{_ "CountrySelection_Header"}}</div>
             <div class="panel-body">
                 <div class="form-horizontal">
-                    <div class="form-group">
-                        <label class="checkbox-inline"><input type="checkbox" class="select-show-country" checked value="Brazil">Brazil</label>
-                        <label class="checkbox-inline"><input type="checkbox" class="select-show-country" checked value="China">China</label>
-                        <label class="checkbox-inline"><input type="checkbox" class="select-show-country" checked value="Hong Kong">Hong Kong</label>
-                        <label class="checkbox-inline"><input type="checkbox" class="select-show-country" checked value="Japan">Japan</label>
-                        <label class="checkbox-inline"><input type="checkbox" class="select-show-country" checked value="Other">Other</label>
+                    <div class="form-group" id="item-country-select">
+                        <label class="checkbox-inline"><input type="checkbox" class="select-show-country" checked value="Brazil">{{_ "CountrySelection_Brazil"}}</label>
+                        <label class="checkbox-inline"><input type="checkbox" class="select-show-country" checked value="China">{{_ "CountrySelection_China"}}</label>
+                        <label class="checkbox-inline"><input type="checkbox" class="select-show-country" checked value="Hong Kong">{{_ "CountrySelection_HongKong"}}</label>
+                        <label class="checkbox-inline"><input type="checkbox" class="select-show-country" checked value="Japan">{{_ "CountrySelection_Japan"}}</label>
+                        <label class="checkbox-inline"><input type="checkbox" class="select-show-country" checked value="Other">{{_ "CountrySelection_Other"}}</label>
                     </div>
                 </div>
             </div>
@@ -416,7 +416,7 @@
                             <img src="{{Image.GetImageByID.Main image}}" style="max-width:100%;">
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Price:</label>
+                            <label class="control-label col-sm-3">{{_ "ProductPage_Price"}}:</label>
                             <div class="col-sm-9">
                                 <label class="form-control">{{price}} HKD</label>
                             </div>
@@ -460,31 +460,31 @@
                                 <div class="panel-body">
                                     <div class="form-horizontal">
                                         <div class="form-group">
-                                            <label class="control-label col-sm-3">Name:</label>
+                                            <label class="control-label col-sm-3">{{_ "ProductInfo_Name"}}:</label>
                                             <div class="col-sm-9">
                                                 <label class="form-control">{{name}}</label>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-sm-3">Description:</label>
+                                            <label class="control-label col-sm-3">{{_ "ProductInfo_Description"}}:</label>
                                             <div class="col-sm-9">
                                                 <label class="form-control">{{description}}</label>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-sm-3">Price:</label>
+                                            <label class="control-label col-sm-3">{{_ "ProductInfo_Price"}}:</label>
                                             <div class="col-sm-9">
                                                 <label class="form-control">{{price}} HKD</label>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-sm-3">Weight:</label>
+                                            <label class="control-label col-sm-3">{{_ "ProductInfo_Weight"}}:</label>
                                             <div class="col-sm-9">
                                                 <label class="form-control">{{weight}} g</label>
                                             </div>
                                         </div>
                                         <div class="form-group" id="size">
-                                            <label class="control-label col-sm-3">Size:</label>
+                                            <label class="control-label col-sm-3">{{_ "ProductInfo_Size"}}:</label>
                                             {{#each Sizes}}
                                                 <div class="col-sm-1">
                                                     <button class="btn btn-default" value="SelectSize">{{this}}</button>
@@ -492,7 +492,7 @@
                                             {{/each}}
                                         </div>
                                         <div class="form-group" id="color">
-                                            <label class="control-label col-sm-3">Color:</label>
+                                            <label class="control-label col-sm-3">{{_ "ProductInfo_Color"}}:</label>
                                             {{#each Colors}}
                                                 <div class="col-sm-1" style="padding-right:60px;">
                                                     <div style='display:none;' class='color-cover'></div>
@@ -501,11 +501,11 @@
                                             {{/each}}
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-sm-3">Quantity:</label>
+                                            <label class="control-label col-sm-3">{{_ "ProductInfo_Quantity"}}:</label>
                                             <div class="col-sm-2">
                                                 <input id="quantity" class="form-control" type="number" min="1" value="1">
                                             </div>
-                                            <label class="control-label col-sm-2" style="color:gray">Remain:</label>
+                                            <label class="control-label col-sm-3" style="color:gray">{{_ "ProductInfo_Remain"}}:</label>
                                             <label class="control-label col-sm-1" style="color:gray" id="remain">0</label>
                                         </div>
                                     </div>
@@ -515,15 +515,15 @@
                     </div>
                     <div class="form-group col-sm-2">
                         <div class="product-page-description">
-                            <button class="btn-order"><i class="fa fa-pencil"></i>Order</button>
+                            <button class="btn-order"><i class="fa fa-pencil"></i>{{_ "Btn_Order"}}</button>
                             <br>
-                            <button class="btn-cart"><i class="fa fa-pencil"></i>Add to Cart</button>
+                            <button class="btn-cart"><i class="fa fa-pencil"></i>{{_ "Btn_Cart"}}</button>
                             <br>
                             <br>
-                            <div class="product-page-subheader">Price</div>
+                            <div class="product-page-subheader">{{_ "ProductInfo_Price"}}</div>
                             <div id="ProductPagePrice" class="product-page-price">{{Price}} HKD</div>
                             <br>
-                            <div class="product-page-subheader">Cashback Get</div>
+                            <div class="product-page-subheader">{{_ "ProductInfo_CashbackGet"}}</div>
                             <div id="ProductPageCashback" class="product-page-price"><span>4%Cash Back</span> = {{CashbackGet}} HKD</div>
                             <br>
                             <div class="product-page-subheader">Price by using remaining cashback</div>

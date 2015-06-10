@@ -5,8 +5,109 @@ this.App = {};
 this.Helpers = {};
 
 Meteor.startup(function() {
+    var _location = location.pathname;
+    var _id = Meteor.userId();
+    if(_location == "/" || _location == "/jp" || _location == "/cn" || _location == "/hk" || _location == "/br") {
+        if(_id != null) {
+            Helpers.System.LocateTo('/home');
+        }
+    } else {
+        if(_id == null) {
+            Helpers.System.LocateTo('/');
+        }
+    }
+
     $(".dropdown-toggle").dropdown();
 });
+
+Helpers.Reload = function() {
+    location = "/";
+    window.setTimeout(function() {
+        location.reload();
+    }, 100);
+};
+Helpers.System = {
+    Reload: function() {
+        location = "/";
+        window.setTimeout(function() {
+            location.reload();
+        }, 100);
+    },
+    SelectLanguage: function(language) {
+        var _location = location.pathname;
+        var _array = _location.split('/');
+        var _language = "/" + language + "/";
+        var _path = "";
+        var _hash = location.hash;
+        switch(language) {
+            case "jp":
+            case "br":
+            case "hk":
+            case "cn":
+                break;
+            case "en":
+            default:
+                _language = "/";
+                break;
+        }
+        switch (_array[1]) {
+            case "jp":
+            case "br":
+            case "hk":
+            case "cn":
+                _path = _location.replace('/' + _array[1], _language);
+                break;
+            case "":
+            default:
+                _path = _location.replace('/', _language);
+                break;
+        }
+        _path = _path.replace('//', "/");
+        var _check = _path.split("");
+        if(_check[_check.length-1] == "/" && _check.length > 1) {
+            _path = _path.substr(0, (_check.length-1));
+        }
+        location = _path + _hash;
+        window.setTimeout(function() {
+            location.reload();
+        }, 500);
+    },
+    SetLanguage: function() {
+        var _location = location.pathname;
+        var _array = _location.split('/');
+        switch (_array[1]) {
+            case "jp":
+            case "br":
+            case "hk":
+            case "cn":
+                TAPi18n.setLanguage(_array[1]);
+                break;
+            case "":
+            default:
+                TAPi18n.setLanguage('en');
+                break;
+        }
+    },
+    LocateTo: function(locate) {
+        var _path = "";
+        var _location = location.pathname;
+        var _array = _location.split('/');
+        switch (_array[1]) {
+            case "jp":
+            case "br":
+            case "hk":
+            case "cn":
+                _path = "/" + _array[1];
+                break;
+            case "":
+            default:
+                break;
+        }
+        _path += locate;
+        location = _path;
+    }
+};
+
 
 Helpers.CashbackRate = function() {
     return [0.04, 0.03, 0.02, 0.01];

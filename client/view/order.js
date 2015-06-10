@@ -38,6 +38,7 @@ Template.OrderPage.events({
     'click .order': function() {
         $('#OrderList').hide()
         $('#OrderDetail').show();
+        console.log(this);
         $('#OrderDetail').find('label').eq(1).html(this._id);
         $('#OrderDetail').find('label').eq(3).html(this.createAt);
         $('#OrderDetail').find('label').eq(5).html(this.status);
@@ -94,6 +95,22 @@ Template.OrderPage.helpers({
                 return "success";
             case "Canceled":
                 return "danger";
+            default:
+                return "";
+                break;
+        }
+    },
+    'ChangeStatusLanguage': function(status) {
+        switch(status) {
+            case "Waiting Confirm":
+                return TAPi18n.__('OrderStatus_Waiting');
+                break;
+            case "Confirmed":
+                return TAPi18n.__('OrderStatus_Confirm');
+                break;
+            case "Canceled":
+                return TAPi18n.__('OrderStatus_Cancel');
+                break;
             default:
                 return "";
                 break;

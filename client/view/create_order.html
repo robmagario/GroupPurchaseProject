@@ -4,14 +4,14 @@
         <br>
         <br>
         <div class="panel panel-info panel-width-80">
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Order Processing</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-file"></span> {{_ "Process_Header"}}</div>
             <ul class="nav nav-pills">
-                <li style="width:17%;" class="active"><a>Select Product</a></li>
-                <li style="width:17%;" class="active"><a>Confirm Address</a></li>
-                <li style="width:17%;"><a>Shipping Method</a></li>
-                <li style="width:16%;"><a>Payment Method</a></li>
-                <li style="width:16%;"><a>Submit Order</a></li>
-                <li style="width:16%;"><a>Finish Order</a></li>
+                <li style="width:17%;" class="active"><a>{{_ "Process_Step1"}}</a></li>
+                <li style="width:17%;" class="active"><a>{{_ "Process_Step2"}}</a></li>
+                <li style="width:17%;"><a>{{_ "Process_Step3"}}</a></li>
+                <li style="width:16%;"><a>{{_ "Process_Step4"}}</a></li>
+                <li style="width:16%;"><a>{{_ "Process_Step5"}}</a></li>
+                <li style="width:16%;"><a>{{_ "Process_Step6"}}</a></li>
             </ul>
             <div class="progress">
                 <div class="progress-bar progress-bar-striped active" role="progressbar"
@@ -23,48 +23,48 @@
     <div id="ConfirmAddress" class="panel-group">
         <br>
         <div class="panel panel-info panel-width-60">
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Confirm Address</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-home"></span> {{_ "Process_Step2"}}</div>
             <div class="panel-body">
                 <div class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_Country"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_Country"}}:</label>
                         <div class="col-sm-10">
-                            <input class="form-control" placeholder="{{_ "Profile_Country"}}">
+                            <input class="form-control" placeholder="{{_ "Address_Country"}}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_City"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_City"}}:</label>
                         <div class="col-sm-10">
-                            <input class="form-control" placeholder="{{_ "Profile_City"}}">
+                            <input class="form-control" placeholder="{{_ "Address_City"}}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_State"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_State"}}:</label>
                         <div class="col-sm-10">
-                            <input class="form-control" placeholder="{{_ "Profile_State"}}">
+                            <input class="form-control" placeholder="{{_ "Address_State"}}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_Address"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_Address"}}:</label>
                         <div class="col-sm-10">
-                            <input class="form-control" placeholder="{{_ "Profile_Address"}}">
+                            <input class="form-control" placeholder="{{_ "Address_Address"}}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_Zipcode"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_Zipcode"}}:</label>
                         <div class="col-sm-10">
-                            <input class="form-control" placeholder="{{_ "Profile_Zipcode"}}">
+                            <input class="form-control" placeholder="{{_ "Address_Zipcode"}}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_Phone"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_Phone"}}:</label>
                         <div class="col-sm-10">
-                            <input class="form-control" placeholder="{{_ "Profile_Phone"}}">
+                            <input class="form-control" placeholder="{{_ "Address_Phone"}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-5 col-sm-2">
-                            <button class="btn btn-default" value="ToOrderStep3">Next Step</button>
+                            <button class="btn btn-default" value="ToOrderStep3"><span class="glyphicon glyphicon-circle-arrow-right"></span> {{_ "Btn_NextStep"}}</button>
                         </div>
                     </div>
                 </div>
@@ -74,21 +74,21 @@
     <div id="ConfirmShipping" class="panel-group" style="display: none;">
         <br>
         <div class="panel panel-info panel-width-60">
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Choose Shipping Method</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-plane"></span> {{_ "Process_Step3"}}</div>
             <div class="panel-body">
                 <div class="form-horizontal" role="form">
                     <div class="radio">
-                        <label><input type="radio" name="method_shipping" value="Seamail" checked>Seamail</label>
+                        <label><input type="radio" name="method_shipping" value="Seamail" checked>{{_ "Shipping_Seamail"}}</label>
                     </div>
                     <div class="radio">
-                        <label><input type="radio" name="method_shipping" value="DHL">DHL</label>
+                        <label><input type="radio" name="method_shipping" value="DHL">{{_ "Shipping_DHL"}}</label>
                     </div>
                     <div class="radio">
-                        <label><input type="radio" name="method_shipping" value="Airmail">Airmail</label>
+                        <label><input type="radio" name="method_shipping" value="Airmail">{{_ "Shipping_Airmail"}}</label>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-5 col-sm-2">
-                            <button class="btn btn-default" value="ToOrderStep4">Next Step</button>
+                            <button class="btn btn-default" value="ToOrderStep4"><span class="glyphicon glyphicon-circle-arrow-right"></span> {{_ "Btn_NextStep"}}</button>
                         </div>
                     </div>
                 </div>
@@ -98,18 +98,18 @@
     <div id="ConfirmPayment" class="panel-group" style="display: none;">
         <br>
         <div class="panel panel-info panel-width-60">
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Choose Shipping Method</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-credit-card"></span> {{_ "Process_Step4"}}</div>
             <div class="panel-body">
                 <div class="form-horizontal" role="form">
                     <div class="radio">
-                        <label><input type="radio" name="method_payment" value="Paybel" checked>Paybel</label>
+                        <label><input type="radio" name="method_payment" value="Paybel" checked>{{_ "Payment_Paybel"}}</label>
                     </div>
                     <div class="radio">
-                        <label><input type="radio" name="method_payment" value="Other">Other</label>
+                        <label><input type="radio" name="method_payment" value="Other">{{_ "Payment_Other"}}</label>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-5 col-sm-2">
-                            <button class="btn btn-default" value="ToOrderStep5">Next Step</button>
+                            <button class="btn btn-default" value="ToOrderStep5"><span class="glyphicon glyphicon-circle-arrow-right"></span> {{_ "Btn_NextStep"}}</button>
                         </div>
                     </div>
                 </div>
@@ -119,58 +119,61 @@
     <div id="ConfirmOrder" class="panel-group" style="display: none;">
         <br>
         <div class="panel panel-info panel-width-60">
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Order Information</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-hdd"></span> {{_ "OrderInfo_Header"}}</div>
             <div class="panel-body">
                 <div class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Payment:</label>
+                        <label class="control-label col-sm-3">{{_ "OrderInfo_Payment"}}:</label>
                         <div class="col-sm-9">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Cashback Remain:</label>
+                        <label class="control-label col-sm-3">{{_ "OrderInfo_CashbackRemain"}}</label>
+                        <div class="col-sm-6">
+                            <label class="form-control"></label>
+                        </div>
+                        <div class="col-sm-3">
+                            <button class="btn btn-info">{{_ "Btn_UnuseCashback"}}</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">{{_ "OrderInfo_FinalPayment"}}:</label>
                         <div class="col-sm-9">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Final Payment:</label>
+                        <label class="control-label col-sm-3">{{_ "OrderInfo_CashbackGet"}}:</label>
                         <div class="col-sm-9">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Cashback Get:</label>
+                        <label class="control-label col-sm-3">{{_ "OrderInfo_PaymentMethod"}}:</label>
                         <div class="col-sm-9">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Payment Method:</label>
-                        <div class="col-sm-9">
-                            <label class="form-control"></label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3">Shipping Method:</label>
+                        <label class="control-label col-sm-3">{{_ "OrderInfo_ShippingMethod"}}:</label>
                         <div class="col-sm-9">
                             <label class="form-control"></label>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Product List</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-gift"></span> {{_ "ProductList_Header"}}</div>
             <div class="panel-body">
                 <div class="form-horizontal" role="form">
                     <table class="table table-striped table-hover">
                         <thead>
                         <tr>
                             <th width="80px"></th>
-                            <th>Name</th>
-                            <th>Quantity</th>
-                            <th>Weight</th>
-                            <th>Price</th>
+                            <th>{{_ "ProductList_ProductName"}}</th>
+                            <th>{{_ "ProductList_Quantity"}}</th>
+                            <th>{{_ "ProductList_Weight"}}</th>
+                            <th>{{_ "ProductList_Price"}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -186,50 +189,50 @@
                         </tbody>
                     </table>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">Total Quantity:</label>
+                        <label class="control-label col-sm-2">{{_ "ProductList_TotalQuantity"}}:</label>
                         <div class="col-sm-10">
                             <label class="form-control"></label>
                         </div>
-                        <label class="control-label col-sm-2">Total Weight:</label>
+                        <label class="control-label col-sm-2">{{_ "ProductList_TotalWeight"}}:</label>
                         <div class="col-sm-10">
                             <label class="form-control"></label>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Delivery Address</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-home"></span> {{_ "Address_Delivery"}}</div>
             <div class="panel-body">
-                <div class="form-horizontal" role="form">
+                <div class="form-horizontal">
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_Country"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_Country"}}:</label>
                         <div class="col-sm-10">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_City"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_City"}}:</label>
                         <div class="col-sm-10">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_State"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_State"}}:</label>
                         <div class="col-sm-10">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_Address"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_Address"}}:</label>
                         <div class="col-sm-10">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_Zipcode"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_Zipcode"}}:</label>
                         <div class="col-sm-3">
                             <label class="form-control"></label>
                         </div>
-                        <label class="control-label col-sm-offset-2 col-sm-2">{{_ "Profile_Phone"}}:</label>
+                        <label class="control-label col-sm-offset-2 col-sm-2">{{_ "Address_Phone"}}:</label>
                         <div class="col-sm-3">
                             <label class="form-control"></label>
                         </div>
@@ -238,7 +241,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-5 col-sm-2">
-                            <button class="btn btn-default" value="ToOrderStep6">Next Step</button>
+                            <button class="btn btn-default" value="ToOrderStep6"><span class="glyphicon glyphicon-send"></span> {{_ "Btn_Submit"}}</button>
                         </div>
                     </div>
                 </div>
@@ -248,16 +251,12 @@
     <div id="FinishOrder" class="panel-group" style="display: none;">
         <br>
         <div class="panel panel-info panel-width-60">
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Finish</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-hand-up"></span> {{_ "Process_Step6"}}</div>
             <div class="panel-body">
                 <div class="form-horizontal" role="form">
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-8 row-sm-8">
-                            <br>
-                            Your Order is successfully sent.
-                            <br>
-                            Thank you for your order.
-                            <br>
+                            {{{_ "FinishStatment"}}}
                         </div>
                     </div>
                 </div>

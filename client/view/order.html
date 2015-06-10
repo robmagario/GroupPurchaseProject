@@ -4,11 +4,11 @@
         <br>
         <br>
         <div class="panel panel-info panel-width-80">
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Order List</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-hdd"></span> {{_ "OrderList_Header"}}</div>
             <div class="panel-body" id="profile">
                 <div class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="email">Waiting Confirm Order:</label>
+                        <label class="control-label col-sm-3" for="email">{{_ "OrderList_WaitConfirm"}}:</label>
                         <div class="col-sm-9">
                             <label class="form-control">{{CountOfWaiting}}</label>
                         </div>
@@ -17,11 +17,11 @@
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Order ID</th>
-                        <th>Payment</th>
-                        <th>Method</th>
-                        <th>Status</th>
+                        <th>{{_ "OrderList_Date"}}</th>
+                        <th>{{_ "OrderList_ID"}}</th>
+                        <th>{{_ "OrderList_Payment"}}</th>
+                        <th>{{_ "OrderList_Method"}}</th>
+                        <th>{{_ "OrderList_Status"}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -31,7 +31,7 @@
                             <td>{{_id}}</td>
                             <td>{{payment.payment_final}}</td>
                             <td>{{payment.payment_method}}</td>
-                            <td>{{status}}</td>
+                            <td>{{ChangeStatusLanguage status}}</td>
                         </tr>
                     {{/each}}
                     </tbody>
@@ -44,76 +44,76 @@
         <br>
         <br>
         <div class="panel panel-info panel-width-60">
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Order Information</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-hdd"></span> {{_ "OrderInfo_Header"}}</div>
             <div class="panel-body">
                 <div class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Order ID:</label>
+                        <label class="control-label col-sm-3">{{_ "OrderInfo_ID"}}:</label>
                         <div class="col-sm-9">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Create Date:</label>
+                        <label class="control-label col-sm-3">{{_ "OrderInfo_CreateAt"}}:</label>
                         <div class="col-sm-9">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Status</label>
+                        <label class="control-label col-sm-3">{{_ "OrderInfo_Status"}}</label>
                         <div class="col-sm-9">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Payment:</label>
+                        <label class="control-label col-sm-3">{{_ "OrderInfo_Payment"}}:</label>
                         <div class="col-sm-9">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Cashback Remain:</label>
+                        <label class="control-label col-sm-3">{{_ "OrderInfo_CashbackRemain"}}:</label>
                         <div class="col-sm-9">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Final Payment:</label>
+                        <label class="control-label col-sm-3">{{_ "OrderInfo_FinalPayment"}}:</label>
                         <div class="col-sm-9">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Cashback Get:</label>
+                        <label class="control-label col-sm-3">{{_ "OrderInfo_CashbackGet"}}:</label>
                         <div class="col-sm-9">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Payment Method:</label>
+                        <label class="control-label col-sm-3">{{_ "OrderInfo_PaymentMethod"}}:</label>
                         <div class="col-sm-9">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Shipping Method:</label>
+                        <label class="control-label col-sm-3">{{_ "OrderInfo_ShippingMethod"}}:</label>
                         <div class="col-sm-9">
                             <label class="form-control"></label>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Product List</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-gift"></span> {{_ "ProductList_Header"}}</div>
             <div class="panel-body">
                 <div class="form-horizontal" role="form">
                     <table class="table table-striped table-hover">
                         <thead>
                         <tr>
                             <th width="80px"></th>
-                            <th>Name</th>
-                            <th>Quantity</th>
-                            <th>Weight</th>
-                            <th>Price</th>
+                            <th>{{_ "ProductList_ProductName"}}</th>
+                            <th>{{_ "ProductList_Quantity"}}</th>
+                            <th>{{_ "ProductList_Weight"}}</th>
+                            <th>{{_ "ProductList_Price"}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -129,50 +129,50 @@
                         </tbody>
                     </table>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">Total Quantity:</label>
+                        <label class="control-label col-sm-2">{{_ "ProductList_TotalQuantity"}}:</label>
                         <div class="col-sm-10">
                             <label class="form-control"></label>
                         </div>
-                        <label class="control-label col-sm-2">Total Weight:</label>
+                        <label class="control-label col-sm-2">{{_ "ProductList_TotalWeight"}}:</label>
                         <div class="col-sm-10">
                             <label class="form-control"></label>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Delivery Address</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-home"></span> {{_ "Address_Delivery"}}</div>
             <div class="panel-body">
                 <div class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_Country"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_Country"}}:</label>
                         <div class="col-sm-10">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_City"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_City"}}:</label>
                         <div class="col-sm-10">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_State"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_State"}}:</label>
                         <div class="col-sm-10">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_Address"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_Address"}}:</label>
                         <div class="col-sm-10">
                             <label class="form-control"></label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">{{_ "Profile_Zipcode"}}:</label>
+                        <label class="control-label col-sm-2">{{_ "Address_Zipcode"}}:</label>
                         <div class="col-sm-3">
                             <label class="form-control"></label>
                         </div>
-                        <label class="control-label col-sm-offset-2 col-sm-2">{{_ "Profile_Phone"}}:</label>
+                        <label class="control-label col-sm-offset-2 col-sm-2">{{_ "Address_Phone"}}:</label>
                         <div class="col-sm-3">
                             <label class="form-control"></label>
                         </div>
@@ -181,7 +181,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-5 col-sm-2">
-                            <button class="btn btn-default" value="Back">Back</button>
+                            <button class="btn btn-default" value="Back"><span class="glyphicon glyphicon-circle-arrow-left"></span> {{_ "Btn_Back"}}</button>
                         </div>
                     </div>
                 </div>

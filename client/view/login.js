@@ -3,11 +3,14 @@
  */
 function LocatToMain() {
     var _location = location.pathname;
-    _location = _location.replace("/login","");
-    _location += "/";
-    location =  _location;
+    _location += "/home";
+    _location = _location.replace('//', "/");
+    location = _location;
 }
 Template.LoginPage.rendered = function() {
+    // Set Default Language from this page
+    Helpers.System.SetLanguage();
+
     // Turn to Main Page if logged in
     var _id = Meteor.userId();
     if(_id != null) {
@@ -43,30 +46,4 @@ Template.LoginPage.events({
             alert(_error);
         }
     }
-    //'click .btn_log': function() {
-    //   var _email = $('#input_email').val();
-    //   var _password = $('#input_password').val();
-    //   var _empty = false;
-    //   var _error = "";
-    //   if(_email == "" || _email == null) {
-    //       _empty = true;
-    //       _error += "Please fill the 'Email' column!\n";
-    //   }
-    //   if(_password == "" || _password == null) {
-    //       _empty = true;
-    //       _error += "Please fill the 'Password' column!";
-    //   }
-    //   if(!_empty) {
-    //       Meteor.loginWithPassword(_email, _password, function(err) {
-    //           if (err) {
-    //               alert(err.reason);
-    //               return false;
-    //           } else {
-    //               LocatToMain();
-    //           }
-    //       })
-    //   } else {
-    //       alert(_error);
-    //   }
-    //}
 });
