@@ -162,8 +162,8 @@ function AddProductToCart(loc) {
     }
     window.localStorage.setItem('CartItemSelect', _randomID.toString());
     window.localStorage.setItem('CartItemValue', _newtemp.toString());
-
-    location = "/" + loc;
+    
+    Helpers.System.LocateTo("/" + loc);
 }
 
 Template.MainPage.events({
