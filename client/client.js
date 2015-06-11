@@ -7,17 +7,24 @@ this.Helpers = {};
 Meteor.startup(function() {
     var _location = location.pathname;
     var _id = Meteor.userId();
-    if(_location == "/" || _location == "/jp" || _location == "/cn" || _location == "/hk" || _location == "/br") {
-        if(_id != null) {
-            Helpers.System.LocateTo('/home');
+    if(_location != "/resigner" && _location != "/jp/resigner" && _location != "/cn/resigner" && _location != "/hk/resigner" && _location != "/br/resigner") {
+        if(_location == "/" || _location == "/jp" || _location == "/cn" || _location == "/hk" || _location == "/br") {
+            if(_id != null) {
+                Helpers.System.LocateTo('/home');
+            }
+        } else {
+            if(_id == null) {
+                Helpers.System.LocateTo('/');
+            }
         }
     } else {
-        if(_id == null) {
-            Helpers.System.LocateTo('/');
-        }
+
     }
 
+    Helpers.System.SetLanguage();
     $(".dropdown-toggle").dropdown();
+    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="popover"]').popover();
 });
 
 Helpers.Reload = function() {

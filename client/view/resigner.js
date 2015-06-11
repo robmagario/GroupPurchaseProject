@@ -1,27 +1,27 @@
 /**
  * Created by chinhong on 5/21/15.
  */
-function LocatToMain() {
-    var _location = location.pathname;
-    _location = _location.replace("/resigner","");
-    _location += "/";
-    location =  _location;
-}
+//function LocatToMain() {
+//    var _location = location.pathname;
+//    _location = _location.replace("/resigner","");
+//    _location += "/";
+//    location =  _location;
+//}
 Template.ResignerPage.rendered = function() {
     // Turn to Main Page if logged in
-    var _id = Meteor.userId();
-    if(_id != null) {
-        //LocatToMain();
-    }
+    //var _id = Meteor.userId();
+    //if(_id != null) {
+    //    //LocatToMain();
+    //}
 }
 
 Template.ResignerPage.events({
     // Click Login Button
-   'click .btn_resigner': function() {
-       var _name = $('#resign').find('input').eq(0).val();
-       var _email = $('#resign').find('input').eq(1).val();
-       var _password = $('#resign').find('input').eq(2).val();
-       var _key = $('#resign').find('input').eq(3).val();
+   'click .btn_register': function() {
+       var _name = $('#regist').find('input').eq(0).val();
+       var _email = $('#regist').find('input').eq(1).val();
+       var _password = $('#regist').find('input').eq(2).val();
+       var _key = $('#regist').find('input').eq(3).val();
        var _empty = false;
        var _error = "";
        if(_name == "" || _name == null) {
@@ -62,7 +62,7 @@ Template.ResignerPage.events({
                            alert(err.message);
                        } else {
                            Meteor.call(
-                               'resigner_account',
+                               'register_account',
                                _email, _password, _key
                            );
                            location = "/";

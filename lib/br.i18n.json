@@ -22,6 +22,7 @@
   "Navbar_Order":      "Order",
   "Navbar_Purchase":   "Purchase",
   "Navbar_Dashboard":  "Dashboard",
+  "Navbar_Invitation": "Invitation",
 
   // Main Page
   "Login_Header":  "Login",
@@ -47,9 +48,10 @@
   "Address_Zipcode":  "Zip-Code",
   "Address_Phone":    "Phone Number",
   // Profile Invitation
-  "Invite_Header": "Invitation Information",
-  "Invite_Remain": "Remain",
-  "Invite_By":     "Invited By",
+  "Invite_Header":  "Invitation Information",
+  "Invite_Remain":  "Remain",
+  "Invite_ByHeader":"Invited By",
+  "Invite_By":      "Invited By %s", // %s will be auto get the name
   // Reset Password
   "ResetPW_Header":  "Reset Password",
   "ResetPW_Origin":  "Origin Password",
@@ -142,6 +144,13 @@
   "ProductInfo_Color":       "Color",
   "ProductInfo_Quantity":    "Quantity",
   "ProductInfo_Remain":      "Product Remaining",
+  "ProductInfo_CashbackGet":   "Cashback Get",
+  "ProductInfo_Cashback":      "Cash Back",
+  "ProductInfo_NewPrice":      "Price by using remaining cashback",
+  "ProductInfo_CashbackRemain":"Cashback Remain",
+  "ProductInfo_SaleStatus":    "Sale Status",
+  "ProductInfo_SaleActive":    "Active",
+  "ProductInfo_SaleDelay":     "Delay",
 
   // Purchase
   "Purchase_Header":         "Purchase Information",
@@ -156,9 +165,14 @@
   "Label_SelectAll": "Select All",
 
   // Button
+  "Btn_Regist": "Regist",
   "Btn_Login":  "Login",
   "Btn_Reset":  "Reset",
   "Btn_Invite": "Invite",
+  "Btn_Create": "Create",
+  "Btn_Delete": "Delete",
+  "Btn_Confirm":"Confirm",
+  "Btn_Cancel": "Cancel",
   "Btn_Edit":   "Edit",
   "Btn_Save":   "Save",
   "Btn_Back":   "Back",
@@ -168,5 +182,70 @@
   "Btn_StartOrder":    "Start Order",
   "Btn_NextStep":      "Next Step",
   "Btn_UseCashback":   "Use Cashback",
-  "Btn_UnuseCashback": "Unuse Cashback"
+  "Btn_UnuseCashback": "Unuse Cashback",
+
+  // Dashboard Sidebar
+  "Dashboard_Side_Overview": "Overview",
+  "Dashboard_Side_Create":   "Create Product",
+  "Dashboard_Side_Product":  "Product List",
+  "Dashboard_Side_Order":    "Order List",
+  "Dashboard_Side_Key":      "Invitation Key List",
+  "Dashboard_Side_Cashback": "Cashback List",
+  // Dashboard Overview
+  "Dashboard_Overview_Header": "Overview",
+  // Dashboard Create Product
+  "Dashboard_Create_Header":  "Create Product",
+  "Dashboard_Create_Name":    "Product Name",
+  "Dashboard_Create_Icon":    "Icon Image",
+  "Dashboard_Create_Main":    "Main Image",
+  "Dashboard_Create_Sub":     "Sub Image",
+  "Dashboard_Create_Size":    "Size",
+  "Dashboard_Create_Color":   "Color",
+  "Dashboard_Create_Desc":    "Description",
+  "Dashboard_Create_Price":   "Price",
+  "Dashboard_Create_Weight":  "Weight",
+  "Dashboard_Create_Country": "Country",
+  // Dashboard Product List
+  "Dashboard_Product_Header": "Product List",
+  "Dashboard_Product_Name":   "Name",
+  "Dashboard_Product_Weight": "Weight",
+  "Dashboard_Product_Price":  "Price",
+  "Dashboard_Product_Publish":"Publish",
+  // Dashboard Product Detail
+  "Dashboard_ProductInfo_Header": "Product Detail",
+  "Dashboard_ProductInfo_Name":   "Name",
+  "Dashboard_ProductInfo_Desc":   "Description",
+  "Dashboard_ProductInfo_Price":  "Price",
+  "Dashboard_ProductInfo_Weight": "Weight",
+  "Dashboard_ProductInfo_Size":   "Size",
+  "Dashboard_ProductInfo_Color":  "Color",
+  "Dashboard_ProductInfo_Set":    "Set Remain",
+  "Dashboard_ProductInfo_Remain": "Remaining",
+  // Dashboard Order List
+  "Dashboard_Order_Header":  "Order List",
+  "Dashboard_Order_Waiting": "Waiting Confirm Order",
+  "Dashboard_Order_Date":    "Date",
+  "Dashboard_Order_ID":      "Order ID",
+  "Dashboard_Order_Pay":     "Payment",
+  "Dashboard_Order_Method":  "Method",
+  "Dashboard_Order_Status":  "Status",
+  // Dashboard Order Detail
+  "Dashboard_OrderInfo_Header":      "Order Information",
+  "Dashboard_OrderInfo_UserID":      "User ID",
+  "Dashboard_OrderInfo_CashbackUse": "Cashback Use",
+  // Dashboard Invitation Key List
+  "Dashboard_Key_Header":   "Invitation Key List",
+  "Dashboard_Key_Key":      "Key",
+  "Dashboard_Key_From":     "From",
+  "Dashboard_Key_To":       "To",
+  "Dashboard_Key_Verified": "Verified",
+  // Dashboard Cashback List
+  "Dashboard_Cashback_Header":   "Cashback List",
+
+  // Resigner Page
+  "Register_Header":   "Registration",
+  "Register_Username": "Username",
+  "Register_Email":    "Email",
+  "Register_Password": "Password",
+  "Register_Key":      "Invite Key"
 }

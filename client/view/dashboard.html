@@ -4,19 +4,19 @@
     <div class="col-sm-2" id="sidebar" style="height:100%; padding:0; border-right:ridge orange 5px;">
         <br>
         <ul class="list-group">
-            <li class="list-group-item list-group-item-warning">Overview</li>
-            <li class="list-group-item">Create Product</li>
-            <li class="list-group-item">Product List</li>
-            <li class="list-group-item">Order List</li>
-            <li class="list-group-item">Invitation Key List</li>
-            <li class="list-group-item">Cashback List</li>
+            <li class="list-group-item list-group-item-warning" id="side-overview">{{_ "Dashboard_Side_Overview"}}</li>
+            <li class="list-group-item" id="side-create">{{_ "Dashboard_Side_Create"}}</li>
+            <li class="list-group-item" id="side-product">{{_ "Dashboard_Side_Product"}}</li>
+            <li class="list-group-item" id="side-order">{{_ "Dashboard_Side_Order"}}</li>
+            <li class="list-group-item" id="side-key">{{_ "Dashboard_Side_Key"}}</li>
+            <li class="list-group-item" id="side-cashback">{{_ "Dashboard_Side_Cashback"}}</li>
         </ul>
     </div>
     <div class="col-sm-10">
         <br>
         <div id="overview" class="panel-group content_item">
             <div class="panel panel-info panel-width-80">
-                <div class="panel-heading">Overview</div>
+                <div class="panel-heading">{{_ "Dashboard_Overview_Header"}}</div>
                 <div class="panel-body">
                     <div class="form-horizontal" role="form">
                     </div>
@@ -25,17 +25,17 @@
         </div>
         <div id="create_product" class="panel-group content_item" style="display:none;">
             <div class="panel panel-info panel-width-80">
-                <div class="panel-heading">Create Product</div>
+                <div class="panel-heading">{{_ "Dashboard_Create_Header"}}</div>
                 <div class="panel-body">
                     <div class="form-horizontal" role="form">
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Product Name:</label>
+                            <label class="control-label col-sm-3">{{_ "Dashboard_Create_Name"}}:</label>
                             <div class="col-sm-9">
-                                <input id="product_name" class="form-control" type="text" placeholder="Product Name">
+                                <input id="product_name" class="form-control" type="text" placeholder="{{_ "Dashboard_Create_Name"}}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Icon Image:</label>
+                            <label class="control-label col-sm-3">{{_ "Dashboard_Create_Icon"}}:</label>
                             <div class="col-sm-9">
                                 <input class="form-control" type="file" onchange="Helpers.Image.ReadURL(this, 'img_icon');">
                             </div>
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Main Image:</label>
+                            <label class="control-label col-sm-3">{{_ "Dashboard_Create_Main"}}:</label>
                             <div class="col-sm-9">
                                 <input class="form-control" type="file" onchange="Helpers.Image.ReadURL(this, 'img_main');">
                             </div>
@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Sub Image:</label>
+                            <label class="control-label col-sm-3">{{_ "Dashboard_Create_Sub"}}:</label>
                             <div class="col-sm-9" id="create_sub_image">
                             </div>
                             <div class="col-sm-offset-3 col-sm-9">
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Size:</label>
+                            <label class="control-label col-sm-3">{{_ "Dashboard_Create_Size"}}:</label>
                             <div class="col-sm-9" id="create_size">
                             </div>
                             <div class="col-sm-offset-3 col-sm-9">
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Color:</label>
+                            <label class="control-label col-sm-3">{{_ "Dashboard_Create_Color"}}:</label>
                             <div class="col-sm-9" id="create_color">
                             </div>
                             <div class="col-sm-offset-3 col-sm-9">
@@ -81,38 +81,38 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Description:</label>
+                            <label class="control-label col-sm-3">{{_ "Dashboard_Create_Desc"}}:</label>
                             <div class="col-sm-9">
-                                <textarea id="product_description"  class="form-control" type="text" placeholder="Deascription"></textarea>
+                                <textarea id="product_description"  class="form-control" type="text" placeholder="{{_ "Dashboard_Create_Desc"}}"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Price:</label>
+                            <label class="control-label col-sm-3">{{_ "Dashboard_Create_Price"}}:</label>
                             <div class="col-sm-8">
                                 <input id="product_price"  class="form-control" type="text" min="0" value="0">
                             </div>
                             <label class="control-label col-sm-1" style="text-align:left;">HKD</label>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Weight:</label>
+                            <label class="control-label col-sm-3">{{_ "Dashboard_Create_Weight"}}:</label>
                             <div class="col-sm-8">
                                 <input id="product_weight"  class="form-control" type="text" min="0" value="0">
                             </div>
                             <label class="control-label col-sm-1" style="text-align:left;">g</label>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Country:</label>
+                            <label class="control-label col-sm-3">{{_ "Dashboard_Create_Country"}}:</label>
                             <div class="col-sm-9" id="create-product-country">
-                                <label class="checkbox-inline"><input type="checkbox" value="Brazil">Brazil</label>
-                                <label class="checkbox-inline"><input type="checkbox" value="China">China</label>
-                                <label class="checkbox-inline"><input type="checkbox" value="Hong Kong">Hong Kong</label>
-                                <label class="checkbox-inline"><input type="checkbox" value="Japan">Japan</label>
-                                <label class="checkbox-inline"><input type="checkbox" value="Other">Other</label>
+                                <label class="checkbox-inline"><input type="checkbox" value="Brazil">{{_ "CountrySelection_Brazil"}}</label>
+                                <label class="checkbox-inline"><input type="checkbox" value="China">{{_ "CountrySelection_China"}}</label>
+                                <label class="checkbox-inline"><input type="checkbox" value="Hong Kong">{{_ "CountrySelection_HongKong"}}</label>
+                                <label class="checkbox-inline"><input type="checkbox" value="Japan">{{_ "CountrySelection_Japan"}}</label>
+                                <label class="checkbox-inline"><input type="checkbox" value="Other">{{_ "CountrySelection_Other"}}</label>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-5 col-sm-2">
-                                <button class="btn btn-default create-product" value="Create Product">Create</button>
+                                <button class="btn btn-default create-product" value="Create Product">{{_ "Btn_Create"}}</button>
                             </div>
                         </div>
                     </div>
@@ -121,17 +121,17 @@
         </div>
         <div id="product_list" class="panel-group content_item" style="display:none;">
             <div class="panel panel-info panel-width-80">
-                <div class="panel-heading">Product List</div>
+                <div class="panel-heading">{{_ "Dashboard_Product_Header"}}</div>
                 <div class="panel-body">
                     <table class="table table-striped table-hover">
                         <thead>
                         <tr>
                             <th width="80px"></th>
-                            <th>Name</th>
-                            <th>Weight</th>
-                            <th>Price</th>
-                            <th>Publish</th>
-                            <th width="10px"></th>
+                            <th>{{_ "Dashboard_Product_Name"}}</th>
+                            <th>{{_ "Dashboard_Product_Weight"}}</th>
+                            <th>{{_ "Dashboard_Product_Price"}}</th>
+                            <th>{{_ "Dashboard_Product_Publish"}}</th>
+                            <th width="80px"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -142,7 +142,7 @@
                                 <td><br>{{weight}} g</td>
                                 <td><br>{{price}} HKD</td>
                                 <td><br><button class="publish-item" value="">{{Publishing publish}}</button></td>
-                                <td><br><button class="delete-item" value="">Delete</button></td>
+                                <td><br><button class="delete-item" value="">{{_ "Btn_Delete"}}</button></td>
                             </tr>
                         {{/each}}
                         </tbody>
@@ -154,7 +154,7 @@
         </div>
         <div id="product_detail" class="panel-group content_item" style="display:none;">
             <div class="panel panel-info">
-                <div class="panel-heading">Product Detail</div>
+                <div class="panel-heading">{{_ "Dashboard_ProductInfo_Header"}}</div>
                 <div class="panel-body">
                     {{#each HashProduct}}
                         <div class="panel-group">
@@ -181,31 +181,31 @@
                                                     <div class="panel-body">
                                                         <div class="form-horizontal">
                                                             <div class="form-group">
-                                                                <label class="control-label col-sm-3">Name:</label>
+                                                                <label class="control-label col-sm-3">{{_ "Dashboard_ProductInfo_Name"}}:</label>
                                                                 <div class="col-sm-9">
                                                                     <label class="form-control">{{name}}</label>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label col-sm-3">Description:</label>
+                                                                <label class="control-label col-sm-3">{{_ "Dashboard_ProductInfo_Desc"}}:</label>
                                                                 <div class="col-sm-9">
                                                                     <label class="form-control">{{description}}</label>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label col-sm-3">Price:</label>
+                                                                <label class="control-label col-sm-3">{{_ "Dashboard_ProductInfo_Price"}}:</label>
                                                                 <div class="col-sm-9">
                                                                     <label class="form-control">{{price}} HKD</label>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label col-sm-3">Weight:</label>
+                                                                <label class="control-label col-sm-3">{{_ "Dashboard_ProductInfo_Weight"}}:</label>
                                                                 <div class="col-sm-9">
                                                                     <label class="form-control">{{weight}} g</label>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group" id="size">
-                                                                <label class="control-label col-sm-3">Size:</label>
+                                                                <label class="control-label col-sm-3">{{_ "Dashboard_ProductInfo_Size"}}:</label>
                                                                 {{#each Sizes}}
                                                                     <div class="col-sm-1">
                                                                         <button class="btn btn-default btn-select-a-size" value="SelectSize">{{this}}</button>
@@ -213,7 +213,7 @@
                                                                 {{/each}}
                                                             </div>
                                                             <div class="form-group" id="color">
-                                                                <label class="control-label col-sm-3">Color:</label>
+                                                                <label class="control-label col-sm-3">{{_ "Dashboard_ProductInfo_Color"}}:</label>
                                                                 {{#each Colors}}
                                                                     <div class="col-sm-1" style="padding-right:60px;">
                                                                         <div style='display:none;' class='color-cover'></div>
@@ -222,14 +222,14 @@
                                                                 {{/each}}
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="control-label col-sm-3">Set Remain:</label>
+                                                                <label class="control-label col-sm-3">{{_ "Dashboard_ProductInfo_Set"}}:</label>
                                                                 <div class="col-sm-2">
                                                                     <input id="remain-set" class="form-control" type="number" min="0" value="0">
                                                                 </div>
                                                                 <div class="col-sm-1">
-                                                                    <button class="btn btn-default remain-edit" value="">Save</button>
+                                                                    <button class="btn btn-default remain-edit" value="">{{_ "Btn_Save"}}</button>
                                                                 </div>
-                                                                <label class="control-label col-sm-2" style="color:gray">Remain:</label>
+                                                                <label class="control-label col-sm-2" style="color:gray">{{_ "Dashboard_ProductInfo_Remain"}}:</label>
                                                                 <label class="control-label col-sm-1" style="color:gray" id="remain">0</label>
                                                             </div>
                                                         </div>
@@ -247,24 +247,24 @@
         </div>
         <div id="order_list" class="panel-group content_item" style="display:none;">
             <div class="panel panel-info panel-width-80">
-                <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Order List</div>
+                <div class="panel-heading"><span class="glyphicon glyphicon-user"></span> {{_ "Dashboard_Order_Header"}}</div>
                 <div class="panel-body" id="profile">
                     <div class="form-horizontal" role="form">
                         <div class="form-group">
-                            <label class="control-label col-sm-3" for="email">Waiting Confirm Order:</label>
+                            <label class="control-label col-sm-3" for="email">{{_ "Dashboard_Order_Waiting"}}:</label>
                             <div class="col-sm-9">
-                                <label class="form-control">0</label>
+                                <label class="form-control">{{WaitingOrder}}</label>
                             </div>
                         </div>
                     </div>
                     <table class="table table-striped table-hover">
                         <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Order ID</th>
-                            <th>Payment</th>
-                            <th>Method</th>
-                            <th>Status</th>
+                            <th>{{_ "Dashboard_Order_Date"}}</th>
+                            <th>{{_ "Dashboard_Order_ID"}}</th>
+                            <th>{{_ "Dashboard_Order_Pay"}}</th>
+                            <th>{{_ "Dashboard_Order_Method"}}</th>
+                            <th>{{_ "Dashboard_Order_Status"}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -274,7 +274,7 @@
                                 <td>{{_id}}</td>
                                 <td>{{payment.payment_final}}</td>
                                 <td>{{payment.payment_method}}</td>
-                                <td>{{status}}</td>
+                                <td>{{get_status_name status}}</td>
                             </tr>
                         {{/each}}
                         </tbody>
@@ -284,90 +284,90 @@
         </div>
         <div id="order_detail" class="panel-group content_item" style="display:none;">
             <div class="panel panel-info panel-width-60">
-                <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Order Information</div>
+                <div class="panel-heading"><span class="glyphicon glyphicon-credit-card"></span>{{_ "Dashboard_OrderInfo_Header"}}</div>
                 <div class="panel-body">
                     <div class="form-horizontal" role="form">
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Order ID:</label>
+                            <label class="control-label col-sm-3">{{_ "OrderInfo_ID"}}:</label>
                             <div class="col-sm-9">
                                 <label class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Create Date:</label>
+                            <label class="control-label col-sm-3">{{_ "OrderInfo_CreateAt"}}:</label>
                             <div class="col-sm-9">
                                 <label class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">User ID:</label>
+                            <label class="control-label col-sm-3">{{_ "Dashboard_OrderInfo_UserID"}}:</label>
                             <div class="col-sm-9">
                                 <label class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">State:</label>
+                            <label class="control-label col-sm-3">{{_ "OrderInfo_Status"}}:</label>
                             <div class="col-sm-5">
                                 <label class="form-control"></label>
                             </div>
                             <div class="col-sm-2">
-                                <button class="btn btn-success btn-confirm-order">Confirm</button>
+                                <button class="btn btn-success btn-confirm-order">{{_ "Btn_Confirm"}}</button>
                             </div>
                             <div class="col-sm-2">
-                                <button class="btn btn-danger btn-cancel-order">Cancel</button>
+                                <button class="btn btn-danger btn-cancel-order">{{_ "Btn_Cancel"}}</button>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Payment:</label>
+                            <label class="control-label col-sm-3">{{_ "OrderInfo_Payment"}}:</label>
                             <div class="col-sm-9">
                                 <label class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Cashback Use:</label>
+                            <label class="control-label col-sm-3">{{_ "Dashboard_OrderInfo_CashbackUse"}}:</label>
                             <div class="col-sm-9">
                                 <label class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Final Payment:</label>
+                            <label class="control-label col-sm-3">{{_ "OrderInfo_FinalPayment"}}:</label>
                             <div class="col-sm-9">
                                 <label class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Cashback Get:</label>
+                            <label class="control-label col-sm-3">{{_ "OrderInfo_CashbackGet"}}:</label>
                             <div class="col-sm-9">
                                 <label class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Payment Method:</label>
+                            <label class="control-label col-sm-3">{{_ "OrderInfo_PaymentMethod"}}:</label>
                             <div class="col-sm-9">
                                 <label class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-3">Shipping Method:</label>
+                            <label class="control-label col-sm-3">{{_ "OrderInfo_ShippingMethod"}}:</label>
                             <div class="col-sm-9">
                                 <label class="form-control"></label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Product List</div>
+                <div class="panel-heading"><span class="glyphicon glyphicon-gift"></span>{{_ "ProductList_Header"}}</div>
                 <div class="panel-body">
                     <div class="form-horizontal" role="form">
                         <table class="table table-striped table-hover">
                             <thead>
                             <tr>
                                 <th width="80px"></th>
-                                <th>Name</th>
+                                <th>{{_ "ProductList_ProductName"}}</th>
                                 <th>Size</th>
                                 <th>Color</th>
-                                <th>Quantity</th>
-                                <th>Weight</th>
-                                <th>Price</th>
+                                <th>{{_ "ProductList_Quantity"}}</th>
+                                <th>{{_ "ProductList_Weight"}}</th>
+                                <th>{{_ "ProductList_Price"}}</th>
                             </tr>
                             </thead>
                             <tbody id="order_detail_product_list">
@@ -383,52 +383,52 @@
                             </tbody>
                         </table>
                         <div class="form-group">
-                            <label class="control-label col-sm-4">Total Quantity:</label>
+                            <label class="control-label col-sm-4">{{_ "ProductList_TotalQuantity"}}:</label>
                             <div class="col-sm-8">
                                 <label class="form-control"></label>
                             </div>
                         </div>
                         <div>
-                            <label class="control-label col-sm-4">Total Weight:</label>
+                            <label class="control-label col-sm-4">{{_ "ProductList_TotalWeight"}}:</label>
                             <div class="col-sm-8">
                                 <label class="form-control"></label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Delivery Address</div>
+                <div class="panel-heading"><span class="glyphicon glyphicon-home"></span>{{_ "Address_Delivery"}}</div>
                 <div class="panel-body" id="order_detail_address">
                     <div class="form-horizontal" role="form">
                         <div class="form-group">
-                            <label class="control-label col-sm-2">{{_ "Profile_Country"}}:</label>
+                            <label class="control-label col-sm-2">{{_ "Address_Country"}}:</label>
                             <div class="col-sm-10">
                                 <label class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-2">{{_ "Profile_City"}}:</label>
+                            <label class="control-label col-sm-2">{{_ "Address_City"}}:</label>
                             <div class="col-sm-10">
                                 <label class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-2">{{_ "Profile_State"}}:</label>
+                            <label class="control-label col-sm-2">{{_ "Address_State"}}:</label>
                             <div class="col-sm-10">
                                 <label class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-2">{{_ "Profile_Address"}}:</label>
+                            <label class="control-label col-sm-2">{{_ "Address_Address"}}:</label>
                             <div class="col-sm-10">
                                 <label class="form-control"></label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-2">{{_ "Profile_Zipcode"}}:</label>
+                            <label class="control-label col-sm-2">{{_ "Address_Zipcode"}}:</label>
                             <div class="col-sm-3">
                                 <label class="form-control"></label>
                             </div>
-                            <label class="control-label col-sm-offset-2 col-sm-2">{{_ "Profile_Phone"}}:</label>
+                            <label class="control-label col-sm-offset-2 col-sm-2">{{_ "Address_Phone"}}:</label>
                             <div class="col-sm-3">
                                 <label class="form-control"></label>
                             </div>
@@ -437,7 +437,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-5 col-sm-2">
-                                <button class="btn btn-default" value="ToOrderStep6">Next Step</button>
+                                <button class="btn btn-default order-detail-back">{{_ "Btn_Back"}}</button>
                             </div>
                         </div>
                     </div>
@@ -446,15 +446,15 @@
         </div>
         <div id="invitation_key_list" class="panel-group content_item" style="display:none;">
             <div class="panel panel-info panel-width-80">
-                <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Invitation Key List</div>
+                <div class="panel-heading">{{_ "Dashboard_Key_Header"}}</div>
                 <div class="panel-body" id="profile">
                     <table class="table table-striped table-hover">
                         <thead>
                         <tr>
-                            <th>Key</th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Verified</th>
+                            <th>{{_ "Dashboard_Key_Key"}}</th>
+                            <th>{{_ "Dashboard_Key_From"}}</th>
+                            <th>{{_ "Dashboard_Key_To"}}</th>
+                            <th>{{_ "Dashboard_Key_Verified"}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -473,16 +473,16 @@
         </div>
         <div id="cashback_list" class="panel-group content_item" style="display:none;">
             <div class="panel panel-info panel-width-80">
-                <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>Cashback List</div>
+                <div class="panel-heading">{{_ "Dashboard_Cashback_Header"}}</div>
                 <div class="panel-body" id="profile">
                     <table class="table table-striped table-hover">
                         <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Order ID</th>
-                            <th>Method</th>
-                            <th>Payment</th>
-                            <th>Cashback</th>
+                            <th>{{_ "Purchase_Date"}}</th>
+                            <th>{{_ "Purchase_ID"}}</th>
+                            <th>{{_ "Purchase_Method"}}</th>
+                            <th>{{_ "Purchase_Payment"}}</th>
+                            <th>{{_ "Purchase_Cashback"}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -501,7 +501,6 @@
             </div>
         </div>
     </div>
-
 
     <!--<div class="navbar">-->
         <!--<button class="btn_logout">Logout</button>-->
@@ -547,398 +546,398 @@
 <!-- The following is not using -->
 
 <template name="Dashboard_Overview">
-    <h1>Overview</h1>
+    <!--<h1>Overview</h1>-->
 </template>
 
 <template name="Dashboard_CreateProduct">
-    <h1>Create Product</h1>
-    <div class="panel panel-large-2">
-        <div class="header">Product Detail</div>
-        <br>
-        <div class="column">
-            <div>Product Name</div>
-            <input type="text" id="input_name">
-        </div>
-        <br>
-        <div class="column">
-            <div>Icon Image</div>
-            <input type="file" onchange="Helpers.Image.ReadURL(this, 'img_icon');">
-        </div>
-        <br>
-        <div class="column">
-            <div></div>
-            <div class="image-icon">
-                <img id="img_icon">
-            </div>
-        </div>
-        <br>
-        <div class="column">
-            <div>Main Image</div>
-            <input type="file" onchange="Helpers.Image.ReadURL(this, 'img_main');">
-        </div>
-        <br>
-        <div class="column">
-            <div></div>
-            <img id="img_main">
-        </div>
-        <br>
-        <div id="CreateSubImage" class="column-sub-image">
-            <divh class="column">
-                <div>Sub Image</div>
-                <input type="file" onchange="Helpers.Image.ReadURL(this, 'image_00000');">
-                <button class="btn-minus-image">-</button>
-            </divh>
-            <divi class="column">
-                <div></div>
-                <img id="image_00000">
-            </divi>
-        </div>
-        <div class="column">
-            <div></div>
-            <button class="btn-add-image">+</button>
-        </div>
-        <br>
-        <div class="column">
-            <div>Selections</div>
-            <div class="checkbox-selection">
-                <input type="checkbox" class="btn-toggle-size">
-                <label>Size</label>
-            </div>
-            <div class="checkbox-selection">
-                <input type="checkbox" class="btn-toggle-color">
-                <label>Color</label>
-            </div>
-        </div>
-        <br>
-        <div id="CreateSize" class="column" style="display:none;">
-            <div>Size</div>
-            <div id="CreatingSize" class="create-size">
-                <button class="btn-add-size">+</button>
-            </div>
-        </div>
-        <br id="CreateSizeBR" style="display:none;">
-        <div id="CreateColor" class="column" style="display: none;">
-            <div>Color</div>
-            <div id="CreatingColor" class="create-color">
-                <button class="btn-add-color">+</button>
-            </div>
-        </div>
-        <br id="CreateColorBR" style="display:none;">
-        <div class="column">
-            <div>Description</div>
-            <textarea id="input_description"></textarea>
-        </div>
-        <br>
-        <div class="column">
-            <div>Price(HKD)</div>
-            <input type="number" id="input_price" min="1">
-        </div>
-        <br>
-        <div class="column">
-            <div>Weight(g)</div>
-            <input type="number" id="input_weight" min="1">
-        </div>
-        <br>
-        <button class="btn_create_product button-1-col">Create</button>
-        <br>
-        <br>
-    </div>
+    <!--<h1>Create Product</h1>-->
+    <!--<div class="panel panel-large-2">-->
+        <!--<div class="header">Product Detail</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Product Name</div>-->
+            <!--<input type="text" id="input_name">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Icon Image</div>-->
+            <!--<input type="file" onchange="Helpers.Image.ReadURL(this, 'img_icon');">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div></div>-->
+            <!--<div class="image-icon">-->
+                <!--<img id="img_icon">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Main Image</div>-->
+            <!--<input type="file" onchange="Helpers.Image.ReadURL(this, 'img_main');">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div></div>-->
+            <!--<img id="img_main">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div id="CreateSubImage" class="column-sub-image">-->
+            <!--<divh class="column">-->
+                <!--<div>Sub Image</div>-->
+                <!--<input type="file" onchange="Helpers.Image.ReadURL(this, 'image_00000');">-->
+                <!--<button class="btn-minus-image">-</button>-->
+            <!--</divh>-->
+            <!--<divi class="column">-->
+                <!--<div></div>-->
+                <!--<img id="image_00000">-->
+            <!--</divi>-->
+        <!--</div>-->
+        <!--<div class="column">-->
+            <!--<div></div>-->
+            <!--<button class="btn-add-image">+</button>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Selections</div>-->
+            <!--<div class="checkbox-selection">-->
+                <!--<input type="checkbox" class="btn-toggle-size">-->
+                <!--<label>Size</label>-->
+            <!--</div>-->
+            <!--<div class="checkbox-selection">-->
+                <!--<input type="checkbox" class="btn-toggle-color">-->
+                <!--<label>Color</label>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div id="CreateSize" class="column" style="display:none;">-->
+            <!--<div>Size</div>-->
+            <!--<div id="CreatingSize" class="create-size">-->
+                <!--<button class="btn-add-size">+</button>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<br id="CreateSizeBR" style="display:none;">-->
+        <!--<div id="CreateColor" class="column" style="display: none;">-->
+            <!--<div>Color</div>-->
+            <!--<div id="CreatingColor" class="create-color">-->
+                <!--<button class="btn-add-color">+</button>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<br id="CreateColorBR" style="display:none;">-->
+        <!--<div class="column">-->
+            <!--<div>Description</div>-->
+            <!--<textarea id="input_description"></textarea>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Price(HKD)</div>-->
+            <!--<input type="number" id="input_price" min="1">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Weight(g)</div>-->
+            <!--<input type="number" id="input_weight" min="1">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<button class="btn_create_product button-1-col">Create</button>-->
+        <!--<br>-->
+        <!--<br>-->
+    <!--</div>-->
 </template>
 
 <template name="Dashboard_ProductList">
-    <h1>Product List</h1>
-    <div class="panel panel-large-2">
-        <div class="header">Product List</div>
-        {{#each Product.ListAll}}
-            <div class="product-col product-each">
-                <img width="64px" src="{{Image.GetImageByID.Icon image}}">
-                <div class="product-col-detail">
-                    <div class="product-col-header">{{name}}</div>
-                    <div class="product-col-info">
-                        <div class="product-col-info-price">{{price}} HKD</div>
-                        <div class="product-col-info-weight">{{weight}} g</div>
-                        <button class="product-col-info-cancel btn-cart-cancel" value="{{this}}">Cancel</button>
-                    </div>
-                </div>
-                <br>
-            </div>
-        {{/each}}
-    </div>
+    <!--<h1>Product List</h1>-->
+    <!--<div class="panel panel-large-2">-->
+        <!--<div class="header">Product List</div>-->
+        <!--{{#each Product.ListAll}}-->
+            <!--<div class="product-col product-each">-->
+                <!--<img width="64px" src="{{Image.GetImageByID.Icon image}}">-->
+                <!--<div class="product-col-detail">-->
+                    <!--<div class="product-col-header">{{name}}</div>-->
+                    <!--<div class="product-col-info">-->
+                        <!--<div class="product-col-info-price">{{price}} HKD</div>-->
+                        <!--<div class="product-col-info-weight">{{weight}} g</div>-->
+                        <!--<button class="product-col-info-cancel btn-cart-cancel" value="{{this}}">Cancel</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<br>-->
+            <!--</div>-->
+        <!--{{/each}}-->
+    <!--</div>-->
 </template>
 
 <template name="Dashboard_ProductDetail">
-    <div class="product-detail-panel">
-        <div class="basic-info">
-            <div class="column">
-                <div>Product ID: </div>
-                <label id="label_product_id"></label>
-            </div>
-            <br>
-            <div class="column">
-                <div>Icon Image</div>
-                <div class="image-icon">
-                    <img id="label_product_img_icon">
-                </div>
-            </div>
-            <br>
-        </div>
-        <div class="selection-info">
-            <div class="img-holder">
-                <img id="label_product_img_main" class="main-img-holder">
-                <div id="ShowingSubImage" class="sub-img-holder">
-                </div>
-            </div>
-            <div class="main-info">
-                <div class="column">
-                    <div>Product Name: </div>
-                    <label id="label_product_name"></label>
-                </div>
-                <br>
-                <div class="column">
-                    <div>Description: </div>
-                    <label id="label_product_description"></label>
-                </div>
-                <br>
-                <div class="column">
-                    <div>Price: </div>
-                    <label id="label_product_price"></label>
-                </div>
-                <br>
-                <div class="column">
-                    <div>Weight: </div>
-                    <label id="label_product_weight"></label>
-                </div>
-                <br>
-                <div id="SizeSelectionHeader" class="column">
-                    <div>Size: </div>
-                    <div id="SizeSelection" class="size-section">
-                    </div>
-                </div>
-                <br>
-                <div id="ColorSelectionHeader" class="column">
-                    <div>Color: </div>
-                    <div id="ColorSelection" class="color-section">
-                    </div>
-                </div>
-                <br>
-                <div class="column">
-                    <div>Remaining: </div>
-                    <label id="label_product_rest" style="width: 50px;">0</label>
-                    <input id="label_product_rest_edit" type="text" style="width: 50px; display: none;" value="0">
-                    <button class="btn-remain-edit">Edit</button>
-                    <button class="btn-remain-save" style="display: none;">Save</button>
-                </div>
-                <br>
-                <div class="column">
-                    <div>Published: </div>
-                    <input type="checkbox" id="label_product_publish">
-                </div>
-            </div>
-        </div>
-        <button class="btn_product_detail_back button-1-col">Back</button>
-    </div>
+    <!--<div class="product-detail-panel">-->
+        <!--<div class="basic-info">-->
+            <!--<div class="column">-->
+                <!--<div>Product ID: </div>-->
+                <!--<label id="label_product_id"></label>-->
+            <!--</div>-->
+            <!--<br>-->
+            <!--<div class="column">-->
+                <!--<div>Icon Image</div>-->
+                <!--<div class="image-icon">-->
+                    <!--<img id="label_product_img_icon">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<br>-->
+        <!--</div>-->
+        <!--<div class="selection-info">-->
+            <!--<div class="img-holder">-->
+                <!--<img id="label_product_img_main" class="main-img-holder">-->
+                <!--<div id="ShowingSubImage" class="sub-img-holder">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="main-info">-->
+                <!--<div class="column">-->
+                    <!--<div>Product Name: </div>-->
+                    <!--<label id="label_product_name"></label>-->
+                <!--</div>-->
+                <!--<br>-->
+                <!--<div class="column">-->
+                    <!--<div>Description: </div>-->
+                    <!--<label id="label_product_description"></label>-->
+                <!--</div>-->
+                <!--<br>-->
+                <!--<div class="column">-->
+                    <!--<div>Price: </div>-->
+                    <!--<label id="label_product_price"></label>-->
+                <!--</div>-->
+                <!--<br>-->
+                <!--<div class="column">-->
+                    <!--<div>Weight: </div>-->
+                    <!--<label id="label_product_weight"></label>-->
+                <!--</div>-->
+                <!--<br>-->
+                <!--<div id="SizeSelectionHeader" class="column">-->
+                    <!--<div>Size: </div>-->
+                    <!--<div id="SizeSelection" class="size-section">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<br>-->
+                <!--<div id="ColorSelectionHeader" class="column">-->
+                    <!--<div>Color: </div>-->
+                    <!--<div id="ColorSelection" class="color-section">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<br>-->
+                <!--<div class="column">-->
+                    <!--<div>Remaining: </div>-->
+                    <!--<label id="label_product_rest" style="width: 50px;">0</label>-->
+                    <!--<input id="label_product_rest_edit" type="text" style="width: 50px; display: none;" value="0">-->
+                    <!--<button class="btn-remain-edit">Edit</button>-->
+                    <!--<button class="btn-remain-save" style="display: none;">Save</button>-->
+                <!--</div>-->
+                <!--<br>-->
+                <!--<div class="column">-->
+                    <!--<div>Published: </div>-->
+                    <!--<input type="checkbox" id="label_product_publish">-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<button class="btn_product_detail_back button-1-col">Back</button>-->
+    <!--</div>-->
 
 
 
 
 
 
-    <div class="panel panel-large-3">
-        <div class="header">Product Detail</div>
-        <br>
-        <div class="column">
-            <div>Product ID: </div>
-            <label id="label_product_id"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Product Name: </div>
-            <label id="label_product_name"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Description: </div>
-            <label id="label_product_description"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Price: </div>
-            <label id="label_product_price"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Weight: </div>
-            <label id="label_product_weight"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Icon Image</div>
-            <div class="image-icon">
-                <img id="label_product_img_icon">
-            </div>
-        </div>
-        <br>
-        <div class="column">
-            <div>Main Image</div>
-            <img id="label_product_img_main">
-        </div>
-        <br>
-        <div class="column">
-            <div>Sub Image</div>
-        </div>
-        <div id="ShowingSubImage" class="column-sub-image">
-        </div>
-        <br>
-        <button class="btn_product_detail_back button-1-col">Back</button>
-        <br>
-        <br>
-    </div>
+    <!--<div class="panel panel-large-3">-->
+        <!--<div class="header">Product Detail</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Product ID: </div>-->
+            <!--<label id="label_product_id"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Product Name: </div>-->
+            <!--<label id="label_product_name"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Description: </div>-->
+            <!--<label id="label_product_description"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Price: </div>-->
+            <!--<label id="label_product_price"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Weight: </div>-->
+            <!--<label id="label_product_weight"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Icon Image</div>-->
+            <!--<div class="image-icon">-->
+                <!--<img id="label_product_img_icon">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Main Image</div>-->
+            <!--<img id="label_product_img_main">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Sub Image</div>-->
+        <!--</div>-->
+        <!--<div id="ShowingSubImage" class="column-sub-image">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<button class="btn_product_detail_back button-1-col">Back</button>-->
+        <!--<br>-->
+        <!--<br>-->
+    <!--</div>-->
 </template>
 
 <template name="Dashboard_InvitationKeyList">
-    <h1>Invitation Key List</h1>
-    <table class="user-table">
-        <thead>
-            <th class="email-from">From</th>
-            <th class="email-to">To</th>
-            <th class="key">Key</th>
-            <th class="time">Create At</th>
-            <th class="checkbox">Verified</th>
-        </thead>
-        <tbody>
-        {{#each InvitationKey.ListAll}}
-            <tr class="nth-child">
-                <td>{{from}}</td>
-                <td>{{to}}</td>
-                <td>{{_id}}</td>
-                <td>{{createAt}}</td>
-                <td>{{verified}}</td>
-            </tr>
-        {{/each}}
-        </tbody>
-    </table>
+    <!--<h1>Invitation Key List</h1>-->
+    <!--<table class="user-table">-->
+        <!--<thead>-->
+            <!--<th class="email-from">From</th>-->
+            <!--<th class="email-to">To</th>-->
+            <!--<th class="key">Key</th>-->
+            <!--<th class="time">Create At</th>-->
+            <!--<th class="checkbox">Verified</th>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--{{#each InvitationKey.ListAll}}-->
+            <!--<tr class="nth-child">-->
+                <!--<td>{{from}}</td>-->
+                <!--<td>{{to}}</td>-->
+                <!--<td>{{_id}}</td>-->
+                <!--<td>{{createAt}}</td>-->
+                <!--<td>{{verified}}</td>-->
+            <!--</tr>-->
+        <!--{{/each}}-->
+        <!--</tbody>-->
+    <!--</table>-->
 </template>
 
 <template name="Dashboard_OrderList">
-    <h1>Order List</h1>
-    <table class="user-table">
-        <thead>
-            <th class="">User</th>
-            <th class="">Payment</th>
-            <th class="">Weight</th>
-            <th class="">No. of product</th>
-            <th class="">Status</th>
-        </thead>
-        <tbody>
-        {{#each Order.ListAll}}
-            <tr class="nth-child order-each">
-                <td>{{user}}</td>
-                <td>{{payment.payment}}</td>
-                <td>{{payment.weight}}</td>
-                <td>{{payment.count}}</td>
-                <td>{{status}}</td>
-            </tr>
-        {{/each}}
-        </tbody>
-    </table>
+    <!--<h1>Order List</h1>-->
+    <!--<table class="user-table">-->
+        <!--<thead>-->
+            <!--<th class="">User</th>-->
+            <!--<th class="">Payment</th>-->
+            <!--<th class="">Weight</th>-->
+            <!--<th class="">No. of product</th>-->
+            <!--<th class="">Status</th>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--{{#each Order.ListAll}}-->
+            <!--<tr class="nth-child order-each">-->
+                <!--<td>{{user}}</td>-->
+                <!--<td>{{payment.payment}}</td>-->
+                <!--<td>{{payment.weight}}</td>-->
+                <!--<td>{{payment.count}}</td>-->
+                <!--<td>{{status}}</td>-->
+            <!--</tr>-->
+        <!--{{/each}}-->
+        <!--</tbody>-->
+    <!--</table>-->
 </template>
 
 <template name="Dashboard_OrderDetail">
-    <h1>Order Detail</h1>
-    <div class="panel panel-large-3">
-        <div class="header">Order Information</div>
-        <br>
-        <div class="column">
-            <div>Order ID: </div>
-            <label id="label_detail_orderid"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Create Date: </div>
-            <label id="label_detail_createdate"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Username: </div>
-            <label id="label_detail_username"></label>
-            <label id="label_detail_userid" style="display: none;"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Status: </div>
-            <label id="label_detail_status"></label>
-        </div>
-        <br>
-        <div class="header">Payment Information</div>
-        <br>
-        <div class="column">
-            <div>Payment: </div>
-            <label id="label_detail_payment"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Cashback Use: </div>
-            <label id="label_detail_cashback_use"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Cashback: </div>
-            <label id="label_detail_cashback"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>No. of product: </div>
-            <label id="label_detail_count"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Total Weight: </div>
-            <label id="label_detail_weight"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Payment Method: </div>
-            <label id="label_detail_payment_method"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Shipping Method</div>
-            <label id="label_detail_shipping_method"></label>
-        </div>
-        <br>
-        <div class="header">Address Information</div>
-        <br>
-        <div class="column">
-            <div>Country: </div>
-            <label id="label_detail_country"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>City: </div>
-            <label id="label_detail_city"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Address: </div>
-            <label id="label_detail_address"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Contact Number: </div>
-            <label id="label_detail_phone"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Zip-Code</div>
-            <label id="label_detail_zipcode"></label>
-        </div>
-        <br>
-        <div class="header">Product Information</div>
-        <br>
-        <div id="Order_detail_ProductList" style="width:80%; margin-left:auto; margin-right:auto;"></div>
-        <br>
-        <button class="btn_order_detail_back button-1-col">Back</button>
-        <br>
-        <br>
-    </div>
+    <!--<h1>Order Detail</h1>-->
+    <!--<div class="panel panel-large-3">-->
+        <!--<div class="header">Order Information</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Order ID: </div>-->
+            <!--<label id="label_detail_orderid"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Create Date: </div>-->
+            <!--<label id="label_detail_createdate"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Username: </div>-->
+            <!--<label id="label_detail_username"></label>-->
+            <!--<label id="label_detail_userid" style="display: none;"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Status: </div>-->
+            <!--<label id="label_detail_status"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="header">Payment Information</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Payment: </div>-->
+            <!--<label id="label_detail_payment"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Cashback Use: </div>-->
+            <!--<label id="label_detail_cashback_use"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Cashback: </div>-->
+            <!--<label id="label_detail_cashback"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>No. of product: </div>-->
+            <!--<label id="label_detail_count"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Total Weight: </div>-->
+            <!--<label id="label_detail_weight"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Payment Method: </div>-->
+            <!--<label id="label_detail_payment_method"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Shipping Method</div>-->
+            <!--<label id="label_detail_shipping_method"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="header">Address Information</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Country: </div>-->
+            <!--<label id="label_detail_country"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>City: </div>-->
+            <!--<label id="label_detail_city"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Address: </div>-->
+            <!--<label id="label_detail_address"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Contact Number: </div>-->
+            <!--<label id="label_detail_phone"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Zip-Code</div>-->
+            <!--<label id="label_detail_zipcode"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="header">Product Information</div>-->
+        <!--<br>-->
+        <!--<div id="Order_detail_ProductList" style="width:80%; margin-left:auto; margin-right:auto;"></div>-->
+        <!--<br>-->
+        <!--<button class="btn_order_detail_back button-1-col">Back</button>-->
+        <!--<br>-->
+        <!--<br>-->
+    <!--</div>-->
 </template>

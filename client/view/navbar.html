@@ -34,9 +34,9 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/invitation"><span class="glyphicon glyphicon-list"></span> Invitation List</a></li>
+                    <li><a onclick="Helpers.System.LocateTo('/invitation');"><span class="glyphicon glyphicon-list"></span> {{_ "Navbar_Invitation"}}</a></li>
                     <li><a onclick="Helpers.System.LocateTo('/profile');"><span class="glyphicon glyphicon-user"></span> {{_ "Navbar_Profile"}}</a></li>
-                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> {{_ "Navbar_Logout"}}</a></li>
+                    <li><a onclick="Helpers.System.LocateTo('/logout');"><span class="glyphicon glyphicon-log-out"></span> {{_ "Navbar_Logout"}}</a></li>
                 </ul>
             </div>
             {{/if}}
@@ -45,7 +45,7 @@
                     <a class="navbar-brand" onclick="Helpers.Reload();">{{_ "WebsiteTitle"}}</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li><a onclick="Helpers.System.LocateTo('/');"><span class="glyphicon glyphicon-question-sign"></span> {{_ "Navbar_HowItWorks"}}</a></li>
+                    <li><a onclick="Helpers.System.LocateTo('');"><span class="glyphicon glyphicon-question-sign"></span> {{_ "Navbar_HowItWorks"}}</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-book"></span> {{_ "Language_Header"}}
                             <span class="caret"></span></a>
@@ -57,6 +57,9 @@
                             <li><a onclick="Helpers.System.SelectLanguage('cn')">{{_ "Language_cn"}}</a></li>
                         </ul>
                     </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a data-toggle="modal" data-target="#LoginModel"><span class="glyphicon glyphicon-log-in"></span> {{_ "Btn_Login"}}</a></li>
                 </ul>
             {{/if}}
         </div>

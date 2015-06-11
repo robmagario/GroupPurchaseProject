@@ -3,14 +3,18 @@
  */
 if (Meteor.isClient) {
     // Dashboard Page
-    Router.route("dashboard", {path: "/dashboard", controller: "DashboardController"});
+    Router.route("dashboard_en", {path: "/dashboard", controller: "DashboardController"});
+    Router.route("dashboard_jp", {path: "/jp/dashboard", controller: "DashboardController"});
+    Router.route("dashboard_cn", {path: "/cn/dashboard", controller: "DashboardController"});
+    Router.route("dashboard_hk", {path: "/hk/dashboard", controller: "DashboardController"});
+    Router.route("dashboard_br", {path: "/br/dashboard", controller: "DashboardController"});
 
     // Resigner Page
-    Router.route("resigner_en", {path: "/resigner", controller: "ResignerController"});
-    Router.route("resigner_jp", {path: "/jp/resigner", controller: "ResignerController"});
-    Router.route("resigner_cn", {path: "/cn/resigner", controller: "ResignerController"});
-    Router.route("resigner_hk", {path: "/hk/resigner", controller: "ResignerController"});
-    Router.route("resigner_br", {path: "/br/resigner", controller: "ResignerController"});
+    Router.route("registration_en", {path: "/registration", controller: "ResignerController"});
+    Router.route("registration_jp", {path: "/jp/registration", controller: "ResignerController"});
+    Router.route("registration_cn", {path: "/cn/registration", controller: "ResignerController"});
+    Router.route("registration_hk", {path: "/hk/registration", controller: "ResignerController"});
+    Router.route("registration_br", {path: "/br/registration", controller: "ResignerController"});
 
     // Page Before Login
     Router.route("login_en", {path: "/", controller: "LoginController"});
@@ -68,6 +72,7 @@ if (Meteor.isClient) {
     Router.route("logout_hk", {path: "/hk/logout", controller: "LogoutController"});
     Router.route("logout_br", {path: "/br/logout", controller: "LogoutController"});
 
+    // Invitation
     Router.route("invitation_en", {path: "/invitation", controller: "InvitationController"});
     Router.route("invitation_jp", {path: "/jp/invitation", controller: "InvitationController"});
     Router.route("invitation_cn", {path: "/cn/invitation", controller: "InvitationController"});

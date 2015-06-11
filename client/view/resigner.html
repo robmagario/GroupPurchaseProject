@@ -1,5 +1,5 @@
 <template name="ResignerPage">
-    <div id="resign" class="panel-group">
+    <div id="regist" class="panel-group">
         <br>
         <br>
         <br>
@@ -7,36 +7,36 @@
         <br>
         <br>
         <div class="panel panel-info panel-width-60">
-            <div class="panel-heading">Resigner</div>
+            <div class="panel-heading">{{_ "Register_Header"}}</div>
             <div class="panel-body">
                 <div class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Username:</label>
+                        <label class="control-label col-sm-3">{{_ "Register_Username"}}:</label>
                         <div class="col-sm-9">
-                            <input class="form-control" type="text" placeholder="Your Name">
+                            <input class="form-control" type="text" placeholder="{{_ "Register_Username"}}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Email:</label>
+                        <label class="control-label col-sm-3">{{_ "Register_Email"}}:</label>
                         <div class="col-sm-9">
-                            <input class="form-control" type="text" placeholder="Your Email">
+                            <input class="form-control" type="text" placeholder="{{_ "Register_Email"}}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Password:</label>
+                        <label class="control-label col-sm-3">{{_ "Register_Password"}}:</label>
                         <div class="col-sm-9">
-                            <input class="form-control" type="password" placeholder="Your Password">
+                            <input class="form-control" type="password" placeholder="{{_ "Register_Password"}}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Invite Key:</label>
+                        <label class="control-label col-sm-3">{{_ "Register_Key"}}:</label>
                         <div class="col-sm-9">
-                            <input class="form-control" type="text" placeholder="Invite Key ">
+                            <input class="form-control" type="text" placeholder="{{_ "Register_Key"}} ">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-5 col-sm-2">
-                            <button class="btn btn-default btn_resigner" value="Resign">Resign</button>
+                            <button class="btn btn-default btn_register" value="Btn_Regist">{{_ "Btn_Regist"}}</button>
                         </div>
                     </div>
                 </div>

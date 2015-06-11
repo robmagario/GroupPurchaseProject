@@ -10,11 +10,13 @@ Meteor.startup(function () {
             },
             invited_by: "",
             create_at: new Date()
+        }, function() {
+            var userrob = Meteor.users.findOne({username: 'robmagario'});
+            if(userrob != null) {
+                Roles.addUsersToRoles(userrob._id, ['admin']);
+            }
         });
-    }
-    var userrob = Meteor.users.findOne({username: 'robmagario'});
-    if(userrob != null) {
-        Roles.addUsersToRoles(userrob._id, ['admin']);
+
     }
 
     if (typeof Meteor.users.findOne({
@@ -27,10 +29,11 @@ Meteor.startup(function () {
             profile: {
                 invitedBy: "a"
             }
+        }, function() {
+            var user_dave = Meteor.users.findOne({username: 'DaveNg'});
+            if(user_dave != null) {
+                Roles.addUsersToRoles(user_dave._id, ['admin']);
+            }
         });
-    }
-    var user_dave = Meteor.users.findOne({username: 'DaveNg'});
-    if(user_dave != null) {
-        Roles.addUsersToRoles(user_dave._id, ['admin']);
     }
 });

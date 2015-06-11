@@ -50,8 +50,8 @@ Template.InvitationPage.events({
                 "<a class='list-group-item an-second-invite'>"+_second[i1].to+"</a>";
         }
         $('#second-group').html(SecondHTML);
-        $('#second-label').html("Invite By " + _active);
-        $('#third-label').html("Invite By");
+        $('#second-label').html(TAPi18n.__("Invite_By", _active));
+        $('#third-label').html(TAPi18n.__("Invite_By", " "));
         $('#third-group').html("");
     },
     'click .an-second-invite': function(e) {
@@ -72,7 +72,7 @@ Template.InvitationPage.events({
             ThirdHTML += "" +
                 "<a class='list-group-item'>"+_thrid[i1].to+"</a>";
         }
-        $('#third-label').html("Invite By " + _active);
+        $('#third-label').html(TAPi18n.__("Invite_By", _active));
         $('#third-group').html(ThirdHTML);
     }
 });

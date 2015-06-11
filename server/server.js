@@ -12,7 +12,7 @@ Meteor.startup(function() {
     process.env.MAIL_URL = 'smtp://davengfortesting%40meteorize.gmail.com:u3aHyUuelGV6tthci9P0dQ@smtp.mandrillapp.com:587';
     // Link:	https://mandrillapp.com/
     // User:	davengfortesting@gmail.com
-    // PW:		mytestforjob830)
+    // PW:		mytestforjob830
 });
 
 Meteor.methods({
@@ -116,7 +116,7 @@ Meteor.methods({
         });
     },
 
-    resigner_account: function(to, from, key) {
+    register_account: function(to, from, key) {
         var _searchKey = Invitations.find({_id: key, verified:false}).fetch();
         if(_searchKey.length > 0) {
             Invitations.update(key, {$set:{verified: true}});

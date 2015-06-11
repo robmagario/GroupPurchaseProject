@@ -1,5 +1,5 @@
 <head>
-    <link href="public/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!--<link href="public/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
 </head>
 
 <template name="MainPage">
@@ -30,334 +30,334 @@
 </template>
 
 <template name="MainPage_Overview">
-    <h1>Overview</h1>
+    <!--<h1>Overview</h1>-->
 
-    <div class="panel">
-        <div class="header">Cash Back</div>
-        <div class="column">
-            <div>Total: </div>
-            <label id="label_total_cashback">{{User.CashBackStatus.UserTotalRemain}} HKD</label>
-        </div>
-    </div>
+    <!--<div class="panel">-->
+        <!--<div class="header">Cash Back</div>-->
+        <!--<div class="column">-->
+            <!--<div>Total: </div>-->
+            <!--<label id="label_total_cashback">{{User.CashBackStatus.UserTotalRemain}} HKD</label>-->
+        <!--</div>-->
+    <!--</div>-->
 
-    <div class="panel panel-large-3">
-        <div class="header">Cashback List</div>
-        <table class="user-table">
-            <thead>
-            <th class="table-col-user-cashback-date">Date</th>
-            <th class="table-col-user-cashback-id">Order ID</th>
-            <th class="table-col-user-cashback-use">Cashback Use</th>
-            <th class="table-col-user-cashback-get">Cashback Get</th>
-            </thead>
-            <tbody>
-            {{#each User.CashBackStatus.ListUsers}}
-                <tr class="">
-                    <td>{{date}}</td>
-                    <td style="text-align: left;">{{order}}</td>
-                    <td style="text-align: right;">{{cash_use}} HKD</td>
-                    <td style="text-align: right;">{{cash_get}} HKD</td>
-                </tr>
-            {{/each}}
-            <tr>
-                <td></td>
-                <td style="text-align: left;"></td>
-                <td id="overniew_cashback_totaluse" style="text-align: right;">Total: {{User.CashBackStatus.UserTotalUse}} HKD</td>
-                <td id="overniew_cashback_totalget" style="text-align: right;">Total: {{User.CashBackStatus.UserTotalGet}} HKD</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <!--<div class="panel panel-large-3">-->
+        <!--<div class="header">Cashback List</div>-->
+        <!--<table class="user-table">-->
+            <!--<thead>-->
+            <!--<th class="table-col-user-cashback-date">Date</th>-->
+            <!--<th class="table-col-user-cashback-id">Order ID</th>-->
+            <!--<th class="table-col-user-cashback-use">Cashback Use</th>-->
+            <!--<th class="table-col-user-cashback-get">Cashback Get</th>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+            <!--{{#each User.CashBackStatus.ListUsers}}-->
+                <!--<tr class="">-->
+                    <!--<td>{{date}}</td>-->
+                    <!--<td style="text-align: left;">{{order}}</td>-->
+                    <!--<td style="text-align: right;">{{cash_use}} HKD</td>-->
+                    <!--<td style="text-align: right;">{{cash_get}} HKD</td>-->
+                <!--</tr>-->
+            <!--{{/each}}-->
+            <!--<tr>-->
+                <!--<td></td>-->
+                <!--<td style="text-align: left;"></td>-->
+                <!--<td id="overniew_cashback_totaluse" style="text-align: right;">Total: {{User.CashBackStatus.UserTotalUse}} HKD</td>-->
+                <!--<td id="overniew_cashback_totalget" style="text-align: right;">Total: {{User.CashBackStatus.UserTotalGet}} HKD</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+    <!--</div>-->
 
-    <div class="panel panel-large-3">
-        <div class="header">Order List</div>
-        <table class="user-table">
-            <thead>
-                <th class="table-col-user-order-date">Create Date</th>
-                <th class="table-col-user-order-payment">Payment</th>
-                <th class="table-col-user-order-method">Method</th>
-                <th class="table-col-user-order-status">Status</th>
-            </thead>
-            <tbody>
-                {{#each Order.ListUserOrder}}
-                    <tr class="user-order-each">
-                        <td>{{createAt}}</td>
-                        <td style="text-align: right;">{{payment.payment}}</td>
-                        <td style="text-align: center;">{{payment.payment_method}}</td>
-                        <td style="text-align: center;">{{status}}</td>
-                    </tr>
-                {{/each}}
-            </tbody>
-        </table>
-    </div>
+    <!--<div class="panel panel-large-3">-->
+        <!--<div class="header">Order List</div>-->
+        <!--<table class="user-table">-->
+            <!--<thead>-->
+                <!--<th class="table-col-user-order-date">Create Date</th>-->
+                <!--<th class="table-col-user-order-payment">Payment</th>-->
+                <!--<th class="table-col-user-order-method">Method</th>-->
+                <!--<th class="table-col-user-order-status">Status</th>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+                <!--{{#each Order.ListUserOrder}}-->
+                    <!--<tr class="user-order-each">-->
+                        <!--<td>{{createAt}}</td>-->
+                        <!--<td style="text-align: right;">{{payment.payment}}</td>-->
+                        <!--<td style="text-align: center;">{{payment.payment_method}}</td>-->
+                        <!--<td style="text-align: center;">{{status}}</td>-->
+                    <!--</tr>-->
+                <!--{{/each}}-->
+            <!--</tbody>-->
+        <!--</table>-->
+    <!--</div>-->
 </template>
 
 <template name="MainPage_OrderDetail">
-    <div class="panel panel-large-3">
-        <div class="header">Order Information</div>
-        <br>
-        <div class="column">
-            <div>Order ID: </div>
-            <label id="label_detail_orderid"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Username: </div>
-            <label id="label_detail_username"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Status: </div>
-            <label id="label_detail_status"></label>
-        </div>
-        <br>
-        <div class="header">Payment Information</div>
-        <br>
-        <div class="column">
-            <div>Payment: </div>
-            <label id="label_detail_payment"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Cashback: </div>
-            <label id="label_detail_cashback"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>No. of product: </div>
-            <label id="label_detail_count"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Total Weight: </div>
-            <label id="label_detail_weight"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Payment Method: </div>
-            <label id="label_detail_payment_method"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Shipping Method</div>
-            <label id="label_detail_shipping_method"></label>
-        </div>
-        <br>
-        <div class="header">Address Information</div>
-        <br>
-        <div class="column">
-            <div>Country: </div>
-            <label id="label_detail_country"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>City: </div>
-            <label id="label_detail_city"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Address: </div>
-            <label id="label_detail_address"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Contact Number: </div>
-            <label id="label_detail_phone"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Zip-Code</div>
-            <label id="label_detail_zipcode"></label>
-        </div>
-        <br>
-        <div class="header">Product Information</div>
-        <br>
-        <div id="Order_detail_ProductList" style="width:80%; margin-left:auto; margin-right:auto;"></div>
-        <br>
-        <button class="btn_order_detail_back button-1-col">Back</button>
-        <br>
-        <br>
-    </div>
+    <!--<div class="panel panel-large-3">-->
+        <!--<div class="header">Order Information</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Order ID: </div>-->
+            <!--<label id="label_detail_orderid"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Username: </div>-->
+            <!--<label id="label_detail_username"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Status: </div>-->
+            <!--<label id="label_detail_status"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="header">Payment Information</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Payment: </div>-->
+            <!--<label id="label_detail_payment"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Cashback: </div>-->
+            <!--<label id="label_detail_cashback"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>No. of product: </div>-->
+            <!--<label id="label_detail_count"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Total Weight: </div>-->
+            <!--<label id="label_detail_weight"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Payment Method: </div>-->
+            <!--<label id="label_detail_payment_method"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Shipping Method</div>-->
+            <!--<label id="label_detail_shipping_method"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="header">Address Information</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Country: </div>-->
+            <!--<label id="label_detail_country"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>City: </div>-->
+            <!--<label id="label_detail_city"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Address: </div>-->
+            <!--<label id="label_detail_address"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Contact Number: </div>-->
+            <!--<label id="label_detail_phone"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Zip-Code</div>-->
+            <!--<label id="label_detail_zipcode"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="header">Product Information</div>-->
+        <!--<br>-->
+        <!--<div id="Order_detail_ProductList" style="width:80%; margin-left:auto; margin-right:auto;"></div>-->
+        <!--<br>-->
+        <!--<button class="btn_order_detail_back button-1-col">Back</button>-->
+        <!--<br>-->
+        <!--<br>-->
+    <!--</div>-->
 </template>
 
 <template name="MainPage_Profile">
-    <div class="profile_item" id="Profile_Overview">
-        {{> Profile_Overview}}
-    </div>
-    <div class="profile_item" id="Profile_ResetPassword">
-        {{> Profile_ResetPassword}}
-    </div>
-    <div class="profile_item" id="Profile_SendInvite">
-        {{> Profile_SendInvite}}
-    </div>
-    <div class="profile_item" id="Profile_DefaultAddress">
-        {{> Profile_DefaultAddress}}
-    </div>
-    <div class="profile_item" id="Profile_ChangeAddress">
-        {{> Profile_ChangeAddress}}
-    </div>
+    <!--<div class="profile_item" id="Profile_Overview">-->
+        <!--{{> Profile_Overview}}-->
+    <!--</div>-->
+    <!--<div class="profile_item" id="Profile_ResetPassword">-->
+        <!--{{> Profile_ResetPassword}}-->
+    <!--</div>-->
+    <!--<div class="profile_item" id="Profile_SendInvite">-->
+        <!--{{> Profile_SendInvite}}-->
+    <!--</div>-->
+    <!--<div class="profile_item" id="Profile_DefaultAddress">-->
+        <!--{{> Profile_DefaultAddress}}-->
+    <!--</div>-->
+    <!--<div class="profile_item" id="Profile_ChangeAddress">-->
+        <!--{{> Profile_ChangeAddress}}-->
+    <!--</div>-->
 </template>
 
 <template name="Profile_Overview">
-    <div class="panel panel-large-1">
-        <div class="header">My Profile</div>
-        <br>
-        <div class="column">
-            <div>Name:</div>
-            <label id="label_username"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Email:</div>
-            <label id="label_useremail"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Password:</div>
-            <button class="btn_reset_password">Reset</button>
-        </div>
-        <br>
-        <div class="column">
-            <div>Address:</div>
-            <button class="btn_address_set">Set</button>
-        </div>
-        <br>
-        <div class="column">
-            <div>Invitation:</div>
-            <label id="label_invitation"></label>
-        </div>
-        <div class="column">
-            <div></div>
-            <button class="btn_invite">Invite</button>
-        </div>
-        <br>
-        <div class="column">
-            <div>Invite By</div>
-            <label id="label_invite_by"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Create Date:</div>
-            <label id="label_create"></label>
-        </div>
-        <br>
-    </div>
+    <!--<div class="panel panel-large-1">-->
+        <!--<div class="header">My Profile</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Name:</div>-->
+            <!--<label id="label_username"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Email:</div>-->
+            <!--<label id="label_useremail"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Password:</div>-->
+            <!--<button class="btn_reset_password">Reset</button>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Address:</div>-->
+            <!--<button class="btn_address_set">Set</button>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Invitation:</div>-->
+            <!--<label id="label_invitation"></label>-->
+        <!--</div>-->
+        <!--<div class="column">-->
+            <!--<div></div>-->
+            <!--<button class="btn_invite">Invite</button>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Invite By</div>-->
+            <!--<label id="label_invite_by"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Create Date:</div>-->
+            <!--<label id="label_create"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+    <!--</div>-->
 </template>
 <template name="Profile_ResetPassword">
-    <div class="panel panel-large-1">
-        <div class="header">Reset Password</div>
-        <br>
-        <div class="column">
-            <div>Origin Password</div>
-            <input type="password" id="input_reset_origin">
-        </div>
-        <br>
-        <div class="column">
-            <div>New Password</div>
-            <input type="password" id="input_reset_new">
-        </div>
-        <br>
-        <div class="column">
-            <div>Confirm Password</div>
-            <input type="password" id="input_reset_confirm">
-        </div>
-        <br>
-        <button class="btn_reset_password_submit button-2-left">Reset</button>
-        <button class="btn_reset_password_back button-2-right">Back</button>
-        <br>
-        <br>
-    </div>
+    <!--<div class="panel panel-large-1">-->
+        <!--<div class="header">Reset Password</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Origin Password</div>-->
+            <!--<input type="password" id="input_reset_origin">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>New Password</div>-->
+            <!--<input type="password" id="input_reset_new">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Confirm Password</div>-->
+            <!--<input type="password" id="input_reset_confirm">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<button class="btn_reset_password_submit button-2-left">Reset</button>-->
+        <!--<button class="btn_reset_password_back button-2-right">Back</button>-->
+        <!--<br>-->
+        <!--<br>-->
+    <!--</div>-->
 </template>
 
 <template name="Profile_SendInvite">
-    <div class="panel">
-        <div class="header">Send Invite</div>
-        <br>
-        <div class="column">
-            <div>Invitees Email</div>
-            <input type="text" id="input_invitees_email">
-        </div>
-        <br>
-        <div class="column">
-            <div>Message</div>
-            <textarea id="input_invite_message"></textarea>
-        </div>
-        <br>
-        <button class="btn_invite_send button-1-col">Invite</button>
-        <br>
-        <br>
-    </div>
+    <!--<div class="panel">-->
+        <!--<div class="header">Send Invite</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Invitees Email</div>-->
+            <!--<input type="text" id="input_invitees_email">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Message</div>-->
+            <!--<textarea id="input_invite_message"></textarea>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<button class="btn_invite_send button-1-col">Invite</button>-->
+        <!--<br>-->
+        <!--<br>-->
+    <!--</div>-->
 </template>
 
 <template name="Profile_DefaultAddress">
-    <div class="panel panel-large-1 panel-top-half">
-        <div class="header">Address</div>
-        <br>
-        <div class="column">
-            <div>Country:</div>
-            <label id="label_country"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>City:</div>
-            <label id="label_city"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Address:</div>
-            <label id="label_address"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Phone:</div>
-            <label id="label_phone"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Zip-Code:</div>
-            <label id="label_zipcode"></label>
-        </div>
-        <br>
-        <button class="btn_address_change button-2-left">Change</button>
-        <button class="btn_address_back button-2-right">Back</button>
-        <br>
-        <br>
-    </div>
+    <!--<div class="panel panel-large-1 panel-top-half">-->
+        <!--<div class="header">Address</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Country:</div>-->
+            <!--<label id="label_country"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>City:</div>-->
+            <!--<label id="label_city"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Address:</div>-->
+            <!--<label id="label_address"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Phone:</div>-->
+            <!--<label id="label_phone"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Zip-Code:</div>-->
+            <!--<label id="label_zipcode"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<button class="btn_address_change button-2-left">Change</button>-->
+        <!--<button class="btn_address_back button-2-right">Back</button>-->
+        <!--<br>-->
+        <!--<br>-->
+    <!--</div>-->
 </template>
 
 <template name="Profile_ChangeAddress">
-    <div class="panel panel-large-1">
-        <div class="header">Address</div>
-        <br>
-        <div class="column">
-            <div>Country:</div>
-            <input type="text" id="input_country">
-        </div>
-        <br>
-        <div class="column">
-            <div>City:</div>
-            <input type="text" id="input_city">
-        </div>
-        <br>
-        <div class="column">
-            <div>Address:</div>
-            <input type="text" id="input_address">
-        </div>
-        <br>
-        <div class="column">
-            <div>Phone:</div>
-            <input type="text" id="input_phone">
-        </div>
-        <br>
-        <div class="column">
-            <div>Zip-Code:</div>
-            <input type="text" id="input_zipcode">
-        </div>
-        <br>
-        <button class="btn_address_change_submit button-2-left">Change</button>
-        <button class="btn_address_change_back button-2-right">Back</button>
-        <br>
-        <br>
-    </div>
+    <!--<div class="panel panel-large-1">-->
+        <!--<div class="header">Address</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Country:</div>-->
+            <!--<input type="text" id="input_country">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>City:</div>-->
+            <!--<input type="text" id="input_city">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Address:</div>-->
+            <!--<input type="text" id="input_address">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Phone:</div>-->
+            <!--<input type="text" id="input_phone">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Zip-Code:</div>-->
+            <!--<input type="text" id="input_zipcode">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<button class="btn_address_change_submit button-2-left">Change</button>-->
+        <!--<button class="btn_address_change_back button-2-right">Back</button>-->
+        <!--<br>-->
+        <!--<br>-->
+    <!--</div>-->
 </template>
 
 <template name="MainPage_FindProducts">
@@ -524,16 +524,16 @@
                             <div id="ProductPagePrice" class="product-page-price">{{Price}} HKD</div>
                             <br>
                             <div class="product-page-subheader">{{_ "ProductInfo_CashbackGet"}}</div>
-                            <div id="ProductPageCashback" class="product-page-price"><span>4%Cash Back</span> = {{CashbackGet}} HKD</div>
+                            <div id="ProductPageCashback" class="product-page-price"><span>4%{{_ "ProductInfo_Cashback"}}</span> = {{CashbackGet}} HKD</div>
                             <br>
-                            <div class="product-page-subheader">Price by using remaining cashback</div>
+                            <div class="product-page-subheader">{{_ "ProductInfo_NewPrice"}}</div>
                             <div id="ProductPagePriceNew" class="product-page-price">{{Price}} HKD =>  {{NewPrice Price Cashback}} HKD</div>
                             <br>
-                            <div class="product-page-subheader">Cashback Remain</div>
+                            <div class="product-page-subheader">{{_ "ProductInfo_CashbackRemain"}}</div>
                             <div id="ProductPageCashbackRemain" class="product-page-price">{{Cashback}} HKD =>  {{CashbackRemain Price Cashback}} HKD</div>
                             <br>
-                            <div class="product-page-subheader">Sale Status</div>
-                            <div class="product-page-price">active</div>
+                            <div class="product-page-subheader">{{_ "ProductInfo_SaleActive"}}</div>
+                            <div class="product-page-price">{{CheckSaleStatus publish}}</div>
                         </div>
                     </div>
                 </div>
@@ -638,246 +638,246 @@
 </template>
 
 <template name="FindProducts_Cart">
-    <div class="panel panel-large-2">
-        <div class="header">Product in Cart</div>
-        {{#each Product.GetProductListInCart}}
-        <div class="product-col cart-item-each" value="{{this}}">
-            <img width="64px" src="{{Product.GetProductByCartID.Image this}}">
-            <div class="product-col-detail">
-                <div class="product-col-header">{{Product.GetProductByCartID.Name this}}</div>
-                <div class="product-col-info">
-                    <div class="product-col-info-price">{{Product.GetProductByCartID.Price this}} HKD</div>
-                    <div class="product-col-info-weight">{{Product.GetProductByCartID.Weight this}} g</div>
-                    <div class="product-col-info-quantity">Quantity: {{Product.GetProductByCartID.Quantity this}}</div>
-                    <button class="product-col-info-cancel btn-cart-cancel" value="{{this}}">Cancel</button>
-                </div>
-            </div>
-            <br>
-        </div>
-        {{/each}}
-    </div>
+    <!--<div class="panel panel-large-2">-->
+        <!--<div class="header">Product in Cart</div>-->
+        <!--{{#each Product.GetProductListInCart}}-->
+        <!--<div class="product-col cart-item-each" value="{{this}}">-->
+            <!--<img width="64px" src="{{Product.GetProductByCartID.Image this}}">-->
+            <!--<div class="product-col-detail">-->
+                <!--<div class="product-col-header">{{Product.GetProductByCartID.Name this}}</div>-->
+                <!--<div class="product-col-info">-->
+                    <!--<div class="product-col-info-price">{{Product.GetProductByCartID.Price this}} HKD</div>-->
+                    <!--<div class="product-col-info-weight">{{Product.GetProductByCartID.Weight this}} g</div>-->
+                    <!--<div class="product-col-info-quantity">Quantity: {{Product.GetProductByCartID.Quantity this}}</div>-->
+                    <!--<button class="product-col-info-cancel btn-cart-cancel" value="{{this}}">Cancel</button>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<br>-->
+        <!--</div>-->
+        <!--{{/each}}-->
+    <!--</div>-->
 </template>
 
 <template name="FindProducts_Order_Step1">
-    <div class="panel panel-large-2">
-        <div class="header">Product in Cart</div>
-        {{#each Product.GetProductListInCart}}
-            <div class="product-col">
-                <input type="checkbox" class="product-col-checkbox btn-cart-checkbox" checked="{{Product.GetProductIsSelected this}}">
-                <img width="64px" src="{{Product.GetProductByCartID.Image this}}">
-                <div class="product-col-detail">
-                    <div class="product-col-header">{{Product.GetProductByCartID.Name this}}</div>
-                    <div class="product-col-info">
-                        <div class="product-col-info-price">{{Product.GetProductByCartID.Price this}} HKD</div>
-                        <div class="product-col-info-weight">{{Product.GetProductByCartID.Weight this}} g</div>
-                        <div class="product-col-info-quantity">Quantity: {{Product.GetProductByCartID.Quantity this}}</div>
-                        <button class="product-col-info-cancel btn-cart-cancel" value="{{this}}">Cancel</button>
-                    </div>
-                </div>
-                <br>
-            </div>
-        {{/each}}
-    </div>
-    <br>
-    <div class="panel panel-large-2 panel-top-half">
-        <div class="header">Please be Confirmed Your Product Selected</div>
-        <br>
-        <div class="column">
-            <div>Number of Product Selected:</div>
-            <label id="step1_label_cart">2</label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Total Weight:</div>
-            <label id="step1_label_weight">123 g</label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Total Payment:</div>
-            <label id="step1_label_payment">123 HKD</label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Cash Back Use:</div>
-            <label id="step1_label_cashback_use">123 HKD</label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Total Cash Back:</div>
-            <label id="step1_label_cashback">123 HKD</label>
-        </div>
-        <br>
-        <button class="btn-step1-next button-1-col">Next Step</button>
-        <br>
-        <br>
-    </div>
+    <!--<div class="panel panel-large-2">-->
+        <!--<div class="header">Product in Cart</div>-->
+        <!--{{#each Product.GetProductListInCart}}-->
+            <!--<div class="product-col">-->
+                <!--<input type="checkbox" class="product-col-checkbox btn-cart-checkbox" checked="{{Product.GetProductIsSelected this}}">-->
+                <!--<img width="64px" src="{{Product.GetProductByCartID.Image this}}">-->
+                <!--<div class="product-col-detail">-->
+                    <!--<div class="product-col-header">{{Product.GetProductByCartID.Name this}}</div>-->
+                    <!--<div class="product-col-info">-->
+                        <!--<div class="product-col-info-price">{{Product.GetProductByCartID.Price this}} HKD</div>-->
+                        <!--<div class="product-col-info-weight">{{Product.GetProductByCartID.Weight this}} g</div>-->
+                        <!--<div class="product-col-info-quantity">Quantity: {{Product.GetProductByCartID.Quantity this}}</div>-->
+                        <!--<button class="product-col-info-cancel btn-cart-cancel" value="{{this}}">Cancel</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<br>-->
+            <!--</div>-->
+        <!--{{/each}}-->
+    <!--</div>-->
+    <!--<br>-->
+    <!--<div class="panel panel-large-2 panel-top-half">-->
+        <!--<div class="header">Please be Confirmed Your Product Selected</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Number of Product Selected:</div>-->
+            <!--<label id="step1_label_cart">2</label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Total Weight:</div>-->
+            <!--<label id="step1_label_weight">123 g</label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Total Payment:</div>-->
+            <!--<label id="step1_label_payment">123 HKD</label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Cash Back Use:</div>-->
+            <!--<label id="step1_label_cashback_use">123 HKD</label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Total Cash Back:</div>-->
+            <!--<label id="step1_label_cashback">123 HKD</label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<button class="btn-step1-next button-1-col">Next Step</button>-->
+        <!--<br>-->
+        <!--<br>-->
+    <!--</div>-->
 </template>
 
 <template name="FindProducts_Order_Step2">
-    <h2>Check Delivery Address</h2>
-    <div class="panel panel-large-1 panel-top-half">
-        <div class="header">Address</div>
-        <br>
-        <div class="column">
-            <div>Country:</div>
-            <input type="text" id="step2_label_country">
-        </div>
-        <br>
-        <div class="column">
-            <div>City:</div>
-            <input type="text" id="step2_label_city">
-        </div>
-        <br>
-        <div class="column">
-            <div>Address:</div>
-            <input type="text" id="step2_label_address">
-        </div>
-        <br>
-        <div class="column">
-            <div>Phone:</div>
-            <input type="text" id="step2_label_phone">
-        </div>
-        <br>
-        <div class="column">
-            <div>Zip-Code:</div>
-            <input type="text" id="step2_label_zipcode">
-        </div>
-        <br>
-        <button class="btn-step2-previous button-2-left">Previous Step</button>
-        <button class="btn-step2-next button-2-right">Next Step</button>
-        <br>
-        <br>
-    </div>
+    <!--<h2>Check Delivery Address</h2>-->
+    <!--<div class="panel panel-large-1 panel-top-half">-->
+        <!--<div class="header">Address</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Country:</div>-->
+            <!--<input type="text" id="step2_label_country">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>City:</div>-->
+            <!--<input type="text" id="step2_label_city">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Address:</div>-->
+            <!--<input type="text" id="step2_label_address">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Phone:</div>-->
+            <!--<input type="text" id="step2_label_phone">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Zip-Code:</div>-->
+            <!--<input type="text" id="step2_label_zipcode">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<button class="btn-step2-previous button-2-left">Previous Step</button>-->
+        <!--<button class="btn-step2-next button-2-right">Next Step</button>-->
+        <!--<br>-->
+        <!--<br>-->
+    <!--</div>-->
 </template>
 
 <template name="FindProducts_Order_Step3">
-    <div class="panel panel-large-1 panel-top-half">
-        <div class="header">Select Shipping Method</div>
-        <br>
-        <div class="column">
-            <input type="radio" name="shipping" style="width: 5%" value="Seamall" checked>
-            <label>Seamail</label>
-        </div>
-        <div class="column">
-            <input type="radio" name="shipping" style="width: 5%" value="DHL">
-            <label>DHL</label>
-        </div>
-        <div class="column">
-            <input type="radio" name="shipping" style="width: 5%" value="Airmall">
-            <label>Airmail</label>
-        </div>
-        <br>
-        <br>
-        <div class="column">
-            <div>Payment:</div>
-            <label id="step3_label_payment">54321 HKD</label>
-        </div>
-        <br>
-        <br>
-        <div class="header">Select Payment Method</div>
-        <br>
-        <div class="column">
-            <input type="radio" name="payment" style="width: 5%" value="Paybel" checked>
-            <label>Paybel</label>
-        </div>
-        <div class="column">
-            <input type="radio" name="payment" style="width: 5%" value="Other">
-            <label>Other</label>
-        </div>
-        <br>
-        <br>
-        <button class="btn-step3-previous button-2-left">Previous Step</button>
-        <button class="btn-step3-next button-2-right">Next Step</button>
-        <br>
-        <br>
-    </div>
+    <!--<div class="panel panel-large-1 panel-top-half">-->
+        <!--<div class="header">Select Shipping Method</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<input type="radio" name="shipping" style="width: 5%" value="Seamall" checked>-->
+            <!--<label>Seamail</label>-->
+        <!--</div>-->
+        <!--<div class="column">-->
+            <!--<input type="radio" name="shipping" style="width: 5%" value="DHL">-->
+            <!--<label>DHL</label>-->
+        <!--</div>-->
+        <!--<div class="column">-->
+            <!--<input type="radio" name="shipping" style="width: 5%" value="Airmall">-->
+            <!--<label>Airmail</label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Payment:</div>-->
+            <!--<label id="step3_label_payment">54321 HKD</label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<br>-->
+        <!--<div class="header">Select Payment Method</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<input type="radio" name="payment" style="width: 5%" value="Paybel" checked>-->
+            <!--<label>Paybel</label>-->
+        <!--</div>-->
+        <!--<div class="column">-->
+            <!--<input type="radio" name="payment" style="width: 5%" value="Other">-->
+            <!--<label>Other</label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<br>-->
+        <!--<button class="btn-step3-previous button-2-left">Previous Step</button>-->
+        <!--<button class="btn-step3-next button-2-right">Next Step</button>-->
+        <!--<br>-->
+        <!--<br>-->
+    <!--</div>-->
 </template>
 
 <template name="FindProducts_Order_Step4">
-    <h1>Confirm Your Order</h1>
-    <div class="panel panel-large-3">
-        <div class="header">Payment</div>
-        <br>
-        <div class="column">
-            <div>Total Payment:</div>
-            <label id="step4_label_total"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Total Cashback:</div>
-            <label id="step4_label_cashback"></label>
-            <div id="step4_label_cashback_use" style="display:none;"></div>
-        </div>
-        <br>
-        <div class="column">
-            <div>Number of Product:</div>
-            <label id="step4_label_count"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Total Weight:</div>
-            <label id="step4_label_weight"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Payment Method:</div>
-            <label id="step4_label_payment_method"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Shipping Method:</div>
-            <label id="step4_label_shipping_method"></label>
-        </div>
-        <br>
-        <div class="header">Delivery Address</div>
-        <br>
-        <div class="column">
-            <div>Country:</div>
-            <label id="step4_label_country"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>City:</div>
-            <label id="step4_label_city"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Address:</div>
-            <label id="step4_label_address"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Phone:</div>
-            <label id="step4_label_phone"></label>
-        </div>
-        <br>
-        <div class="column">
-            <div>Zip-Code:</div>
-            <label id="step4_label_zipcode"></label>
-        </div>
-        <br>
-        <div class="header">Product in Order</div>
-        <br>
-        <div id="step4_selected_products">
-        {{#each Product.GetProductListInSelected}}
-            <div class="product-col" style="width:80%; margin-left:auto; margin-right:auto;">
-                <img width="64px" src="{{Product.GetProductByCartID.Image this}}">
-                <div class="product-col-detail">
-                    <div class="product-col-header">{{Product.GetProductByCartID.Name this}}</div>
-                    <div class="product-col-info">
-                        <div class="product-col-info-price">{{Product.GetProductByCartID.Price this}} HKD</div>
-                        <div class="product-col-info-weight">{{Product.GetProductByCartID.Weight this}} g</div>
-                        <div class="product-col-info-quantity">Quantity: {{Product.GetProductByCartID.Quantity this}}</div>
-                    </div>
-                </div>
-                <br>
-            </div>
-        {{/each}}
-        </div>
-        <br>
-        <button class="btn-step4-previous button-2-left">Previous Step</button>
-        <button class="btn-step4-next button-2-right">Create Order</button>
-        <br>
-        <br>
-    </div>
+    <!--<h1>Confirm Your Order</h1>-->
+    <!--<div class="panel panel-large-3">-->
+        <!--<div class="header">Payment</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Total Payment:</div>-->
+            <!--<label id="step4_label_total"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Total Cashback:</div>-->
+            <!--<label id="step4_label_cashback"></label>-->
+            <!--<div id="step4_label_cashback_use" style="display:none;"></div>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Number of Product:</div>-->
+            <!--<label id="step4_label_count"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Total Weight:</div>-->
+            <!--<label id="step4_label_weight"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Payment Method:</div>-->
+            <!--<label id="step4_label_payment_method"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Shipping Method:</div>-->
+            <!--<label id="step4_label_shipping_method"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="header">Delivery Address</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Country:</div>-->
+            <!--<label id="step4_label_country"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>City:</div>-->
+            <!--<label id="step4_label_city"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Address:</div>-->
+            <!--<label id="step4_label_address"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Phone:</div>-->
+            <!--<label id="step4_label_phone"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="column">-->
+            <!--<div>Zip-Code:</div>-->
+            <!--<label id="step4_label_zipcode"></label>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div class="header">Product in Order</div>-->
+        <!--<br>-->
+        <!--<div id="step4_selected_products">-->
+        <!--{{#each Product.GetProductListInSelected}}-->
+            <!--<div class="product-col" style="width:80%; margin-left:auto; margin-right:auto;">-->
+                <!--<img width="64px" src="{{Product.GetProductByCartID.Image this}}">-->
+                <!--<div class="product-col-detail">-->
+                    <!--<div class="product-col-header">{{Product.GetProductByCartID.Name this}}</div>-->
+                    <!--<div class="product-col-info">-->
+                        <!--<div class="product-col-info-price">{{Product.GetProductByCartID.Price this}} HKD</div>-->
+                        <!--<div class="product-col-info-weight">{{Product.GetProductByCartID.Weight this}} g</div>-->
+                        <!--<div class="product-col-info-quantity">Quantity: {{Product.GetProductByCartID.Quantity this}}</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<br>-->
+            <!--</div>-->
+        <!--{{/each}}-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<button class="btn-step4-previous button-2-left">Previous Step</button>-->
+        <!--<button class="btn-step4-next button-2-right">Create Order</button>-->
+        <!--<br>-->
+        <!--<br>-->
+    <!--</div>-->
 </template>

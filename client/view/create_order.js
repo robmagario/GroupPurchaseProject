@@ -186,7 +186,7 @@ Template.CreateOrderPage.events({
                     _payment_final = 0;
                 }
                 $('#ConfirmOrder').find('label').eq(5).html(_payment_final + " HKD");
-                var _cashback = _payment * 0.04;
+                var _cashback = (parseInt(_payment * 0.04 * 100))/100;
                 $('#ConfirmOrder').find('label').eq(7).html(_cashback + " HKD");
                 var _payment_method = GetRadioValue('method_payment');
                 $('#ConfirmOrder').find('label').eq(9).html(_payment_method);
@@ -211,6 +211,24 @@ Template.CreateOrderPage.events({
                 $('#ConfirmOrder').find('label').eq(23).html(_address.address);
                 $('#ConfirmOrder').find('label').eq(25).html(_address.zipcode);
                 $('#ConfirmOrder').find('label').eq(27).html(_address.phone);
+                break;
+            case "cashback-using":
+                var _payment = Calculator.Price();
+                $('#ConfirmOrder').find('label').eq(5).html(_payment + " HKD");
+                var _remain = Helpers.User.CashBack.Remain();
+                e.target.value = "cashback-unusing";
+                e.target.innerText = TAPi18n.__("Btn_useCashback");
+                break;
+            case "cashback-unusing":
+                var _payment = Calculator.Price();
+                var _remain = Helpers.User.CashBack.Remain();
+                var _payment_final = _payment - _remain;
+                if(_payment_final < 0) {
+                    _payment_final = 0;
+                }
+                $('#ConfirmOrder').find('label').eq(5).html(_payment_final + " HKD");
+                e.target.value = "cashback-using";
+                e.target.innerText = TAPi18n.__("Btn_unuseCashback");
                 break;
             case "ToOrderStep6":
                 $('#ConfirmOrder').hide();
@@ -309,7 +327,7 @@ Template.CreateOrderPage.events({
                     }
 
                     window.setTimeout(function() {
-                        location = "/";
+                        Helpers.System.LocateTo('/home');
                     }, 5000);
                 });
 

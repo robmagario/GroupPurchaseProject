@@ -13,7 +13,7 @@ function LocatToLogin() {
 }
 
 function InitializeProductInfo(_id) {
-    MainPage_Log.Show("InitializeProductInfo", _id);
+    Helpers.Log.Show("InitializeProductInfo", _id);
     tab_events.SelectTab("Product Info");
     $('#FindProduct_Sidebar').addClass('active');
 }
@@ -55,7 +55,7 @@ Template.MainPage.rendered = function() {
 
 var tab_events = {
     SelectTab: function(tab_name) {
-        MainPage_Log.Show("SelectTab", tab_name);
+        Helpers.Log.Show("SelectTab", tab_name);
         $('.container_item').hide();
         $('.profile_item').hide();
         $('.find_product_item').hide();
@@ -162,7 +162,7 @@ function AddProductToCart(loc) {
     }
     window.localStorage.setItem('CartItemSelect', _randomID.toString());
     window.localStorage.setItem('CartItemValue', _newtemp.toString());
-    
+
     Helpers.System.LocateTo("/" + loc);
 }
 
@@ -455,14 +455,14 @@ function CheckRemaining() {
     //$('#label_product_rest_edit').val(_value);
 };
 
-var MainPage_Log = {
-    active: true,
-    Show: function(header, message) {
-        if(MainPage_Log.active) {
-            console.log("[" + header + "]: " + message);
-        }
-    }
-}
+//var MainPage_Log = {
+//    active: true,
+//    Show: function(header, message) {
+//        if(MainPage_Log.active) {
+//            console.log("[" + header + "]: " + message);
+//        }
+//    }
+//}
 
 Template.FindProduct_MainPage.helpers({
     'ListPublished': function() {
@@ -552,7 +552,7 @@ Template.ProductInfo.helpers({
         var _product_id = _hash.replace("#","");
         var _product = Products.findOne({_id:_product_id});
         var _price = _product.price;
-        return _price * _rate[0];
+        return parseInt(_price * _rate[0] * 100)/100;
     },
     'NewPrice': function(price, cashback) {
         var _result = price - cashback;
@@ -567,5 +567,12 @@ Template.ProductInfo.helpers({
             _result = 0;
         }
         return _result;
+    },
+    'CheckSaleStatus': function(status) {
+        if(status) {
+            return TAPi18n.__('ProductInfo_SaleActive');
+        } else {
+            return TAPi18n.__('ProductInfo_SaleDelay');
+        }
     }
 });

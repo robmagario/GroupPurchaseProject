@@ -22,6 +22,9 @@ Products.allow({
     },
     'update': function(userId, doc) {
         return Users.isAdmin(userId);
+    },
+    'remove': function(userId, doc) {
+        return Users.isAdmin(userId);
     }
 });
 
@@ -30,6 +33,9 @@ ProductImages.allow({
         return Users.isAdmin(userId);
     },
     'update': function(userId, doc) {
+        return Users.isAdmin(userId);
+    },
+    'remove': function(userId, doc) {
         return Users.isAdmin(userId);
     }
 });

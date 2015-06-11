@@ -112,23 +112,23 @@ Template.Dashboard.events({
         $('#product_detail').hide();
         $('#order_detail').hide();
         location.hash = "";
-        switch(e.currentTarget.innerText) {
-            case "Overview":
+        switch(e.currentTarget.id) {
+            case "side-overview":
                 $('#overview').show();
                 break;
-            case "Create Product":
+            case "side-create":
                 $('#create_product').show();
                 break;
-            case "Product List":
+            case "side-product":
                 $('#product_list').show();
                 break;
-            case "Order List":
+            case "side-order":
                 $('#order_list').show();
                 break;
-            case "Invitation Key List":
+            case "side-key":
                 $('#invitation_key_list').show();
                 break;
-            case "Cashback List":
+            case "side-cashback":
                 $('#cashback_list').show();
                 break;
             default :
@@ -332,9 +332,17 @@ Template.Dashboard.events({
             Products.update(this._id, {$set:{publish:true}});
         }
     },
-    'click .a-product': function () {
-        location.hash = "#" + this._id;
-        location.reload();
+    'click .delete-item': function() {
+        ProductImages.remove({_id:this.image});
+        Products.remove({_id:this._id});
+    },
+    'click .a-product': function (e) {
+        if(e.target.classList.contains("publish-item") || e.target.classList.contains("delete-item")) {
+
+        } else {
+            location.hash = "#" + this._id;
+            location.reload();
+        }
     },
 
     // Product Detail
@@ -507,7 +515,7 @@ Template.Dashboard.events({
                             //    }
                             //});
                             var _targetuserID = _user_invite_by._id;
-                            var _cashback_get = parseFloat(_payment_total * Rates[_count]);
+                            var _cashback_get = (parseInt(_payment_total * Rates[_count] * 100))/100;
                             Cashbacks.insert({
                                 user: _targetuserID,
                                 order: _orderID,
@@ -550,6 +558,10 @@ Template.Dashboard.events({
         var _host = location.host;
         var _url = "/#" + e.currentTarget.id;
         window.open(_url);
+    },
+    'click .order-detail-back': function() {
+        $('#order_list').show();
+        $('#order_detail').hide();
     },
 
 
@@ -1124,9 +1136,15 @@ Template.Dashboard.helpers({
         var _imageid = "";
         if(_product != null) {
             _imageid = _product.image;
+            var _image = ProductImages.findOne({_id:_imageid});
+            if(_image != null) {
+                return _image.main;
+            } else {
+                return "";
+            }
+        } else {
+            return "";
         }
-        var _image = ProductImages.findOne({_id:_imageid});
-        return _image.main;
     },
     'SubImages': function() {
         var _hash = location.hash;
@@ -1175,6 +1193,19 @@ Template.Dashboard.helpers({
                 return "success";
             case "Canceled":
                 return "danger";
+            default:
+                return "";
+                break;
+        }
+    },
+    'get_status_name': function(status) {
+        switch(status) {
+            case "Waiting Confirm":
+                return TAPi18n.__("OrderStatus_Waiting");
+            case "Confirmed":
+                return TAPi18n.__("OrderStatus_Confirm");
+            case "Canceled":
+                return TAPi18n.__("OrderStatus_Cancel");
             default:
                 return "";
                 break;
@@ -1229,7 +1260,9 @@ Template.Dashboard.helpers({
             return "warning";
         }
     },
-
+    'WaitingOrder': function() {
+        return Orders.find({status: "Waiting Confirm"}).count();
+    },
 
 
 
