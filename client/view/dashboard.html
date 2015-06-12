@@ -101,6 +101,19 @@
                             <label class="control-label col-sm-1" style="text-align:left;">g</label>
                         </div>
                         <div class="form-group">
+                            <label class="control-label col-sm-3">{{_ "Dashboard_Create_Weight"}}:</label>
+                            <div class="col-sm-2">
+                                <label class="radio-inline"><input name="product_type" type="radio" value="Normal" checked> {{_ "ProductInfo_TypeNormal"}}</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="radio-inline">
+                                    <input name="product_type" type="radio" value="Special"> {{_ "ProductInfo_TypeSpecial"}}
+                                    (<a href="http://www.hongkongpost.hk/eng/publications/notices/2015/20150320a/index.htm" data-toggle="tooltip" target="_blank"
+                                        data-placement="bottom" title="{{_ "Label_SpecialItem"}}">{{_ "Label_LearnMore"}}</a>)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label col-sm-3">{{_ "Dashboard_Create_Country"}}:</label>
                             <div class="col-sm-9" id="create-product-country">
                                 <label class="checkbox-inline"><input type="checkbox" value="Brazil">{{_ "CountrySelection_Brazil"}}</label>
@@ -536,6 +549,13 @@
             <!--{{> Dashboard_OrderDetail}}-->
         <!--</div>-->
     <!--</div>-->
+    <script>
+        $(document).ready(function(){
+            window.setTimeout(function() {
+                $('[data-toggle="tooltip"]').tooltip();
+            }, 1000);
+        });
+    </script>
 </template>
 
 

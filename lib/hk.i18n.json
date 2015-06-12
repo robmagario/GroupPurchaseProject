@@ -25,6 +25,23 @@
   "Navbar_Invitation": "邀請資料",
 
   // Main Page
+  "MainPage_FirstPanel_Header": "One shopping community. Many benefits. No end to the opportunities.",
+  "MainPage_FirstPanel_Content": ["Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing.",
+    "<br>",
+    "Testing2Testing2 Testing2 Testing2 Testing2 Testing2",
+    "Testing2Testing2 Testing2 Testing2 Testing2 Testing2",
+    "Testing2Testing2 Testing2 Testing2 Testing2 Testing2",
+    "<br>",
+    "<br>",
+    "Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3",
+    "Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3",
+    "Testing3 Testing3 Testing3 Testing3 Testing3"],
+  "MainPage_SecondPanel_Img1": "This is Image 1",
+  "MainPage_SecondPanel_Img2": "This is Image 2",
+  "MainPage_SecondPanel_Img3": "This is Image 3",
+  "MainPage_SecondPanel_Img4": "This is Image 4",
+
+  // Login Box
   "Login_Header":  "登入",
   "Login_Email":   "電郵地址",
   "Login_Email_P": "您的電郵地址",
@@ -82,9 +99,9 @@
   "Process_Step5":  "提交訂單",
   "Process_Step6":  "完成訂購",
   // Shipping Method
-  "Shipping_Seamail": "Seamail",
+  "Shipping_Seamail": "海郵",
   "Shipping_DHL":     "DHL",
-  "Shipping_Airmail": "Airmail",
+  "Shipping_Airmail": "空郵",
   // Payment Method
   "Payment_Paybel": "Paybel",
   "Payment_Other":  "Other",
@@ -151,6 +168,9 @@
   "ProductInfo_SaleStatus":    "銷售狀態",
   "ProductInfo_SaleActive":    "活躍",
   "ProductInfo_SaleDelay":     "廢棄",
+  "ProductInfo_Type":          "類型",
+  "ProductInfo_TypeNormal":    "正常",
+  "ProductInfo_TypeSpecial":   "特別",
 
   // Purchase
   "Purchase_Header":         "現金回饋資料",
@@ -163,6 +183,8 @@
 
   // Label
   "Label_SelectAll": "全選",
+  "Label_SpecialItem": "鋰電池，易燃液體，加壓的容器，等...",
+  "Label_LearnMore":   "了解更多...",
 
   // Button
   "Btn_Regist": "註冊",

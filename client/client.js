@@ -23,8 +23,6 @@ Meteor.startup(function() {
 
     Helpers.System.SetLanguage();
     $(".dropdown-toggle").dropdown();
-    $('[data-toggle="tooltip"]').tooltip();
-    $('[data-toggle="popover"]').popover();
 });
 
 Helpers.Reload = function() {
@@ -112,6 +110,17 @@ Helpers.System = {
         }
         _path += locate;
         location = _path;
+    },
+    GetRadioValue: function(header) {
+        var selections = document.getElementsByName(header);
+        var final_result = "";
+        for (var i = 0; i < selections.length; i++) {
+            if (selections[i].checked) {
+                final_result = selections[i].value;
+                break;
+            }
+        }
+        return final_result;
     }
 };
 

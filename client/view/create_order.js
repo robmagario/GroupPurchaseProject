@@ -339,6 +339,38 @@ Template.CreateOrderPage.events({
 });
 
 Template.CreateOrderPage.helpers({
+    'IsNormal': function() {
+        var _result = true;
+        var _string = window.localStorage.getItem("CartItemValue");
+        var _select_string = window.localStorage.getItem("CartItemSelect");
+        if(_string != null && _string != "" && _select_string != null && _select_string != "") {
+            var _array = _string.split(',');
+            var _select_array = _select_string.split(',');
+            var _result = true;
+            var _column = 5;
+            for(var i=0; i<_array.length; i+=_column) {
+                var _selected = false;
+                for(var j=0; j<_select_array.length; j++) {
+                    if(_select_array[j] == _array[i]) {
+                        _selected = true;
+                        break;
+                    }
+                }
+                if(_selected) {
+                    var _product = Products.findOne({_id: _array[i + 1]});
+                    if (_product != null) {
+                        if(_product.type == "Special") {
+                            _result = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            return _result;
+        } else {
+            return true;
+        }
+    },
     'CartItem': function() {
         var _string = window.localStorage.getItem("CartItemValue");
         var _select_string = window.localStorage.getItem("CartItemSelect");
@@ -372,7 +404,8 @@ Template.CreateOrderPage.helpers({
                             name: _product.name,
                             quantity: _quantity,
                             weight: _weight,
-                            price: _price
+                            price: _price,
+                            type: _product.type
                         })
                     }
                 }

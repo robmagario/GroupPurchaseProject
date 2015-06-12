@@ -25,6 +25,23 @@
   "Navbar_Invitation": "Invitation",
 
   // Main Page
+  "MainPage_FirstPanel_Header": "One shopping community. Many benefits. No end to the opportunities.",
+  "MainPage_FirstPanel_Content": ["Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing.",
+    "<br>",
+    "Testing2Testing2 Testing2 Testing2 Testing2 Testing2",
+    "Testing2Testing2 Testing2 Testing2 Testing2 Testing2",
+    "Testing2Testing2 Testing2 Testing2 Testing2 Testing2",
+    "<br>",
+    "<br>",
+    "Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3",
+    "Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3 Testing3",
+    "Testing3 Testing3 Testing3 Testing3 Testing3"],
+  "MainPage_SecondPanel_Img1": "This is Image 1",
+  "MainPage_SecondPanel_Img2": "This is Image 2",
+  "MainPage_SecondPanel_Img3": "This is Image 3",
+  "MainPage_SecondPanel_Img4": "This is Image 4",
+
+  // Login Box
   "Login_Header":  "Login",
   "Login_Email":   "Email",
   "Login_Email_P": "Your Email",
@@ -82,9 +99,9 @@
   "Process_Step5":  "Submit Order",
   "Process_Step6":  "Finish Order",
   // Shipping Method
-  "Shipping_Seamail": "Seamail",
+  "Shipping_Seamail": "Sea Mail",
   "Shipping_DHL":     "DHL",
-  "Shipping_Airmail": "Airmail",
+  "Shipping_Airmail": "Air Mail",
   // Payment Method
   "Payment_Paybel": "Paybel",
   "Payment_Other":  "Other",
@@ -151,6 +168,9 @@
   "ProductInfo_SaleStatus":    "Sale Status",
   "ProductInfo_SaleActive":    "Active",
   "ProductInfo_SaleDelay":     "Delay",
+  "ProductInfo_Type":          "Type",
+  "ProductInfo_TypeNormal":    "Normal",
+  "ProductInfo_TypeSpecial":   "Special",
 
   // Purchase
   "Purchase_Header":         "Purchase Information",
@@ -163,6 +183,8 @@
 
   // Label
   "Label_SelectAll": "Select All",
+  "Label_SpecialItem": "Lithium battery, Flammable liquid, Pressurised containers, etc...",
+  "Label_LearnMore":   "Learn More...",
 
   // Button
   "Btn_Regist": "Regist",

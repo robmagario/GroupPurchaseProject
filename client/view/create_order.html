@@ -78,13 +78,15 @@
             <div class="panel-body">
                 <div class="form-horizontal" role="form">
                     <div class="radio">
-                        <label><input type="radio" name="method_shipping" value="Seamail" checked>{{_ "Shipping_Seamail"}}</label>
+                        <label><input type="radio" name="method_shipping" value="Seamail" checked> {{_ "Shipping_Seamail"}}</label>
                     </div>
                     <div class="radio">
                         <label><input type="radio" name="method_shipping" value="DHL">{{_ "Shipping_DHL"}}</label>
                     </div>
                     <div class="radio">
-                        <label><input type="radio" name="method_shipping" value="Airmail">{{_ "Shipping_Airmail"}}</label>
+                        {{#if IsNormal}}
+                            <label><input type="radio" name="method_shipping" value="Airmail"> {{_ "Shipping_Airmail"}}</label>
+                        {{/if}}
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-5 col-sm-2">

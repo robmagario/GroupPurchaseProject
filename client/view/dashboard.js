@@ -13,7 +13,7 @@ Template.Dashboard.rendered = function() {
                 $('#product_detail').show();
             }
         } else {
-            location = "login";
+            Helpers.System.LocateTo("");
         }
     },1000);
 }
@@ -254,6 +254,7 @@ Template.Dashboard.events({
         var _description = $('#product_description').val();
         var _empty = false;
 
+        var _product_type = Helpers.System.GetRadioValue('product_type');
 
         var _country_type = [];
         var _country_array = $('#create-product-country').find('input');
@@ -309,6 +310,7 @@ Template.Dashboard.events({
                 image:          _img_id,
                 size:           _selection_size,
                 remain:         _item_remain,
+                type:           _product_type,
                 show_for:       _country_type,
                 publish:        false,
                 createAt:       _date

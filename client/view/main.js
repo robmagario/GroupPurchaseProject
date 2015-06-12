@@ -48,6 +48,7 @@ Template.MainPage.rendered = function() {
                 InitializeProductInfo(_location);
             } else {
                 Helpers.Log.Show("Products", "No This Products by " + _location);
+                Helpers.System.LocateTo('/home');
             }
         }
     }, 1000);
@@ -542,6 +543,19 @@ Template.ProductInfo.helpers({
         var _product_id = _hash.replace("#","");
         var _product = Products.findOne({_id:_product_id});
         return _product.price;
+    },
+    'GetProductType': function(type) {
+        if(type == "Special") {
+            var _return = TAPi18n.__("ProductInfo_TypeSpecial") +
+                    " (<a href='http://www.hongkongpost.hk/eng/publications/notices/2015/20150320a/index.htm' data-toggle='tooltip' target='_blank'" +
+                    "data-placement='bottom' title='" + TAPi18n.__('Label_SpecialItem') + "'> " + TAPi18n.__("Label_LearnMore") + " </a>)";
+            window.setTimeout(function() {
+                $('[data-toggle="tooltip"]').tooltip();
+            }, 1000);
+            return _return;
+        } else {
+            return TAPi18n.__("ProductInfo_TypeNormal");
+        }
     },
     'Cashback': function() {
         return Helpers.User.CashBack.Remain();

@@ -1,5 +1,84 @@
 <template name="ProfilePage">
-    <div id="Profile" class="panel-group">
+    <br>
+    <br>
+    <br>
+    <div class="col-sm-10 col-lg-offset-1" style="height:400px; overflow:hidden;">
+        <img width="100%" src="image/main-img-1.jpg">
+    </div>
+    <img width="184px" height="184px" src="image/main-img-2.jpg" style="position:absolute; left:12%; top:295px; margin-bottom:-20px; bottom:0; border:ridge 10px white;">
+    <div class="col-sm-7 col-lg-offset-3">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#">Comment</a></li>
+            <li><a href="#">Network</a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#">Setting</a></li>
+        </ul>
+    </div>
+    <div id="Basic" class="panel-group col-sm-4 col-lg-offset-1">
+        <br>
+        <div class="panel panel-info">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span> {{_ "Profile_Header"}}</div>
+            <div class="panel-body" id="profile">
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{_ "Profile_Username"}}:</label>
+                    <div class="col-sm-10">
+                        <label class="form-control">{{Username}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="panel panel-info">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span> {{_ "Profile_Header"}}</div>
+            <div class="panel-body" id="profile">
+                <div class="form-group">
+                    <label class="control-label col-sm-2">{{_ "Profile_Username"}}:</label>
+                    <div class="col-sm-10">
+                        <label class="form-control">{{Username}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="Comment" class="panel-group col-sm-6">
+        <br>
+        <div class="panel panel-info">
+            <div class="panel-heading">Add Comment</div>
+            <div class="panel-body" id="profile">
+                <div class="form-group">
+                    <textarea style="width:100%; height:100%;"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="Profile" class="panel-group" style="position:absolute; top:500px;">
         <br>
         <br>
         <br>
