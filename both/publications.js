@@ -9,6 +9,9 @@ if (Meteor.isClient) {
     Meteor.subscribe("order_data");
     Meteor.subscribe("invitation_data");
     Meteor.subscribe("cashback_data");
+    Meteor.subscribe("profile_poster_data");
+    Meteor.subscribe("profile_icon_data");
+    Meteor.subscribe("profile_comment_data");
 }
 
 if (Meteor.isServer) {
@@ -29,5 +32,14 @@ if (Meteor.isServer) {
     });
     Meteor.publish("cashback_data", function () {
         return Cashbacks.find();
+    });
+    Meteor.publish("profile_poster_data", function () {
+        return ProfilePosters.find();
+    });
+    Meteor.publish("profile_icon_data", function () {
+        return ProfileIcons.find();
+    });
+    Meteor.publish("profile_comment_data", function () {
+        return ProfileComments.find();
     });
 }

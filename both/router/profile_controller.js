@@ -2,7 +2,7 @@
  * Created by chinhong on 5/21/15.
  */
 this.ProfileController = RouteController.extend({
-    template: "ProfilePage",
+    template: "ProfilePage2",
 
     yieldTemplates: {
         /*YIELD_TEMPLATES*/
@@ -14,7 +14,7 @@ this.ProfileController = RouteController.extend({
     },
 
     action: function() {
-        if(this.isReady()) { this.render(); } else { this.render("ProfilePage"); }
+        if(this.isReady()) { this.render(); } else { this.render("ProfilePage2"); }
         /*ACTION_FUNCTION*/
     },
 

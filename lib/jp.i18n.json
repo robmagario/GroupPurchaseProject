@@ -79,6 +79,12 @@
   "Invite_Invitees": "Invitees Email",
   "Invite_Email":    "Email",
   "Invite_Message":  "Message",
+  // Setting
+  "Setting_Title":   "Setting",
+  "Setting_Poster":  "Set Poster",
+  "Setting_Icon":    "Change Icon Image",
+  "Setting_Source":  "Source",
+  "Setting_PosterT": "Change Poster Image (Height: 400px)",
 
   // Cart
   "Cart_Header":      "Cart Information",
@@ -185,12 +191,16 @@
   "Label_SelectAll": "Select All",
   "Label_SpecialItem": "Lithium battery, Flammable liquid, Pressurised containers, etc...",
   "Label_LearnMore":   "Learn More...",
+  "Label_CashbackGet": "While those user purchase, you can get %s of cashback.",
+  "Label_Comment":     "Add Comment",
 
   // Button
   "Btn_Regist": "Regist",
   "Btn_Login":  "Login",
   "Btn_Reset":  "Reset",
   "Btn_Invite": "Invite",
+  "Btn_Post":   "Post",
+  "Btn_Upload": "Upload",
   "Btn_Create": "Create",
   "Btn_Delete": "Delete",
   "Btn_Confirm":"Confirm",
@@ -201,6 +211,9 @@
   "Btn_Submit": "Submit",
   "Btn_Order":  "Order",
   "Btn_Cart":   "Add to Cart",
+  "Btn_Comment":  "Comment",
+  "Btn_Network":  "Network",
+  "Btn_Setting":  "Setting",
   "Btn_StartOrder":    "Start Order",
   "Btn_NextStep":      "Next Step",
   "Btn_UseCashback":   "Use Cashback",

@@ -79,6 +79,12 @@
   "Invite_Invitees": "受邀者的電郵地址",
   "Invite_Email":    "電郵地址",
   "Invite_Message":  "留言",
+  // Setting
+  "Setting_Title":   "Setting",
+  "Setting_Poster":  "Set Poster",
+  "Setting_Icon":    "Change Icon Image",
+  "Setting_Source":  "Source",
+  "Setting_PosterT": "Change Poster Image (Height: 400px)",
 
   // Cart
   "Cart_Header":      "購物車資料",
@@ -185,12 +191,16 @@
   "Label_SelectAll": "全選",
   "Label_SpecialItem": "鋰電池，易燃液體，加壓的容器，等...",
   "Label_LearnMore":   "了解更多...",
+  "Label_CashbackGet": "While those user purchase, you can get %s of cashback.",
+  "Label_Comment":     "Add Comment",
 
   // Button
   "Btn_Regist": "註冊",
   "Btn_Login":  "登入",
   "Btn_Reset":  "重設",
   "Btn_Invite": "邀請",
+  "Btn_Post":   "Post",
+  "Btn_Upload": "Upload",
   "Btn_Create": "建立",
   "Btn_Delete": "刪除",
   "Btn_Confirm":"確認",
@@ -201,6 +211,9 @@
   "Btn_Submit": "提交",
   "Btn_Order":  "訂購",
   "Btn_Cart":   "添加到購物車",
+  "Btn_Comment":  "Comment",
+  "Btn_Network":  "Network",
+  "Btn_Setting":  "Setting",
   "Btn_StartOrder":    "開始訂購",
   "Btn_NextStep":      "下一步",
   "Btn_UseCashback":   "使用現金回饋",

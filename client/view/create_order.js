@@ -217,7 +217,7 @@ Template.CreateOrderPage.events({
                 $('#ConfirmOrder').find('label').eq(5).html(_payment + " HKD");
                 var _remain = Helpers.User.CashBack.Remain();
                 e.target.value = "cashback-unusing";
-                e.target.innerText = TAPi18n.__("Btn_useCashback");
+                e.target.innerText = TAPi18n.__("Btn_UseCashback");
                 break;
             case "cashback-unusing":
                 var _payment = Calculator.Price();
@@ -228,7 +228,7 @@ Template.CreateOrderPage.events({
                 }
                 $('#ConfirmOrder').find('label').eq(5).html(_payment_final + " HKD");
                 e.target.value = "cashback-using";
-                e.target.innerText = TAPi18n.__("Btn_unuseCashback");
+                e.target.innerText = TAPi18n.__("Btn_UnuseCashback");
                 break;
             case "ToOrderStep6":
                 $('#ConfirmOrder').hide();

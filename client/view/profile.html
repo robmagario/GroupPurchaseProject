@@ -1,83 +1,427 @@
-<template name="ProfilePage">
+<template name="ProfilePage2">
     <br>
     <br>
-    <br>
-    <div class="col-sm-10 col-lg-offset-1" style="height:400px; overflow:hidden;">
-        <img width="100%" src="image/main-img-1.jpg">
+    <div class="col-sm-10 col-lg-offset-1" style="min-height:400px; max-height:400px; overflow:hidden;">
+        <img width="100%" src="{{UserPoster}}">
     </div>
-    <img width="184px" height="184px" src="image/main-img-2.jpg" style="position:absolute; left:12%; top:295px; margin-bottom:-20px; bottom:0; border:ridge 10px white;">
-    <div class="col-sm-7 col-lg-offset-3">
+    <img id="UserIcon" data-toggle="modal" data-target="#IconModel" width="184px" height="184px" src="{{UserIcon}}" style="position:absolute; left:13%; top:300px; margin-bottom:-20px; bottom:0; border:ridge 10px white; background-color:white;">
+    <div class="col-sm-8 col-lg-offset-3">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#">Comment</a></li>
-            <li><a href="#">Network</a></li>
-            <li><a href="#"></a></li>
-            <li><a href="#">Setting</a></li>
+            <li class="profile-tabs active col-lg-3" id="ToComment"><a href="#" style="text-align:center;">{{_ "Btn_Comment"}}</a></li>
+            <li class="profile-tabs col-lg-3" id="ToNetwork"><a href="#" style="text-align:center;">{{_ "Btn_Network"}}</a></li>
+            <li class="profile-tabs col-lg-3" id="ToSetting"><a href="#" style="text-align:center;">{{_ "Btn_Setting"}}</a></li>
         </ul>
     </div>
-    <div id="Basic" class="panel-group col-sm-4 col-lg-offset-1">
-        <br>
-        <div class="panel panel-info">
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span> {{_ "Profile_Header"}}</div>
-            <div class="panel-body" id="profile">
-                <div class="form-group">
-                    <label class="control-label col-sm-2">{{_ "Profile_Username"}}:</label>
-                    <div class="col-sm-10">
-                        <label class="form-control">{{Username}}</label>
+    <div id="BasicPage">
+        <div id="ProfilePanel" class="panel-group col-sm-4 col-lg-offset-1">
+            <br>
+            <div class="panel panel-info">
+                <div class="panel-heading"><span class="glyphicon glyphicon-user"></span> {{_ "Profile_Header"}}</div>
+                <div class="panel-body" id="basic">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">{{_ "Profile_Username"}}:</label>
+                            <div class="col-sm-10">
+                                <label class="form-control">{{Username}}</label>
+                            </div>
+                            <label class="control-label col-sm-2">{{_ "Profile_Email"}}:</label>
+                            <div class="col-sm-10">
+                                <label class="form-control">{{Email}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="panel panel-info">
+                <div class="panel-heading"><span class="glyphicon glyphicon-home"></span> {{_ "Address_Header"}}</div>
+                <div class="panel-body" id="address">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">{{_ "Address_Country"}}:</label>
+                            <div class="col-sm-9">
+                                <label class="form-control">{{Country}}</label>
+                            </div>
+                            <label class="control-label col-sm-3">{{_ "Address_City"}}:</label>
+                            <div class="col-sm-9">
+                                <label class="form-control">{{City}}</label>
+                            </div>
+                            <label class="control-label col-sm-3">{{_ "Address_State"}}:</label>
+                            <div class="col-sm-9">
+                                <label class="form-control">{{State}}</label>
+                            </div>
+                            <label class="control-label col-sm-3">{{_ "Address_Address"}}:</label>
+                            <div class="col-sm-9">
+                                <label class="form-control">{{Address}}</label>
+                            </div>
+                            <label class="control-label col-sm-3">{{_ "Address_Phone"}}:</label>
+                            <div class="col-sm-9">
+                                <label class="form-control">{{Phone}}</label>
+                            </div>
+                            <label class="control-label col-sm-3">{{_ "Address_Zipcode"}}:</label>
+                            <div class="col-sm-9">
+                                <label class="form-control">{{Zipcode}}</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <br>
-        <div class="panel panel-info">
-            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span> {{_ "Profile_Header"}}</div>
-            <div class="panel-body" id="profile">
-                <div class="form-group">
-                    <label class="control-label col-sm-2">{{_ "Profile_Username"}}:</label>
-                    <div class="col-sm-10">
-                        <label class="form-control">{{Username}}</label>
+        <div id="CommentPanel" class="panel-group col-sm-6">
+            <br>
+            <div class="panel panel-info">
+                <div class="panel-heading"><span class="glyphicon glyphicon-comment"></span> {{_ "Label_Comment"}}</div>
+                <div class="panel-body" id="profile">
+                    <div class="form-group">
+                        <textarea style="width:100%; height:100%;" placeholder="What's on your mind?"></textarea>
+                        <div class="col-sm-2 col-lg-offset-10">
+                            <button class="btn btn-success" value="PostComment">{{_ "Btn_Post"}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{#each Comments}}
+                <br>
+                <div class="panel panel-info">
+                    <div class="panel-heading">{{createAt}}</div>
+                    <div class="panel-body" id="{{_id}}">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="form-control" style="height:auto;">{{comment}}</label>
+                            </div>
+                            <div class="col-sm-2 col-lg-offset-10">
+                                <button class="btn btn-danger" value="DeleteComment">{{_ "Btn_Delete"}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+    <br>
+    <br>
+    <div id="NetworkPage" class="panel-group col-sm-10 col-lg-offset-1" style="display:none">
+        <div class="panel-group col-sm-12" style="margin-top:20px;">
+            <div id="InvitationPanel" class="panel panel-info">
+                <div class="panel-heading">{{_ "Invite_Header"}}</div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-5">{{_ "Invite_Remain"}}:</label>
+                            <div class="col-sm-4">
+                                <label class="form-control">{{InviteLetter}}</label>
+                            </div>
+                            <div class="col-sm-2 col-lg-offset-5">
+                                <button data-toggle="modal" data-target="#InviteModel" class="btn btn-primary" style="width:100%;"><span class="glyphicon glyphicon-send"></span> {{_ "Btn_Invite"}}</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-5">{{_ "Invite_ByHeader"}}:</label>
+                            <div class="col-sm-4">
+                                <label class="form-control">{{InviteBy}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-group col-sm-4" style="margin-top:20px;">
+            <div class="panel panel-info">
+                <div class="panel-heading">{{_ "Invite_By" "You"}}</div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="form-control" style="height:auto;">{{_ "Label_CashbackGet" "3%"}}</label>
+                                <div id="first-group">
+                                    {{#each MyInvitation}}
+                                        <a class='list-group-item an-first-invite'>
+                                            <img src="{{InviteesIcon to}}" width="32px" height="32px">
+                                            {{to}}
+                                        </a>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-group col-sm-4" style="margin-top:20px;">
+            <div class="panel panel-info">
+                <div class="panel-heading" id="second-label">{{_ "Invite_By" ""}}</div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="form-control" style="height:auto;">{{_ "Label_CashbackGet" "2%"}}</label>
+                                <div id="second-group"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-group col-sm-4" style="margin-top:20px;">
+            <div class="panel panel-info">
+                <div class="panel-heading" id="third-label">{{_ "Invite_By" ""}}</div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="form-control" style="height:auto;">{{_ "Label_CashbackGet" "1%"}}</label>
+                                <div id="third-group"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div id="Comment" class="panel-group col-sm-6">
-        <br>
-        <div class="panel panel-info">
-            <div class="panel-heading">Add Comment</div>
-            <div class="panel-body" id="profile">
-                <div class="form-group">
-                    <textarea style="width:100%; height:100%;"></textarea>
+    <div id="SettingPage" class="panel-group col-sm-10 col-lg-offset-1" style="display:none">
+        <div id="SettingPanel" class="panel panel-info" style="margin-top:20px;">
+            <div class="panel-heading">{{_ "Setting_Title"}}</div>
+            <div class="panel-body" id="setting">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-2 col-lg-offset-2">
+                            <button data-toggle="modal" data-target="#PosterModel" class="btn btn-primary" style="width:100%;"><span class="glyphicon glyphicon-picture"></span> {{_ "Setting_Poster"}}</button>
+                        </div>
+                        <div class="col-sm-2 col-lg-offset-1">
+                            <button data-toggle="modal" data-target="#ResetPWModel" class="btn btn-info" style="width:100%;"><span class="glyphicon glyphicon-wrench"></span> {{_ "ResetPW_Header"}}</button>
+                        </div>
+                        <div class="col-sm-2 col-lg-offset-1">
+                            <button data-toggle="modal" data-target="#AddressModel" class="btn btn-warning" style="width:100%;"><span class="glyphicon glyphicon-edit"></span> {{_ "Address_Edit"}}</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div id="IconModel" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div id="SetIcon" class="panel-group">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-picture"></span> {{_ "Setting_Icon"}}
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">{{_ "Setting_Source"}}:</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" type="file" onchange="Helpers.Image.ReadURL(this, 'img_user_icon');">
+                                </div>
+                                <div class="">
+                                    <img id="img_user_icon" width="128px" height="128px" style="right:5%; position:absolute;">
+                                </div>
+                                <div class="col-sm-12" style="height:50px;">
+                                </div>
+                                <div class="col-sm-2 col-lg-offset-3">
+                                    <button class="btn btn-success" value="UpdateIcon" data-toggle="modal" data-target="#IconModel">{{_ "Btn_Upload"}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div id="PosterModel" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div id="SetPoster" class="panel-group">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-picture"></span> {{_ "Setting_PosterT"}}
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">{{_ "Setting_Source"}}:</label>
+                                <div class="col-sm-5">
+                                    <input class="form-control" type="file" onchange="Helpers.Image.ReadURL(this, 'img_user_poster');">
+                                </div>
+                                <div class="col-sm-2 col-lg-offset-1">
+                                    <button class="btn btn-success" value="UpdatePoster" data-toggle="modal" data-target="#PosterModel">{{_ "Btn_Upload"}}</button>
+                                </div>
+                                <div class="col-sm-12" style="margin-top:15px;">
+                                    <img id="img_user_poster" width="100%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div id="InviteModel" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="panel-group">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-tag"></span> {{_ "Invite_Title"}}
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">{{_ "Invite_Invitees"}}:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" placeholder="{{_ "Invite_Email"}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">{{_ "Invite_Message"}}:</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" type="password" placeholder="{{_ "Invite_Message"}}"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-5 col-sm-2">
+                                    <button class="btn btn-primary" value="SendInvite"><span class="glyphicon glyphicon-send"></span> {{_ "Btn_Invite"}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div id="ResetPWModel" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="panel-group">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-wrench"></span> {{_ "ResetPW_Header"}}
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">{{_ "ResetPW_Origin"}}:</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" type="password" placeholder="{{_ "ResetPW_Origin"}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">{{_ "ResetPW_New"}}:</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" type="password" placeholder="{{_ "ResetPW_New"}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">{{_ "ResetPW_Confirm"}}:</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" type="password" placeholder="{{_ "ResetPW_Confirm"}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-5 col-sm-2">
+                                    <button class="btn btn-primary" value="SetPW"><span class="glyphicon glyphicon-wrench"></span> {{_ "Btn_Reset"}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div id="AddressModel" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="panel-group">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-home"></span> {{_ "Address_Edit"}}
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">{{_ "Address_Country"}}:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" placeholder="{{_ "Address_Country"}}" value="{{Country}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">{{_ "Address_City"}}:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" placeholder="{{_ "Address_City"}}" value="{{City}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">{{_ "Address_State"}}:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" placeholder="{{_ "Address_State"}}" value="{{State}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">{{_ "Address_Address"}}:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" placeholder="{{_ "Address_Address"}}" value="{{Address}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">{{_ "Address_Phone"}}:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" placeholder="{{_ "Address_Phone"}}" value="{{Phone}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">{{_ "Address_Zipcode"}}:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" placeholder="{{_ "Address_Zipcode"}}" value="{{Zipcode}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-5 col-sm-2">
+                                    <button class="btn btn-primary" value="SaveAddress" data-toggle="modal" data-target="#AddressModel"><span class="glyphicon glyphicon-edit"></span> {{_ "Btn_Save"}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<template name="ProfilePage">
     <div id="Profile" class="panel-group" style="position:absolute; top:500px;">
         <br>
         <br>
@@ -287,7 +631,7 @@
         <br>
         <br>
         <div class="panel panel-info panel-width-60">
-            <div class="panel-heading"><span class="glyphicon glyphicon-tag"></span>{{_ "Invite_Title"}}</div>
+            <div class="panel-heading"><span class="glyphicon glyphicon-tag"></span> {{_ "Invite_Title"}}</div>
             <div class="panel-body">
                 <div class="form-horizontal" role="form">
                     <div class="form-group">
