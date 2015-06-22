@@ -146,8 +146,9 @@ function CalculatePayment() {
             }
         }
     }
-    $('#purchase').find('label').eq(3).html(_price + " HKD");
+    $('#purchase').find('label').eq(3).html(_price + " USD ~ <span id='NewPricing'></span> (in reference)");
     $('#purchase').find('label').eq(5).html(_weight + " g");
+    Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_price,"NewPricing");
 }
 
 Template.CreateOrderPage.rendered = function() {
@@ -178,16 +179,20 @@ Template.CreateOrderPage.events({
 
                 // Fill Data
                 var _payment = Calculator.Price();
-                $('#ConfirmOrder').find('label').eq(1).html(_payment + " HKD");
+                $('#ConfirmOrder').find('label').eq(1).html(_payment + " USD ~ <span id='TranslatePayment'></span> (in reference)");
+                Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_payment,"TranslatePayment");
                 var _remain = Helpers.User.CashBack.Remain();
-                $('#ConfirmOrder').find('label').eq(3).html(_remain + " HKD");
+                $('#ConfirmOrder').find('label').eq(3).html(_remain + " USD ~ <span id='TranslateRemaining'></span> (in reference)");
+                Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_remain,"TranslateRemaining");
                 var _payment_final = _payment - _remain;
                 if(_payment_final < 0) {
                     _payment_final = 0;
                 }
-                $('#ConfirmOrder').find('label').eq(5).html(_payment_final + " HKD");
+                $('#ConfirmOrder').find('label').eq(5).html(_payment_final + " USD ~ <span id='FinalPayment'></span> (in reference)");
+                Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_payment_final,"FinalPayment");
                 var _cashback = (parseInt(_payment * 0.04 * 100))/100;
-                $('#ConfirmOrder').find('label').eq(7).html(_cashback + " HKD");
+                $('#ConfirmOrder').find('label').eq(7).html(_cashback + " USD ~ <span id='CashbackCanGet'></span> (in reference)");
+                Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_cashback,"CashbackCanGet");
                 var _payment_method = GetRadioValue('method_payment');
                 $('#ConfirmOrder').find('label').eq(9).html(_payment_method);
                 var _shipping_method = GetRadioValue('method_shipping');
@@ -214,7 +219,8 @@ Template.CreateOrderPage.events({
                 break;
             case "cashback-using":
                 var _payment = Calculator.Price();
-                $('#ConfirmOrder').find('label').eq(5).html(_payment + " HKD");
+                $('#ConfirmOrder').find('label').eq(5).html(_payment + " USD ~ <span id='FinalPayment'></span> (in reference)");
+                Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_payment,"FinalPayment");
                 var _remain = Helpers.User.CashBack.Remain();
                 e.target.value = "cashback-unusing";
                 e.target.innerText = TAPi18n.__("Btn_UseCashback");
@@ -226,7 +232,8 @@ Template.CreateOrderPage.events({
                 if(_payment_final < 0) {
                     _payment_final = 0;
                 }
-                $('#ConfirmOrder').find('label').eq(5).html(_payment_final + " HKD");
+                $('#ConfirmOrder').find('label').eq(5).html(_payment_final + " USD ~ <span id='FinalPayment'></span> (in reference)");
+                Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_payment_final,"FinalPayment");
                 e.target.value = "cashback-using";
                 e.target.innerText = TAPi18n.__("Btn_UnuseCashback");
                 break;
@@ -244,11 +251,11 @@ Template.CreateOrderPage.events({
                 //    _products.push(Helpers.Product.GetProductByCartID.ID(_cart_products[i]));
                 //}
 
-                var _payment_total =  $('#ConfirmOrder').find('label').eq(1).html();
-                var _payment_final =  $('#ConfirmOrder').find('label').eq(5).html();
-                var _cashback_get = $('#ConfirmOrder').find('label').eq(7).html();
-                var _cashback_use = (parseFloat(_payment_total) - parseFloat(_payment_final)).toString() + " HKD";
-                var _cashback_remain = Helpers.User.CashBack.Remain() - parseFloat(_cashback_use) + " HKD";
+                var _payment_total =  $('#ConfirmOrder').find('label').eq(1).html().match(/.+USD/);
+                var _payment_final =  $('#ConfirmOrder').find('label').eq(5).html().match(/.+USD/);
+                var _cashback_get = $('#ConfirmOrder').find('label').eq(7).html().match(/.+USD/);
+                var _cashback_use = (parseFloat(_payment_total) - parseFloat(_payment_final)).toString() + " USD";
+                var _cashback_remain = Helpers.User.CashBack.Remain() - parseFloat(_cashback_use) + " USD";
                 var _count =    $('#ConfirmOrder').find('label').eq(13).html();
                 var _weight =   $('#ConfirmOrder').find('label').eq(15).html();
                 var _payment_method =  $('#ConfirmOrder').find('label').eq(9).html();

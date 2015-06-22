@@ -274,7 +274,7 @@ Template.Dashboard.events({
 
         var _error = "";
         Dashboard_Log.Show("Name", _name);
-        Dashboard_Log.Show("Price", _price + " HKD");
+        Dashboard_Log.Show("Price", _price + " USD");
         Dashboard_Log.Show("Weight", _weight + "g");
         Dashboard_Log.Show("Description", _description);
         if(_name == "" || _name == null) {
@@ -299,29 +299,31 @@ Template.Dashboard.events({
             main: _img_main,
             sub:  _img_sub,
             color: _selection_color
+        }, function() {
+            Dashboard_Log.Show("Image ID", _img_id);
+            if(!_empty) {
+                Products.insert({
+                    name:           _name,
+                    description:    _description,
+                    price:          _price,
+                    weight:         _weight,
+                    image:          _img_id,
+                    size:           _selection_size,
+                    remain:         _item_remain,
+                    type:           _product_type,
+                    show_for:       _country_type,
+                    publish:        false,
+                    createAt:       _date
+                }, function() {
+                    Helpers.Log.Show("Create Product", "Create Success!");
+                    alert("Process Success!");
+                    location.reload();
+                });
+            } else {
+                Helpers.Log.Show("Create Product", "Create Fail!");
+                alert(_error);
+            }
         });
-        Dashboard_Log.Show("Image ID", _img_id);
-        if(!_empty) {
-            Products.insert({
-                name:           _name,
-                description:    _description,
-                price:          _price,
-                weight:         _weight,
-                image:          _img_id,
-                size:           _selection_size,
-                remain:         _item_remain,
-                type:           _product_type,
-                show_for:       _country_type,
-                publish:        false,
-                createAt:       _date
-            });
-            Helpers.Log.Show("Create Product", "Create Success!");
-            alert("Process Success!");
-            location.reload();
-        } else {
-            Helpers.Log.Show("Create Product", "Create Fail!");
-            alert(_error);
-        }
     },
 
     // Product List Event
@@ -454,7 +456,7 @@ Template.Dashboard.events({
                 "<td><br>"+this.products[i].color+"</td>" +
                 "<td><br>"+this.products[i].quantity+"</td>" +
                 "<td><br>"+(_product.weight * this.products[i].quantity)+" g</td>" +
-                "<td><br>"+(_product.price * this.products[i].quantity)+" HKD</td>" +
+                "<td><br>"+(_product.price * this.products[i].quantity)+" USD</td>" +
                 "</tr>";
         }
         $('#order_detail_product_list').html(ProductListHTML);
@@ -778,51 +780,51 @@ Template.Dashboard.events({
             main: _img_main,
             sub:  _img_sub,
             color: _selection_color
+        }, function() {
+            var _name = $('#input_name').val();
+            var _price = $('#input_price').val();
+            var _weight = $('#input_weight').val();
+            var _description = $('#input_description').val();
+            var _empty = false;
+            var _error = "";
+            Dashboard_Log.Show("Name", _name);
+            Dashboard_Log.Show("Price", _price + " USD");
+            Dashboard_Log.Show("Weight", _weight + "g");
+            Dashboard_Log.Show("Description", _description);
+            Dashboard_Log.Show("Image ID", _img_id);
+            if(_name == "" || _name == null) {
+                _empty = true;
+                _error += "Please fill the 'Product Name' column!\n";
+            }
+            if(_price == "" || _price == null) {
+                _empty = true;
+                _error += "Please fill the 'Price' column!\n";
+            }
+            if(_weight == "" || _weight == null) {
+                _empty = true;
+                _error += "Please fill the 'Weight' column!\n";
+            }
+            if(_description == "" || _description == null) {
+                _description = "No Description";
+            }
+            if(!_empty) {
+                Products.insert({
+                    name:           _name,
+                    description:    _description,
+                    price:          _price,
+                    weight:         _weight,
+                    image:          _img_id,
+                    size:           _selection_size,
+                    remain:         _item_remain,
+                    publish:        false
+                });
+                Dashboard_Log.Show("Create Product", "Create Success!");
+                alert("Process Success!");
+            } else {
+                Dashboard_Log.Show("Create Product", "Create Fail!");
+                alert(_error);
+            }
         });
-
-        var _name = $('#input_name').val();
-        var _price = $('#input_price').val();
-        var _weight = $('#input_weight').val();
-        var _description = $('#input_description').val();
-        var _empty = false;
-        var _error = "";
-        Dashboard_Log.Show("Name", _name);
-        Dashboard_Log.Show("Price", "HKD " + _price);
-        Dashboard_Log.Show("Weight", _weight + "g");
-        Dashboard_Log.Show("Description", _description);
-        Dashboard_Log.Show("Image ID", _img_id);
-        if(_name == "" || _name == null) {
-            _empty = true;
-            _error += "Please fill the 'Product Name' column!\n";
-        }
-        if(_price == "" || _price == null) {
-            _empty = true;
-            _error += "Please fill the 'Price' column!\n";
-        }
-        if(_weight == "" || _weight == null) {
-            _empty = true;
-            _error += "Please fill the 'Weight' column!\n";
-        }
-        if(_description == "" || _description == null) {
-            _description = "No Description";
-        }
-        if(!_empty) {
-            Products.insert({
-                name:           _name,
-                description:    _description,
-                price:          _price,
-                weight:         _weight,
-                image:          _img_id,
-                size:           _selection_size,
-                remain:         _item_remain,
-                publish:        false
-            });
-            Dashboard_Log.Show("Create Product", "Create Success!");
-            alert("Process Success!");
-        } else {
-            Dashboard_Log.Show("Create Product", "Create Fail!");
-            alert(_error);
-        }
     },
 
     // Click to see a product
@@ -833,7 +835,7 @@ Template.Dashboard.events({
         $('#label_product_id').html(this._id);
         $('#label_product_name').html(this.name);
         $('#label_product_description').html(this.description);
-        $('#label_product_price').html(this.price + " HKD");
+        $('#label_product_price').html(this.price + " USD");
         $('#label_product_weight').html(this.weight + " g");
         $('#label_product_img_icon').attr('src', Helpers.Image.GetImageByID.Icon(this.image));
         $('#label_product_img_main').attr('src', Helpers.Image.GetImageByID.Main(this.image));
@@ -980,7 +982,7 @@ Template.Dashboard.events({
                     "<div class='product-col-detail'>" +
                         "<div class='product-col-header'>" + _product_name + "</div>" +
                         "<div class='product-col-info'>" +
-                            "<div class='product-col-info-price'>" + _product_price + " HKD</div>" +
+                            "<div class='product-col-info-price'>" + _product_price + " USD</div>" +
                             "<div class='product-col-info-weight'>" + _product_weight + " g</div>" +
                         "</div>" +
                     "</div>" +
@@ -1112,7 +1114,7 @@ Template.Dashboard.events({
 
 Template.Dashboard.helpers({
     'ProductList': function() {
-        return Products.find();
+        return Products.find({},{sort:{createAt:-1}});
     },
     'Icon': function(imageid) {
         var _image = ProductImages.findOne({_id:imageid});

@@ -658,6 +658,43 @@ Helpers.ErrorMessage = {
     }
 };
 
+Helpers.ExchangeMoney = {
+    MyValue: [],
+    FinalValue: 1,
+    LabelID: [],
+    getRate: function(from, to) {
+        var script = document.createElement('script');
+        script.setAttribute('src', "http://query.yahooapis.com/v1/public/yql?q=select%20rate%2Cname%20from%20csv%20where%20url%3D'http%3A%2F%2Fdownload.finance.yahoo.com%2Fd%2Fquotes%3Fs%3D" + from + to + "%253DX%26f%3Dl1n'%20and%20columns%3D'rate%2Cname'&format=json&callback=Helpers%2EExchangeMoney%2EparseExchangeRate");
+        document.body.appendChild(script);
+    },
+    parseExchangeRate: function(data) {
+        var name = data.query.results.row.name;
+        var rate = parseFloat(data.query.results.row.rate, 10);
+        var m_result = Math.round(rate * this.MyValue.pop() * 100) / 100;
+        this.FinalValue = m_result;
+        $('#' + this.LabelID.pop()).html(m_result + " " + name.split("/")[1]);
+    },
+    GetExchangeMoney: function(m_from, m_to, m_value, m_label) {
+        var m_myvalue = m_value;
+        if(m_value <= 0 || m_value == null || m_value == "" || isNaN(m_value)) {
+            m_myvalue = 0;
+        }
+        this.MyValue.push(m_myvalue);
+        this.LabelID.push(m_label);
+        Helpers.ExchangeMoney.getRate(m_from, m_to);
+    },
+    GetCountryUse: function(country) {
+        var unit_result = "HKD";
+        switch(country) {
+            case "Brazil":						unit_result = "BRL";	break;
+            case "Hong Kong":				 	unit_result = "HKD";	break;
+            case "Japan":						unit_result = "JPY";	break;
+            default : 							unit_result = "USD"; 	break;
+        }
+        return unit_result;
+    }
+};
+
 Helpers.Log = {
     Active: true,
     Show: function(header, message) {

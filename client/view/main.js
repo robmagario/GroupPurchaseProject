@@ -247,10 +247,10 @@ Template.MainPage.events({
             var _remain = Helpers.User.CashBackStatus.UserTotalRemain();
             var _price_new = Helpers.Product.CalculatePriceByUseCashback((_price * _quantity), _remain);
             var _remain_new = Helpers.Product.CalculateRemainByUseCashback((_price * _quantity), _remain);
-            $('#ProductPagePrice').html((_price * _quantity) + " HKD");
-            $('#ProductPageCashback').html("<span>4%Cash Back</span> = " + (_cashback * _quantity) + " HKD");
-            $('#ProductPagePriceNew').html((_price * _quantity) + " HKD => " + _price_new + " HKD");
-            $('#ProductPageCashbackRemain').html(_remain + " HKD => " + _remain_new + " HKD");
+            $('#ProductPagePrice').html((_price * _quantity) + " USD");
+            $('#ProductPageCashback').html("<span>4%Cash Back</span> = " + (_cashback * _quantity) + " USD");
+            $('#ProductPagePriceNew').html((_price * _quantity) + " USD => " + _price_new + " USD");
+            $('#ProductPageCashbackRemain').html(_remain + " USD => " + _remain_new + " USD");
         }
     },
 
@@ -367,9 +367,9 @@ Template.MainPage.events({
         var _price__new = Helpers.Product.CalculatePriceByUseCashback(_price_new, _remain);
 
         $('#step1_label_weight').html(_weight_new + " g");
-        $('#step1_label_payment').html(_price__new + " HKD");
-        $('#step1_label_cashback').html(_cashback_new + " HKD");
-        $('#step1_label_cashback_use').html(_cashback_use + " HKD");
+        $('#step1_label_payment').html(_price__new + " USD");
+        $('#step1_label_cashback').html(_cashback_new + " USD");
+        $('#step1_label_cashback_use').html(_cashback_use + " USD");
         $('#step1_label_cart').html(_quantity_new);
 
     },

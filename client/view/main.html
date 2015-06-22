@@ -36,7 +36,7 @@
         <!--<div class="header">Cash Back</div>-->
         <!--<div class="column">-->
             <!--<div>Total: </div>-->
-            <!--<label id="label_total_cashback">{{User.CashBackStatus.UserTotalRemain}} HKD</label>-->
+            <!--<label id="label_total_cashback">{{User.CashBackStatus.UserTotalRemain}} USD</label>-->
         <!--</div>-->
     <!--</div>-->
 
@@ -54,15 +54,15 @@
                 <!--<tr class="">-->
                     <!--<td>{{date}}</td>-->
                     <!--<td style="text-align: left;">{{order}}</td>-->
-                    <!--<td style="text-align: right;">{{cash_use}} HKD</td>-->
-                    <!--<td style="text-align: right;">{{cash_get}} HKD</td>-->
+                    <!--<td style="text-align: right;">{{cash_use}} USD</td>-->
+                    <!--<td style="text-align: right;">{{cash_get}} USD</td>-->
                 <!--</tr>-->
             <!--{{/each}}-->
             <!--<tr>-->
                 <!--<td></td>-->
                 <!--<td style="text-align: left;"></td>-->
-                <!--<td id="overniew_cashback_totaluse" style="text-align: right;">Total: {{User.CashBackStatus.UserTotalUse}} HKD</td>-->
-                <!--<td id="overniew_cashback_totalget" style="text-align: right;">Total: {{User.CashBackStatus.UserTotalGet}} HKD</td>-->
+                <!--<td id="overniew_cashback_totaluse" style="text-align: right;">Total: {{User.CashBackStatus.UserTotalUse}} USD</td>-->
+                <!--<td id="overniew_cashback_totalget" style="text-align: right;">Total: {{User.CashBackStatus.UserTotalGet}} USD</td>-->
             <!--</tr>-->
             <!--</tbody>-->
         <!--</table>-->
@@ -418,7 +418,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">{{_ "ProductPage_Price"}}:</label>
                             <div class="col-sm-9">
-                                <label class="form-control">{{price}} HKD</label>
+                                <label class="form-control" style="height:auto;">{{price}} USD <br>~ <span id="{{_id}}">{{ExchangeMoney.GetExchangeMoney "USD" "HKD" price _id}}</span> (in reference)</label>
                             </div>
                         </div>
                         <labela class="item-country-show" style="display:none">{{ToShow show_for}}</labela>
@@ -474,7 +474,7 @@
                                         <div class="form-group">
                                             <label class="control-label col-sm-3">{{_ "ProductInfo_Price"}}:</label>
                                             <div class="col-sm-9">
-                                                <label class="form-control">{{price}} HKD</label>
+                                                <label class="form-control">{{price}} USD ~ <span id="product_translated_price">{{ExchangeMoney.GetExchangeMoney "USD" "HKD" price "product_translated_price"}}</span> (in reference)</label>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -527,16 +527,16 @@
                             <br>
                             <br>
                             <div class="product-page-subheader">{{_ "ProductInfo_Price"}}</div>
-                            <div id="ProductPagePrice" class="product-page-price">{{Price}} HKD</div>
+                            <div id="ProductPagePrice" class="product-page-price">{{Price}} USD</div>
                             <br>
                             <div class="product-page-subheader">{{_ "ProductInfo_CashbackGet"}}</div>
-                            <div id="ProductPageCashback" class="product-page-price"><span>4%{{_ "ProductInfo_Cashback"}}</span> = {{CashbackGet}} HKD</div>
+                            <div id="ProductPageCashback" class="product-page-price"><span>4%{{_ "ProductInfo_Cashback"}}</span> = {{CashbackGet}} USD</div>
                             <br>
                             <div class="product-page-subheader">{{_ "ProductInfo_NewPrice"}}</div>
-                            <div id="ProductPagePriceNew" class="product-page-price">{{Price}} HKD =>  {{NewPrice Price Cashback}} HKD</div>
+                            <div id="ProductPagePriceNew" class="product-page-price">{{Price}} USD =>  {{NewPrice Price Cashback}} USD</div>
                             <br>
                             <div class="product-page-subheader">{{_ "ProductInfo_CashbackRemain"}}</div>
-                            <div id="ProductPageCashbackRemain" class="product-page-price">{{Cashback}} HKD =>  {{CashbackRemain Price Cashback}} HKD</div>
+                            <div id="ProductPageCashbackRemain" class="product-page-price">{{Cashback}} USD =>  {{CashbackRemain Price Cashback}} USD</div>
                             <br>
                             <div class="product-page-subheader">{{_ "ProductInfo_SaleActive"}}</div>
                             <div class="product-page-price">{{CheckSaleStatus publish}}</div>
@@ -625,16 +625,16 @@
                 <!--<br>-->
                 <!--<br>-->
                 <!--<div class="product-page-subheader">Price</div>-->
-                <!--<div id="ProductPagePrice" class="product-page-price">{{Product.GetProductByHash.Price}} HKD</div>-->
+                <!--<div id="ProductPagePrice" class="product-page-price">{{Product.GetProductByHash.Price}} USD</div>-->
                 <!--<br>-->
                 <!--<div class="product-page-subheader">Your Price</div>-->
-                <!--<div id="ProductPageCashback" class="product-page-price"><span>4%Cash Back</span> = {{Product.GetProductByHash.CalculateDescount}} HKD</div>-->
+                <!--<div id="ProductPageCashback" class="product-page-price"><span>4%Cash Back</span> = {{Product.GetProductByHash.CalculateDescount}} USD</div>-->
                 <!--<br>-->
                 <!--<div class="product-page-subheader">Price by using remaining cashback</div>-->
-                <!--<div id="ProductPagePriceNew" class="product-page-price">{{Product.GetProductByHash.Price}} HKD =>  {{Product.CalculatePriceByUseCashback Product.GetProductByHash.Price User.CashBackStatus.UserTotalRemain}} HKD</div>-->
+                <!--<div id="ProductPagePriceNew" class="product-page-price">{{Product.GetProductByHash.Price}} USD =>  {{Product.CalculatePriceByUseCashback Product.GetProductByHash.Price User.CashBackStatus.UserTotalRemain}} USD</div>-->
                 <!--<br>-->
                 <!--<div class="product-page-subheader">Cashback Remain</div>-->
-                <!--<div id="ProductPageCashbackRemain" class="product-page-price">{{User.CashBackStatus.UserTotalRemain}} HKD =>  {{Product.CalculateRemainByUseCashback Product.GetProductByHash.Price User.CashBackStatus.UserTotalRemain}} HKD</div>-->
+                <!--<div id="ProductPageCashbackRemain" class="product-page-price">{{User.CashBackStatus.UserTotalRemain}} USD =>  {{Product.CalculateRemainByUseCashback Product.GetProductByHash.Price User.CashBackStatus.UserTotalRemain}} USD</div>-->
                 <!--<br>-->
                 <!--<div class="product-page-subheader">Sale Status</div>-->
                 <!--<div class="product-page-price">active</div>-->
@@ -652,7 +652,7 @@
             <!--<div class="product-col-detail">-->
                 <!--<div class="product-col-header">{{Product.GetProductByCartID.Name this}}</div>-->
                 <!--<div class="product-col-info">-->
-                    <!--<div class="product-col-info-price">{{Product.GetProductByCartID.Price this}} HKD</div>-->
+                    <!--<div class="product-col-info-price">{{Product.GetProductByCartID.Price this}} USD</div>-->
                     <!--<div class="product-col-info-weight">{{Product.GetProductByCartID.Weight this}} g</div>-->
                     <!--<div class="product-col-info-quantity">Quantity: {{Product.GetProductByCartID.Quantity this}}</div>-->
                     <!--<button class="product-col-info-cancel btn-cart-cancel" value="{{this}}">Cancel</button>-->
@@ -674,7 +674,7 @@
                 <!--<div class="product-col-detail">-->
                     <!--<div class="product-col-header">{{Product.GetProductByCartID.Name this}}</div>-->
                     <!--<div class="product-col-info">-->
-                        <!--<div class="product-col-info-price">{{Product.GetProductByCartID.Price this}} HKD</div>-->
+                        <!--<div class="product-col-info-price">{{Product.GetProductByCartID.Price this}} USD</div>-->
                         <!--<div class="product-col-info-weight">{{Product.GetProductByCartID.Weight this}} g</div>-->
                         <!--<div class="product-col-info-quantity">Quantity: {{Product.GetProductByCartID.Quantity this}}</div>-->
                         <!--<button class="product-col-info-cancel btn-cart-cancel" value="{{this}}">Cancel</button>-->
@@ -700,17 +700,17 @@
         <!--<br>-->
         <!--<div class="column">-->
             <!--<div>Total Payment:</div>-->
-            <!--<label id="step1_label_payment">123 HKD</label>-->
+            <!--<label id="step1_label_payment">123 USD</label>-->
         <!--</div>-->
         <!--<br>-->
         <!--<div class="column">-->
             <!--<div>Cash Back Use:</div>-->
-            <!--<label id="step1_label_cashback_use">123 HKD</label>-->
+            <!--<label id="step1_label_cashback_use">123 USD</label>-->
         <!--</div>-->
         <!--<br>-->
         <!--<div class="column">-->
             <!--<div>Total Cash Back:</div>-->
-            <!--<label id="step1_label_cashback">123 HKD</label>-->
+            <!--<label id="step1_label_cashback">123 USD</label>-->
         <!--</div>-->
         <!--<br>-->
         <!--<button class="btn-step1-next button-1-col">Next Step</button>-->
@@ -776,7 +776,7 @@
         <!--<br>-->
         <!--<div class="column">-->
             <!--<div>Payment:</div>-->
-            <!--<label id="step3_label_payment">54321 HKD</label>-->
+            <!--<label id="step3_label_payment">54321 USD</label>-->
         <!--</div>-->
         <!--<br>-->
         <!--<br>-->
@@ -871,7 +871,7 @@
                 <!--<div class="product-col-detail">-->
                     <!--<div class="product-col-header">{{Product.GetProductByCartID.Name this}}</div>-->
                     <!--<div class="product-col-info">-->
-                        <!--<div class="product-col-info-price">{{Product.GetProductByCartID.Price this}} HKD</div>-->
+                        <!--<div class="product-col-info-price">{{Product.GetProductByCartID.Price this}} USD</div>-->
                         <!--<div class="product-col-info-weight">{{Product.GetProductByCartID.Weight this}} g</div>-->
                         <!--<div class="product-col-info-quantity">Quantity: {{Product.GetProductByCartID.Quantity this}}</div>-->
                     <!--</div>-->

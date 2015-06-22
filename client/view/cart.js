@@ -25,9 +25,11 @@ function InitializeData() {
         window.localStorage.setItem('CartItemSelect', "");
     }
 
-    $('#purchase').find('label').eq(1).html(Helpers.User.CashBack.Remain() + " HKD");
-    $('#purchase').find('label').eq(3).html(_price + " HKD");
+    $('#purchase').find('label').eq(1).html(Helpers.User.CashBack.Remain() + " USD ~ <span id='Remaining'></span> (in reference)");
+    $('#purchase').find('label').eq(3).html(_price + " USD ~ <span id='Total'></span> (in reference)");
     $('#purchase').find('label').eq(5).html(_weight + " g");
+    Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",Helpers.User.CashBack.Remain(),"Remaining");
+    Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_price,"Total");
 }
 
 function CalculateSelectedItem() {
@@ -54,7 +56,7 @@ function CalculateSelectedItem() {
         }
     }
 
-    $('#purchase').find('label').eq(3).html(_price + " HKD");
+    $('#purchase').find('label').eq(3).html(_price + " USD");
     $('#purchase').find('label').eq(5).html(_weight + " g");
 }
 
@@ -76,7 +78,6 @@ Template.CartPage.events({
                 }
                 break;
             case "RemoveProduct":
-                console.log(this);
                 var _id = this.id;
                 var _CartItemSelects = window.localStorage.getItem("CartItemSelect");
                 var _CartItemValues = window.localStorage.getItem("CartItemValue");
@@ -172,13 +173,13 @@ Template.CartPage.events({
                     }
                 }
                 window.localStorage.setItem('CartItemSelect', _items.toString());
-                $('#purchase').find('label').eq(3).html(_price + " HKD");
+                $('#purchase').find('label').eq(3).html(_price + " USD");
                 $('#purchase').find('label').eq(5).html(_weight + " g");
             } else {
                 window.localStorage.setItem('CartItemSelect', "");
             }
         } else {
-            $('#purchase').find('label').eq(3).html(0 + " HKD");
+            $('#purchase').find('label').eq(3).html(0 + " USD");
             $('#purchase').find('label').eq(5).html(0 + " g");
             window.localStorage.setItem('CartItemSelect', "");
         }
@@ -203,13 +204,15 @@ Template.CartPage.helpers({
                     if(_images != null) {
                         _icon = _images.color[_array[i+2]];
                     }
+                    var priceID = parseInt(Math.random() * 10000000);
                     items.push({
                         id:         _array[i],
                         icon:       _icon,
                         name:       _product.name,
                         quantity:   _quantity,
                         weight:     _weight,
-                        price:      _price
+                        price:      _price,
+                        tempID:     priceID
                     })
                 }
             }
