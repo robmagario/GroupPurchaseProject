@@ -282,5 +282,10 @@
     "Register_Username": "Username",
     "Register_Email":    "Email",
     "Register_Password": "Password",
-    "Register_Key":      "Invite Key"
+    "Register_Key":      "Invite Key",
+
+    // Translate
+    "Translate_Input":  "Input",
+    "Translate_Output": "Output",
+    "Translate_Btn":    "Translate"
 }

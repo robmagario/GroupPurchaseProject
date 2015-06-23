@@ -10,19 +10,19 @@
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="email">{{_ "Cart_CashbackRemain"}}:</label>
                         <div class="col-sm-9">
-                            <label class="form-control">0 USD ~ <span id="Remaining">{{ExchangeMoney.GetExchangeMoney "USD" "HKD" 0 "Remaining"}}</span> (in reference)</label>
+                            <label class="form-control PriceUS">US$ {{CashRemain}} <span id="Remaining" class="PriceHK">{{ExchangeMoney.GetExchangeMoney "USD" "HKD" CashRemain "Remaining"}}</span></label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="email">{{_ "Cart_TotalPrice"}}:</label>
                         <div class="col-sm-9">
-                            <label class="form-control">0 USD ~ <span id="Total">{{ExchangeMoney.GetExchangeMoney "USD" "HKD" 0 "Total"}}</span> (in reference)</label>
+                            <label class="form-control PriceUS">US$ {{PriceTotal}} <span id="Total" class="PriceHK">{{ExchangeMoney.GetExchangeMoney "USD" "HKD" PriceTotal "Total"}}</span></label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="email">{{_ "Cart_TotalWeight"}}:</label>
                         <div class="col-sm-9">
-                            <label class="form-control">0 g</label>
+                            <label class="form-control">{{WeghtTotal}} g</label>
                         </div>
                     </div>
                 </div>
@@ -47,8 +47,8 @@
                         <td><br>{{name}}</td>
                         <td><br>{{quantity}}</td>
                         <td><br>{{weight}} g</td>
-                        <td><br>{{price}} USD</td>
-                        <td><br> ~ <span id="{{tempID}}">{{ExchangeMoney.GetExchangeMoney "USD" "HKD" price tempID}}</span></td>
+                        <td class="PriceUS"><br>US$ {{price}}</td>
+                        <td><br><span id="{{tempID}}" class="PriceHK">{{ExchangeMoney.GetExchangeMoney "USD" "HKD" price tempID}}</span></td>
                         <td><button class="btn btn-danger" value="RemoveProduct"><span class="glyphicon glyphicon-remove"></span></button></td>
                     </tr>
                     {{/each}}

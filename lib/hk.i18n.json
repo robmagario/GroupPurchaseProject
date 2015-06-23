@@ -282,5 +282,10 @@
   "Register_Username": "用戶名稱",
   "Register_Email":    "電郵地址",
   "Register_Password": "密碼",
-  "Register_Key":      "邀請密鑰"
+  "Register_Key":      "邀請密鑰",
+
+  // Translate
+  "Translate_Input":  "Input",
+  "Translate_Output": "Output",
+  "Translate_Btn":    "Translate"
 }

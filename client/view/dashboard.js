@@ -427,10 +427,14 @@ Template.Dashboard.events({
         $('#order_detail').find('label').eq(3).html(this.createAt);
         $('#order_detail').find('label').eq(5).html(this.user);
         $('#order_detail').find('label').eq(7).html(this.status);
-        $('#order_detail').find('label').eq(9).html(this.payment.payment_total);
-        $('#order_detail').find('label').eq(11).html(this.payment.cashback_use);
-        $('#order_detail').find('label').eq(13).html(this.payment.payment_final);
-        $('#order_detail').find('label').eq(15).html(this.payment.cashback_get);
+        $('#order_detail').find('label').eq(9).html(this.payment.payment_total + " <span id='detail_paymentTR' class='PriceHK'></span>");
+        $('#order_detail').find('label').eq(11).html(this.payment.cashback_use + " <span id='detail_cashbackUR' class='PriceHK'></span>");
+        $('#order_detail').find('label').eq(13).html(this.payment.payment_final + " <span id='detail_paymentFR' class='PriceHK'></span>");
+        $('#order_detail').find('label').eq(15).html(this.payment.cashback_get + " <span id='detail_cashbackGR' class='PriceHK'></span>");
+        Helpers.ExchangeMoney.GetExchangeMoney('USD', 'HKD', this.payment.payment_total.replace("US$ ",""), 'detail_paymentTR');
+        Helpers.ExchangeMoney.GetExchangeMoney('USD', 'HKD', this.payment.cashback_use.replace("US$ ",""), 'detail_cashbackUR');
+        Helpers.ExchangeMoney.GetExchangeMoney('USD', 'HKD', this.payment.payment_final.replace("US$ ",""), 'detail_paymentFR');
+        Helpers.ExchangeMoney.GetExchangeMoney('USD', 'HKD', this.payment.cashback_get.replace("US$ ",""), 'detail_cashbackGR');
         $('#order_detail').find('label').eq(17).html(this.payment.payment_method);
         $('#order_detail').find('label').eq(19).html(this.payment.shipping_method);
         $('#order_detail').find('label').eq(21).html(this.payment.count);
@@ -476,11 +480,10 @@ Template.Dashboard.events({
                 var _date = new Date();
                 var _method = "get";
 
-                var _cashback_add = parseFloat($('#order_detail').find('label').eq(15).html());
-
+                var _cashback_add = parseFloat($('#order_detail').find('label').eq(15).html().replace('US$',''));
 
                 var _invitation_remain = _current_user.invitation;
-                if(_invitation_remain == null || _invitation_remain == "" || _invitation_remain == NaN) {
+                if(_invitation_remain == null || _invitation_remain == "" || isNaN(_invitation_remain)) {
                     _invitation_remain = 0;
                 }
                 var _payment_total =  parseFloat($('#order_detail').find('label').eq(9).html());
@@ -519,7 +522,7 @@ Template.Dashboard.events({
                             //    }
                             //});
                             var _targetuserID = _user_invite_by._id;
-                            var _cashback_get = (parseInt(_payment_total * Rates[_count] * 100))/100;
+                            var _cashback_get = (parseInt(_payment_total * Rates[_count] * 100))* 0.01;
                             Cashbacks.insert({
                                 user: _targetuserID,
                                 order: _orderID,
@@ -1003,8 +1006,8 @@ Template.Dashboard.events({
         var _invitation_use = _user.invitation_use;
         var _cashback = _user.cashback;
         console.log(_cashback);
-        var _cashback_add = parseInt($('#label_detail_cashback').html());
-        var _cashback_use = parseInt($('#label_detail_cashback_use').html());
+        var _cashback_add = parseFloat($('#label_detail_cashback').html());
+        var _cashback_use = parseFloat($('#label_detail_cashback_use').html());
         if(_invitation == "" || _invitation == null) {
             _invitation = 0;
         }
@@ -1016,7 +1019,7 @@ Template.Dashboard.events({
         }
         _invitation = parseInt(_invitation) + parseInt($('#label_detail_count').html());
         _invitation_use = parseInt(_invitation_use);
-        _cashback = parseInt(_cashback) + parseInt(_cashback_add);
+        _cashback = parseFloat(_cashback) + parseFloat(_cashback_add);
         Meteor.users.update(_userID, {$set:{
             invitation:_invitation,
             invitation_use: _invitation_use,
@@ -1046,12 +1049,12 @@ Template.Dashboard.events({
                 var _user_invite_by = Meteor.users.findOne({_id:_user_invitation.fromid});
                 if(_user_invite_by != null) {
                     var _user_invite_by_cashback = _user_invite_by.cashback;
-                    var _user_invite_by_cashback_new = parseInt(_user_invite_by_cashback) + (_cashback_add / 4 * _cashback_count);
+                    var _user_invite_by_cashback_new = parseFloat(_user_invite_by_cashback) + (_cashback_add / 4 * _cashback_count);
                     Meteor.users.update(_user_invite_by._id, {$set:{
                         cashback: _user_invite_by_cashback_new
                     }});
                     var _targetuserID = _user_invite_by._id;
-                    var _cashback_get = parseInt(_cashback_add / 4 * _cashback_count);
+                    var _cashback_get = parseFloat(_cashback_add / 4 * _cashback_count);
                     Cashbacks.insert({
                         user:       _targetuserID,
                         order:      _orderID,

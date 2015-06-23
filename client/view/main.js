@@ -51,7 +51,7 @@ Template.MainPage.rendered = function() {
                 Helpers.System.LocateTo('/home');
             }
         }
-    }, 1000);
+    }, 2000);
 }
 
 var tab_events = {
@@ -240,8 +240,8 @@ Template.MainPage.events({
 
     // Change the Quantity
     'change #label_product_quantity': function() {
-        var _price = parseInt(Helpers.Product.GetProductByHash.Price());
-        var _cashback = parseInt(Helpers.Product.GetProductByHash.CalculateDescount());
+        var _price = parseFloat(Helpers.Product.GetProductByHash.Price());
+        var _cashback = parseFloat(Helpers.Product.GetProductByHash.CalculateDescount());
         var _quantity = parseInt($('#label_product_quantity').val());
         if(_quantity != 0 && _quantity != "") {
             var _remain = Helpers.User.CashBackStatus.UserTotalRemain();
@@ -339,11 +339,11 @@ Template.MainPage.events({
         //$('#step1_label_cart').html(_select_n.length);
         var _product_weight = Helpers.Product.GetProductByCartID.Weight(_id);
         var _product_price = Helpers.Product.GetProductByCartID.Price(_id);
-        var _product_cashback = parseInt(_product_price * 0.04);
+        var _product_cashback = parseFloat(_product_price * 0.04);
         var _product_quantity = Helpers.Product.GetProductByCartID.Quantity(_id);
         var _weight = parseInt($('#step1_label_weight').html());
         var _price = parseInt($('#step1_label_payment').html());
-        var _cashback = parseInt($('#step1_label_cashback').html());
+        var _cashback = parseFloat($('#step1_label_cashback').html());
         var _quantity = parseInt($('#step1_label_cart').html());
         var _weight_new;
         var _price_new;
@@ -566,7 +566,7 @@ Template.ProductInfo.helpers({
         var _product_id = _hash.replace("#","");
         var _product = Products.findOne({_id:_product_id});
         var _price = _product.price;
-        return parseInt(_price * _rate[0] * 100)/100;
+        return parseInt(_price * _rate[0] * 100)*0.01;
     },
     'NewPrice': function(price, cashback) {
         var _result = price - cashback;

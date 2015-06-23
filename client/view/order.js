@@ -42,10 +42,15 @@ Template.OrderPage.events({
         $('#OrderDetail').find('label').eq(1).html(this._id);
         $('#OrderDetail').find('label').eq(3).html(this.createAt);
         $('#OrderDetail').find('label').eq(5).html(this.status);
-        $('#OrderDetail').find('label').eq(7).html(this.payment.payment_total);
-        $('#OrderDetail').find('label').eq(9).html(this.payment.cashback_remain);
-        $('#OrderDetail').find('label').eq(11).html(this.payment.payment_final);
-        $('#OrderDetail').find('label').eq(13).html(this.payment.cashback_get);
+        $('#OrderDetail').find('label').eq(7).html(this.payment.payment_total + " <span id='paymentTR' class='PriceHK'></span>");
+        $('#OrderDetail').find('label').eq(9).html(this.payment.cashback_remain + " <span id='cashbackR' class='PriceHK'></span>");
+        $('#OrderDetail').find('label').eq(11).html(this.payment.payment_final + " <span id='paymentFR' class='PriceHK'></span>");
+        $('#OrderDetail').find('label').eq(13).html(this.payment.cashback_get + " <span id='cashbackG' class='PriceHK'></span>");
+        console.log(this.payment.payment_total);
+        Helpers.ExchangeMoney.GetExchangeMoney('USD', 'HKD', this.payment.payment_total.replace("US$ ",""), 'paymentTR');
+        Helpers.ExchangeMoney.GetExchangeMoney('USD', 'HKD', this.payment.cashback_remain.replace("US$ ",""), 'cashbackR');
+        Helpers.ExchangeMoney.GetExchangeMoney('USD', 'HKD', this.payment.payment_final.replace("US$ ",""), 'paymentFR');
+        Helpers.ExchangeMoney.GetExchangeMoney('USD', 'HKD', this.payment.cashback_get.replace("US$ ",""), 'cashbackG');
         $('#OrderDetail').find('label').eq(15).html(this.payment.payment_method);
         $('#OrderDetail').find('label').eq(17).html(this.payment.shipping_method);
         $('#OrderDetail').find('label').eq(19).html(this.payment.count);
@@ -73,7 +78,7 @@ Template.OrderPage.events({
                 "<td><br>"+_product.name+"</td>" +
                 "<td><br>"+_quantity+"</td>" +
                 "<td><br>"+_weight+" g</td>" +
-                "<td><br>"+_price+" HKD</td>" +
+                "<td><br>US$ "+_price+"</td>" +
                 "</tr>";
         }
         $('#OrderDetail').find('tbody').html(ProductListHTML);

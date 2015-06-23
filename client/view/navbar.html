@@ -34,7 +34,15 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a onclick="Helpers.System.LocateTo('/invitation');"><span class="glyphicon glyphicon-list"></span> {{_ "Navbar_Invitation"}}</a></li>
+                    <li style="padding-top:10px; color:#004488;">
+                        <label>{{_ "Translate_Input"}}: USD</label><input id="Nav_TransInVal" type="number" step="0.01" min="0" value="0" style="width:100px;">
+                        <select id="Nav_TransCon">
+                            <option value="HKD" selected>HKD</option>
+                            <option value="JPY">JPY</option>
+                        </select>
+                        <button onclick="Helpers.ExchangeMoney.NavbarTranslate();">{{_ "Translate_Btn"}}</button>
+                        <label> {{_ "Translate_Output"}}: </label> <label id="Nav_TransOutVal" style="width:150px;">00.00</label></li>
+                    <!--<li><a onclick="Helpers.System.LocateTo('/invitation');"><span class="glyphicon glyphicon-list"></span> {{_ "Navbar_Invitation"}}</a></li>-->
                     <li><a onclick="Helpers.System.LocateTo('/profile');"><span class="glyphicon glyphicon-user"></span> {{_ "Navbar_Profile"}}</a></li>
                     <li><a onclick="Helpers.System.LocateTo('/logout');"><span class="glyphicon glyphicon-log-out"></span> {{_ "Navbar_Logout"}}</a></li>
                 </ul>

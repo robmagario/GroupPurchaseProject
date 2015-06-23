@@ -10,7 +10,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="email">{{_ "Purchase_CashbaskRemain"}}:</label>
                         <div class="col-sm-9">
-                            <label class="form-control">0 HKD</label>
+                            <label class="form-control PriceUS">US$ {{cashback_remain}} <span id='MyCRemain' class='PriceHK'>{{ExchangeMoney.GetExchangeMoney 'USD' 'HKD' cashback_remain 'MyCRemain'}}</span></label>
                         </div>
                     </div>
                 </div>
@@ -30,8 +30,8 @@
                         <td>{{date}}</td>
                         <td>{{order}}</td>
                         <td>{{method}}</td>
-                        <td>{{payment}} HKD</td>
-                        <td>{{value}} HKD</td>
+                        <td>US$ {{payment}}</td>
+                        <td>US$ {{value}}</td>
                     </tr>
                     {{/each}}
                     </tbody>

@@ -361,7 +361,7 @@ Helpers.Product = {
             var _id = this.ProductID();
             var _product = Products.findOne({_id:_id, publish: true});
             if(_product != null) {
-                return parseInt(_product.price * 0.04);
+                return parseFloat(_product.price * 0.04);
             } else {
                 return "Unknown";
             }
@@ -413,7 +413,7 @@ Helpers.Product = {
         Price: function(_id) {
             var _product = Products.findOne({_id:_id, publish: true});
             if(_product != null) {
-                return parseInt(_product.price);
+                return parseFloat(_product.price);
             } else {
                 return "Unknown";
             }
@@ -421,7 +421,7 @@ Helpers.Product = {
         Weight: function(_id) {
             var _product = Products.findOne({_id:_id, publish: true});
             if(_product != null) {
-                return parseInt(_product.weight);
+                return parseFloat(_product.weight);
             } else {
                 return "Unknown";
             }
@@ -485,14 +485,14 @@ Helpers.Product = {
             var _productID = _temp_value[_temp_value.indexOf(_id)+1];
             var _price =  Helpers.Product.GetProductByID.Price(_productID);
             var _quantity = _temp_value[_temp_value.indexOf(_id)+4];
-            return (parseInt(_price) * parseInt(_quantity));
+            return (parseFloat(_price) * parseInt(_quantity));
         },
         Weight: function(_id) {
             var _temp_value = window.localStorage.getItem('CartItemValue').split(',');
             var _productID = _temp_value[_temp_value.indexOf(_id)+1];
             var _price =  Helpers.Product.GetProductByID.Weight(_productID);
             var _quantity = _temp_value[_temp_value.indexOf(_id)+4];
-            return (parseInt(_price) * parseInt(_quantity));
+            return (parseFloat(_price) * parseInt(_quantity));
         },
         Quantity: function(_id) {
             var _temp_item = window.localStorage.getItem('CartItem').split(',');
@@ -672,7 +672,8 @@ Helpers.ExchangeMoney = {
         var rate = parseFloat(data.query.results.row.rate, 10);
         var m_result = Math.round(rate * this.MyValue.pop() * 100) / 100;
         this.FinalValue = m_result;
-        $('#' + this.LabelID.pop()).html(m_result + " " + name.split("/")[1]);
+        var priceHeader = name.split("/")[1].replace("D","$");
+        $('#' + this.LabelID.pop()).html("[ ~ " + priceHeader + " " + m_result + " ]");
     },
     GetExchangeMoney: function(m_from, m_to, m_value, m_label) {
         var m_myvalue = m_value;
@@ -692,6 +693,14 @@ Helpers.ExchangeMoney = {
             default : 							unit_result = "USD"; 	break;
         }
         return unit_result;
+    },
+    'NavbarTranslate': function() {
+        var _input = $('#Nav_TransInVal').val();
+        _input = parseFloat(_input);
+        if(isNaN(_input)) {
+            _input = 0;
+        }
+        Helpers.ExchangeMoney.GetExchangeMoney('USD', $('#Nav_TransCon').val(), _input, 'Nav_TransOutVal');
     }
 };
 

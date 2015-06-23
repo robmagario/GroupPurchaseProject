@@ -208,7 +208,7 @@
                                                             <div class="form-group">
                                                                 <label class="control-label col-sm-3">{{_ "Dashboard_ProductInfo_Price"}}:</label>
                                                                 <div class="col-sm-9">
-                                                                    <label class="form-control">{{price}} USD</label>
+                                                                    <label class="form-control PriceUS">US$ {{price}} <span id="produce_priceR" class="PriceHK">{{ExchangeMoney.GetExchangeMoney 'USD' 'HKD' price 'produce_priceR'}}</span></label>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -333,25 +333,25 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">{{_ "OrderInfo_Payment"}}:</label>
                             <div class="col-sm-9">
-                                <label class="form-control"></label>
+                                <label class="form-control PriceUS"></label>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3">{{_ "Dashboard_OrderInfo_CashbackUse"}}:</label>
                             <div class="col-sm-9">
-                                <label class="form-control"></label>
+                                <label class="form-control PriceUS"></label>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3">{{_ "OrderInfo_FinalPayment"}}:</label>
                             <div class="col-sm-9">
-                                <label class="form-control"></label>
+                                <label class="form-control PriceUS"></label>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3">{{_ "OrderInfo_CashbackGet"}}:</label>
                             <div class="col-sm-9">
-                                <label class="form-control"></label>
+                                <label class="form-control PriceUS"></label>
                             </div>
                         </div>
                         <div class="form-group">

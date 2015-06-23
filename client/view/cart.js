@@ -3,19 +3,19 @@
  */
 function InitializeData() {
     var _string = window.localStorage.getItem('CartItemValue');
-    var _weight = 0;
-    var _price = 0;
+    //var _weight = 0;
+    //var _price = 0;
     if(_string != null && _string != "") {
         var _array = _string.split(',');
         var _items = [];
         var _column = 5;
         for(var i=0; i<_array.length; i+=_column) {
             if(_array[i] != "") {
-                var _quantity = _array[i+4];
+                //var _quantity = _array[i+4];
                 var _product = Products.findOne({_id:_array[i+1]});
                 if(_product != null) {
-                    _weight += _quantity * _product.weight;
-                    _price += _quantity * _product.price;
+                    //_weight += _quantity * _product.weight;
+                    //_price += _quantity * _product.price;
                     _items.push(_array[i]);
                 }
             }
@@ -24,12 +24,11 @@ function InitializeData() {
     } else {
         window.localStorage.setItem('CartItemSelect', "");
     }
-
-    $('#purchase').find('label').eq(1).html(Helpers.User.CashBack.Remain() + " USD ~ <span id='Remaining'></span> (in reference)");
-    $('#purchase').find('label').eq(3).html(_price + " USD ~ <span id='Total'></span> (in reference)");
-    $('#purchase').find('label').eq(5).html(_weight + " g");
-    Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",Helpers.User.CashBack.Remain(),"Remaining");
-    Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_price,"Total");
+    //$('#purchase').find('label').eq(1).html("US$ " + Helpers.User.CashBack.Remain() + " <span id='Remaining' class='PriceHK'></span>");
+    //$('#purchase').find('label').eq(3).html("US$ " + _price + " <span id='Total' class='PriceHK'></span>");
+    //$('#purchase').find('label').eq(5).html(_weight + " g");
+    //Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",Helpers.User.CashBack.Remain(),"Remaining");
+    //Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_price,"Total");
 }
 
 function CalculateSelectedItem() {
@@ -56,7 +55,8 @@ function CalculateSelectedItem() {
         }
     }
 
-    $('#purchase').find('label').eq(3).html(_price + " USD");
+    $('#purchase').find('label').eq(3).html("US$ " + _price + " <span id='Total' class='PriceHK'></span>");
+    Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_price,"Total");
     $('#purchase').find('label').eq(5).html(_weight + " g");
 }
 
@@ -173,14 +173,16 @@ Template.CartPage.events({
                     }
                 }
                 window.localStorage.setItem('CartItemSelect', _items.toString());
-                $('#purchase').find('label').eq(3).html(_price + " USD");
+                $('#purchase').find('label').eq(3).html("US$ " + _price + " <span id='Total' class='PriceHK'></span>");
                 $('#purchase').find('label').eq(5).html(_weight + " g");
+                Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_price,"Total");
             } else {
                 window.localStorage.setItem('CartItemSelect', "");
             }
         } else {
-            $('#purchase').find('label').eq(3).html(0 + " USD");
+            $('#purchase').find('label').eq(3).html("US$ " + 0 + " <span id='Total' class='PriceHK'></span>");
             $('#purchase').find('label').eq(5).html(0 + " g");
+            Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",0,"Total");
             window.localStorage.setItem('CartItemSelect', "");
         }
     }
@@ -220,5 +222,44 @@ Template.CartPage.helpers({
         } else {
             return [];
         }
+    },
+    'CashRemain' : function() {
+        return Helpers.User.CashBack.Remain();
+    },
+    'PriceTotal' : function() {
+        var _string = window.localStorage.getItem('CartItemValue');
+        var _price = 0;
+        if(_string != null && _string != "") {
+            var _array = _string.split(',');
+            var _column = 5;
+            for(var i=0; i<_array.length; i+=_column) {
+                if(_array[i] != "") {
+                    var _quantity = _array[i+4];
+                    var _product = Products.findOne({_id:_array[i+1]});
+                    if(_product != null) {
+                        _price += _quantity * _product.price;
+                    }
+                }
+            }
+        }
+        return _price;
+    },
+    'WeghtTotal': function() {
+        var _string = window.localStorage.getItem('CartItemValue');
+        var _weight = 0;
+        if(_string != null && _string != "") {
+            var _array = _string.split(',');
+            var _column = 5;
+            for(var i=0; i<_array.length; i+=_column) {
+                if(_array[i] != "") {
+                    var _quantity = _array[i+4];
+                    var _product = Products.findOne({_id:_array[i+1]});
+                    if(_product != null) {
+                        _weight += _quantity * _product.weight;
+                    }
+                }
+            }
+        }
+        return _weight;
     }
 });

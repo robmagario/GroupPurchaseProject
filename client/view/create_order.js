@@ -179,19 +179,19 @@ Template.CreateOrderPage.events({
 
                 // Fill Data
                 var _payment = Calculator.Price();
-                $('#ConfirmOrder').find('label').eq(1).html(_payment + " USD ~ <span id='TranslatePayment'></span> (in reference)");
+                $('#ConfirmOrder').find('label').eq(1).html("US$ " + _payment + " <span id='TranslatePayment'></span>");
                 Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_payment,"TranslatePayment");
                 var _remain = Helpers.User.CashBack.Remain();
-                $('#ConfirmOrder').find('label').eq(3).html(_remain + " USD ~ <span id='TranslateRemaining'></span> (in reference)");
+                $('#ConfirmOrder').find('label').eq(3).html("US$ " + _remain + " <span id='TranslateRemaining'></span>");
                 Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_remain,"TranslateRemaining");
                 var _payment_final = _payment - _remain;
                 if(_payment_final < 0) {
                     _payment_final = 0;
                 }
-                $('#ConfirmOrder').find('label').eq(5).html(_payment_final + " USD ~ <span id='FinalPayment'></span> (in reference)");
+                $('#ConfirmOrder').find('label').eq(5).html("US$ " + _payment_final + " <span id='FinalPayment'></span>");
                 Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_payment_final,"FinalPayment");
-                var _cashback = (parseInt(_payment * 0.04 * 100))/100;
-                $('#ConfirmOrder').find('label').eq(7).html(_cashback + " USD ~ <span id='CashbackCanGet'></span> (in reference)");
+                var _cashback = (parseFloat(_payment * 0.04 * 100))*0.01;
+                $('#ConfirmOrder').find('label').eq(7).html("US$ " + _cashback + " <span id='CashbackCanGet'></span>");
                 Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_cashback,"CashbackCanGet");
                 var _payment_method = GetRadioValue('method_payment');
                 $('#ConfirmOrder').find('label').eq(9).html(_payment_method);
@@ -219,7 +219,7 @@ Template.CreateOrderPage.events({
                 break;
             case "cashback-using":
                 var _payment = Calculator.Price();
-                $('#ConfirmOrder').find('label').eq(5).html(_payment + " USD ~ <span id='FinalPayment'></span> (in reference)");
+                $('#ConfirmOrder').find('label').eq(5).html("US$ " + _payment + " <span id='FinalPayment'></span>");
                 Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_payment,"FinalPayment");
                 var _remain = Helpers.User.CashBack.Remain();
                 e.target.value = "cashback-unusing";
@@ -232,7 +232,7 @@ Template.CreateOrderPage.events({
                 if(_payment_final < 0) {
                     _payment_final = 0;
                 }
-                $('#ConfirmOrder').find('label').eq(5).html(_payment_final + " USD ~ <span id='FinalPayment'></span> (in reference)");
+                $('#ConfirmOrder').find('label').eq(5).html("US$ " + _payment_final + " <span id='FinalPayment'></span>");
                 Helpers.ExchangeMoney.GetExchangeMoney("USD","HKD",_payment_final,"FinalPayment");
                 e.target.value = "cashback-using";
                 e.target.innerText = TAPi18n.__("Btn_UnuseCashback");
@@ -251,11 +251,20 @@ Template.CreateOrderPage.events({
                 //    _products.push(Helpers.Product.GetProductByCartID.ID(_cart_products[i]));
                 //}
 
-                var _payment_total =  $('#ConfirmOrder').find('label').eq(1).html().match(/.+USD/);
-                var _payment_final =  $('#ConfirmOrder').find('label').eq(5).html().match(/.+USD/);
-                var _cashback_get = $('#ConfirmOrder').find('label').eq(7).html().match(/.+USD/);
-                var _cashback_use = (parseFloat(_payment_total) - parseFloat(_payment_final)).toString() + " USD";
-                var _cashback_remain = Helpers.User.CashBack.Remain() - parseFloat(_cashback_use) + " USD";
+                var _payment_total =  $('#ConfirmOrder').find('label').eq(1).html().match(/US\W\s\d+\W\d+/);
+                if(_payment_total == "" || _payment_total == null) {
+                    _payment_total =  $('#ConfirmOrder').find('label').eq(1).html().match(/US\W\s\d+/);
+                }
+                var _payment_final =  $('#ConfirmOrder').find('label').eq(5).html().match(/US\W\s\d+\W\d+/);
+                if(_payment_final == "" || _payment_final == null) {
+                    _payment_final =  $('#ConfirmOrder').find('label').eq(5).html().match(/US\W\s\d+/);
+                }
+                var _cashback_get = $('#ConfirmOrder').find('label').eq(7).html().match(/US\W\s\d+\W\d+/);
+                if(_cashback_get == "" || _cashback_get == null) {
+                    _cashback_get =  $('#ConfirmOrder').find('label').eq(7).html().match(/US\W\s\d+/);
+                }
+                var _cashback_use = "US$ " + (parseFloat(_payment_total[0].replace("US$ ","")) - parseFloat(_payment_final[0].replace("US$ ",""))).toString();
+                var _cashback_remain = "US$ " + (Helpers.User.CashBack.Remain() - parseFloat(_cashback_use.replace("US$ ","")));
                 var _count =    $('#ConfirmOrder').find('label').eq(13).html();
                 var _weight =   $('#ConfirmOrder').find('label').eq(15).html();
                 var _payment_method =  $('#ConfirmOrder').find('label').eq(9).html();
@@ -274,11 +283,11 @@ Template.CreateOrderPage.events({
                     user:     _userID,
                     products: _products,
                     payment: {
-                        payment_total:  _payment_total,
-                        payment_final:  _payment_final,
+                        payment_total:  _payment_total[0],
+                        payment_final:  _payment_final[0],
                         count:    _count,
                         weight:   _weight,
-                        cashback_get: _cashback_get,
+                        cashback_get: _cashback_get[0],
                         cashback_use: _cashback_use,
                         cashback_remain: _cashback_remain,
                         payment_method:  _payment_method,
@@ -296,7 +305,7 @@ Template.CreateOrderPage.events({
                     createAt:    _date
                 }, function() {
                     Meteor.call('cashback_handle',
-                        _userID, _orderID, "buy", parseFloat(_payment_final), parseFloat(_cashback_use)
+                        _userID, _orderID, "buy", parseFloat(_payment_final[0].replace("US$ ","")), parseFloat(_cashback_use.replace("US$ ",""))
                     );
 
                     var _cart_product_value = window.localStorage.getItem("CartItemValue").split(',');
