@@ -460,8 +460,10 @@ Template.Dashboard.events({
                 "<td><br>"+this.products[i].color+"</td>" +
                 "<td><br>"+this.products[i].quantity+"</td>" +
                 "<td><br>"+(_product.weight * this.products[i].quantity)+" g</td>" +
-                "<td><br>"+(_product.price * this.products[i].quantity)+" USD</td>" +
+                "<td class='PriceUS'><br>US$ "+(_product.price * this.products[i].quantity)+" <br>" +
+                "<span id='"+this.products[i].id+"rate' class='PriceHK'></span></td>" +
                 "</tr>";
+            Helpers.ExchangeMoney.GetExchangeMoney('USD', 'HKD', (_product.price * this.products[i].quantity), (this.products[i].id+"rate"));
         }
         $('#order_detail_product_list').html(ProductListHTML);
 

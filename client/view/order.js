@@ -78,8 +78,10 @@ Template.OrderPage.events({
                 "<td><br>"+_product.name+"</td>" +
                 "<td><br>"+_quantity+"</td>" +
                 "<td><br>"+_weight+" g</td>" +
-                "<td><br>US$ "+_price+"</td>" +
+                "<td class='PriceUS'><br>US$ "+_price+"<br>" +
+                "<span id='"+_product._id+"rate' class='PriceHK'></span></td>" +
                 "</tr>";
+            Helpers.ExchangeMoney.GetExchangeMoney('USD', 'HKD', (_price), (_product._id+"rate"));
         }
         $('#OrderDetail').find('tbody').html(ProductListHTML);
     }

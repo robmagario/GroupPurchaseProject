@@ -153,7 +153,7 @@
                                 <td><img src="{{Icon image}}" width="64px" height="64px"></td>
                                 <td><br>{{name}}</td>
                                 <td><br>{{weight}} g</td>
-                                <td><br>{{price}} USD</td>
+                                <td class="PriceUS"><br>$USD {{price}}<br><span id="{{_id}}" class="PriceHK">{{ExchangeMoney.GetExchangeMoney 'USD' 'HKD' price _id}}</span></td>
                                 <td><br><button class="publish-item" value="">{{Publishing publish}}</button></td>
                                 <td><br><button class="delete-item" value="">{{_ "Btn_Delete"}}</button></td>
                             </tr>
@@ -390,7 +390,7 @@
                                     <td><br>{{name}}</td>
                                     <td><br>{{quantity}}</td>
                                     <td><br>{{weight}} g</td>
-                                    <td><br>{{price}} USD</td>
+                                    <td><br>US$ {{price}}</td>
                                 </tr>
                             {{/each}}
                             </tbody>
