@@ -144,7 +144,7 @@ Template.Dashboard.events({
         CurrentHTML += "" +
             "<div>" +
                 "<div class='col-sm-11' style='padding-left:0'>" +
-                    "<input class='form-control' type='file' onchange='Helpers.Image.ReadURL(this, &#x0027image_"+_randomID+"&#x0027);'>" +
+                    "<input class='form-control' type='text' onchange='Helpers.Image.ParseLinkToImage(this, &#x0027image_"+_randomID+"&#x0027);'>" +
                 "</div>" +
                 "<div class='col-sm-1'>" +
                     "<button class='btn btn-default sub-image-minus' value='image_"+_randomID+"'>-</button>" +
@@ -198,7 +198,7 @@ Template.Dashboard.events({
         CurrentHTML += "" +
             "<div class='color-selection'>" +
             "<div class='col-sm-11' style='padding-left:0'>" +
-            "<input class='form-control' type='file' onchange='Helpers.Image.ReadURL(this, &#x0027lor_"+_randomID+"&#x0027);'>" +
+            "<input class='form-control' type='text' onchange='Helpers.Image.ParseLinkToImage(this, &#x0027lor_"+_randomID+"&#x0027);'>" +
             "</div>" +
             "<div class='col-sm-1'>" +
             "<button class='btn btn-default color-minus' value='lor_"+_randomID+"'>-</button>" +
@@ -1271,6 +1271,60 @@ Template.Dashboard.helpers({
     },
     'WaitingOrder': function() {
         return Orders.find({status: "Waiting Confirm"}).count();
+    },
+
+    // Upload Events
+    'UploadIconImage': function() {
+        return {
+            finished: function(index, fileInfo, context) {
+                var _url = "";
+                if(location.host.indexOf("localhost") < 0) {
+                    _url = location.origin + "/upload" + fileInfo.path;
+                } else {
+                    _url = fileInfo.url;
+                }
+                $('#img_icon').attr('src', _url);
+            }
+        }
+    },
+    'UploadMainImage': function() {
+        return {
+            finished: function(index, fileInfo, context) {
+                var _url = "";
+                if(location.host.indexOf("localhost") < 0) {
+                    _url = location.origin + "/upload" + fileInfo.path;
+                } else {
+                    _url = fileInfo.url;
+                }
+                $('#img_main').attr('src', _url);
+            }
+        }
+    },
+    'UploadSubImage': function() {
+        return {
+            finished: function(index, fileInfo, context) {
+                var _url = "";
+                if(location.host.indexOf("localhost") < 0) {
+                    _url = location.origin + "/upload" + fileInfo.path;
+                } else {
+                    _url = fileInfo.url;
+                }
+                $('#img_sub_link').html(_url);
+            }
+        }
+    },
+    'UploadColorImage': function() {
+        return {
+            finished: function(index, fileInfo, context) {
+                var _url = "";
+                if(location.host.indexOf("localhost") < 0) {
+                    _url = location.origin + "/upload" + fileInfo.path;
+                } else {
+                    _url = fileInfo.url;
+                }
+                $('#img_color_link').html(_url);
+            }
+        }
     },
 
 

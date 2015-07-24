@@ -21,3 +21,7 @@ less
 
 anti:i18n
 tap:i18n
+
+tomi:upload-server
+tomi:upload-jquery
+nooitaf:semantic-ui

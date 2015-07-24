@@ -37,7 +37,8 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">{{_ "Dashboard_Create_Icon"}}:</label>
                             <div class="col-sm-9">
-                                <input class="form-control" type="file" onchange="Helpers.Image.ReadURL(this, 'img_icon');">
+                                <!--<input class="form-control" type="file" onchange="Helpers.Image.ReadURL(this, 'img_icon');">-->
+                                {{> upload_bootstrap callbacks=UploadIconImage }}
                             </div>
                         </div>
                         <div class="form-group">
@@ -48,7 +49,8 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">{{_ "Dashboard_Create_Main"}}:</label>
                             <div class="col-sm-9">
-                                <input class="form-control" type="file" onchange="Helpers.Image.ReadURL(this, 'img_main');">
+                                <!--<input class="form-control" type="file" onchange="Helpers.Image.ReadURL(this, 'img_main');">-->
+                                {{> upload_bootstrap callbacks=UploadMainImage }}
                             </div>
                         </div>
                         <div class="form-group">
@@ -58,7 +60,14 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3">{{_ "Dashboard_Create_Sub"}}:</label>
-                            <div class="col-sm-9" id="create_sub_image">
+                            <div class="col-sm-9">
+                                {{> upload_bootstrap callbacks=UploadSubImage }}
+                            </div>
+                            <label class="control-label col-sm-3">Sub-Image-Link:</label>
+                            <div class="col-sm-9">
+                                <label class="form-control" id="img_sub_link" style="-webkit-user-select: auto;"></label>
+                            </div>
+                            <div class="col-sm-offset-3 col-sm-9" id="create_sub_image">
                             </div>
                             <div class="col-sm-offset-3 col-sm-9">
                                 <button class="btn btn-default sub-image-add" value="CreateSubImage">+</button>
@@ -74,7 +83,14 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3">{{_ "Dashboard_Create_Color"}}:</label>
-                            <div class="col-sm-9" id="create_color">
+                            <div class="col-sm-9">
+                                {{> upload_bootstrap callbacks=UploadColorImage }}
+                            </div>
+                            <label class="control-label col-sm-3">Color-Image-Link:</label>
+                            <div class="col-sm-9">
+                                <label class="form-control" id="img_color_link" style="-webkit-user-select: auto;"></label>
+                            </div>
+                            <div class="col-sm-offset-3 col-sm-9" id="create_color">
                             </div>
                             <div class="col-sm-offset-3 col-sm-9">
                                 <button class="btn btn-default color-add" value="CreateColor">+</button>

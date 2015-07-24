@@ -13,6 +13,12 @@ Meteor.startup(function() {
     // Link:	https://mandrillapp.com/
     // User:	davengfortesting@gmail.com
     // PW:		mytestforjob830
+
+    UploadServer.init({
+        tmpDir: process.env.PWD + '/.uploads/tmp',
+        uploadDir: process.env.PWD + '/.uploads/',
+        checkCreateDirectories: true //create the directories for you
+    })
 });
 
 Meteor.methods({
@@ -158,6 +164,18 @@ Meteor.methods({
             console.log(_remain[_index]);
             Products.update(products[i].id, {$set:{remain:_remain}});
         }
+    },
+
+    'deleteFile': function(_path) {
+        //check(_id, String);
+        //
+        //var upload = Uploads.findOne(_id);
+        //if (upload == null) {
+        //    throw new Meteor.Error(404, 'Upload not found'); // maybe some other code
+        //}
+
+        UploadServer.delete(_path);
+        //Uploads.remove(_id);
     }
 });
 

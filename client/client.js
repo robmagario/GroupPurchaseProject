@@ -5,6 +5,8 @@ this.App = {};
 this.Helpers = {};
 
 Meteor.startup(function() {
+    Uploader.uploadUrl = Meteor.absoluteUrl("upload"); // Cordova needs absolute URL
+
     var _location = location.pathname;
     var _id = Meteor.userId();
     if(_location != "/resigner" && _location != "/jp/resigner" && _location != "/cn/resigner" && _location != "/hk/resigner" && _location != "/br/resigner") {
@@ -589,7 +591,14 @@ Helpers.Order = {
     }
 };
 
+
+function ParseLinkToImage(link, loc) {
+};
 Helpers.Image = {
+    ParseLinkToImage: function(_imghttp, _loc) {
+        $('#'+_loc).attr('src', _imghttp.value);
+        return null;
+    },
     ReadURL: function(_img, _loc) {
         if(Users.isAdmin(Meteor.userId())) {
             if (_img.files && _img.files[0]) {

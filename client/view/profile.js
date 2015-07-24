@@ -230,6 +230,10 @@ Template.ProfilePage2.events({
         }
         $('#third-group').html(InviteHTML);
         $('#third-label').html(TAPi18n.__("Invite_By", e.currentTarget.innerText));
+    },
+
+    'click #IconModel': function() {
+        $('#img_user_icon').attr('src',$('#UserIcon').attr('src'));
     }
 });
 
@@ -302,6 +306,48 @@ Template.ProfilePage2.helpers({
     },
     'InviteesIcon': function(email) {
         return GetIconByEmail(email);
+    },
+
+    // Upload Event
+    'UploadProfileIcon': function() {
+        return {
+            finished: function(index, fileInfo, context) {
+                var _oldurl = $('#img_user_icon').attr('src');
+
+                var _url;
+                if(location.host.indexOf("localhost") < 0) {
+                    _url = location.origin + "/upload" + fileInfo.path;
+                } else {
+                    _url = fileInfo.url;
+                }
+                $('#img_user_icon').attr('src', _url);
+
+                if(_oldurl == null || _oldurl == "") {
+                    return null;
+                }
+                var _oldpath = _oldurl.replace(location.origin + "/upload","");
+
+                var _icon_new = $('#img_user_icon').attr('src');
+                var _icon_old = ProfileIcons.findOne({user:Meteor.userId()});
+                if(_icon_old != null) {
+                    ProfileIcons.update({
+                        _id: _icon_old._id
+                    }, {$set:{
+                        icon: _icon_new
+                    }});
+                } else {
+                    var _user = Meteor.userId();
+                    ProfileIcons.insert({
+                        user: _user,
+                        icon: _icon_new
+                    });
+                }
+
+                Meteor.call('deleteFile', _oldpath);
+
+                location.reload();
+            }
+        }
     }
 });
 function GetIconByEmail(email) {
