@@ -153,16 +153,16 @@ Helpers.User = {
     },
     Profile: {
         Name: function() {
-            return Meteor.user().username;
+            if (Meteor.user()) return Meteor.user().username;
         },
         Email: function() {
-            return Meteor.user().emails[0].address;
+            if (Meteor.user()) return Meteor.user().emails[0].address;
         },
         CreateAt: function() {
-            return Meteor.user().createdAt;
+            if (Meteor.user()) return Meteor.user().createdAt;
         },
         Address: function() {
-            return Meteor.user().profile;
+            if (Meteor.user()) return Meteor.user().profile;
         },
         Invite: {
             Total: function() {

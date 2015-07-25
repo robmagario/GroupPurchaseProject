@@ -2,7 +2,7 @@
  * Created by chinhong on 5/21/15.
  */
 this.ProfileController = RouteController.extend({
-    template: "ProfilePage2",
+    template: "ProfilePage",
 
     yieldTemplates: {
         /*YIELD_TEMPLATES*/
