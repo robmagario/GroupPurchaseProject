@@ -441,17 +441,20 @@ function CheckRemaining() {
 
 Template.FindProduct_MainPage.helpers({
     'ListPublished': function () {
-        return Products.find({publish: true});
-    },
-    'ToShow': function (array) {
-        var _show = [];
-        var i;
-        for (i in array) {
-            if (array[i].show_on == "true") {
-                _show.push(array[i].country);
+        var products = Products.find({publish: true}).fetch();
+        var x;
+        var y;
+        for (x in products) {
+            if (products[x]) {
+                var show_for = products[x].show_for;
+                for (y in show_for) {
+                    if (show_for[y].country === Meteor.user().profile.country) {
+                        if (show_for[y].show_on === "false") products.splice(x, 1);
+                    }
+                }
             }
         }
-        return _show;
+        return products;
     }
 });
 

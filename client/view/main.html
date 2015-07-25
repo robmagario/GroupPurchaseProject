@@ -30,7 +30,6 @@
 </template>
 
 <template name="MainPage_Overview">
-    {{ LoadProducts }}
     <!--<h1>Overview</h1>-->
 
     <!--<div class="panel">-->
@@ -406,7 +405,6 @@
                                 <label class="form-control PriceUS" style="height:auto;">US$ {{price}} <br><span id="{{_id}}" class="PriceHK">[ ~ {{ExchangeMoney.GetExchangeMoney "USD" "HKD" price _id}} ]</span></label>
                             </div>
                         </div>
-                        <labela class="item-country-show" style="display:none">{{ToShow show_for}}</labela>
                     </div>
                 </div>
             </div>
