@@ -1,19 +1,3 @@
-/**
- * Created by chinhong on 6/2/15.
- */
-
-function InitializeData() {
-    if (Meteor.user().profile.country) {
-        Helpers.Log.Show("Yes", "Address exists!");
-    } else {
-        Helpers.Log.Show("No", "Address doesn't exist! :(.");
-    }
-}
-
-Template.ProfilePage.rendered = function () {
-    window.setTimeout(InitializeData, 1000);
-};
-
 Template.ProfilePage.events({
     'click .btn': function(e) {
         var _action = e.target.value;
