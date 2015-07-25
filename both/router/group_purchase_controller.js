@@ -8,6 +8,10 @@ this.GroupPurchaseController = RouteController.extend({
         /*YIELD_TEMPLATES*/
     },
 
+    waitOn: function () {
+        Meteor.subscribe('userPresent'); // users
+    },
+
     onBeforeAction: function() {
         /*BEFORE_FUNCTION*/
         this.next();
@@ -31,7 +35,8 @@ this.GroupPurchaseController = RouteController.extend({
 
     data: function() {
         return {
-            params: this.params || {}
+            params: this.params || {},
+            userPresent: Meteor.users.find()
         };
         /*DATA_FUNCTION*/
     },

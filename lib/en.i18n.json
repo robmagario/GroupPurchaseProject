@@ -149,13 +149,6 @@
     "ProductList_TotalQuantity": "Total Quantity",
     "ProductList_TotalWeight":   "Total Weight",
 
-    // Product Page
-    "CountrySelection_Header": "Select Country that want to show",
-    "CountrySelection_Japan":   "Japan",
-    "CountrySelection_China":   "China",
-    "CountrySelection_HongKong":"Hong Kong",
-    "CountrySelection_Brazil":  "Brazil",
-    "CountrySelection_Other":   "Other",
     "ProductPage_Price":   "Price",
 
     // Product Information

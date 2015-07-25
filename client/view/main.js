@@ -4,12 +4,12 @@
 var ColumnInCartValue = 5;
 
 function LocatToLogin() {
-    window.setTimeout(function() {
+    window.setTimeout(function () {
         var _location = location.pathname;
-        _location = _location.replace("/","");
+        _location = _location.replace("/", "");
         _location += "/";
         location = "" + _location + "login";
-    },1000);
+    }, 1000);
 }
 
 function InitializeProductInfo(_id) {
@@ -32,37 +32,39 @@ function GetRadioValue(header) {
     return final_result;
 }
 
-Template.MainPage.rendered = function() {
+Template.MainPage.rendered = function () {
     var _cart_item = window.localStorage.getItem("CartItemValue");
     var _cart_select = window.localStorage.getItem("CartItemSelect");
-    if(_cart_item == null) { window.localStorage.setItem('CartItemValue',''); }
-    if(_cart_select == null) { window.localStorage.setItem('CartItemSelect',''); }
-    window.setTimeout(function() {
-        var _location = location.hash;
-        if(_location == "") {
-            tab_events.SelectTab("Find Products");
+    if (_cart_item == null) {
+        window.localStorage.setItem('CartItemValue', '');
+    }
+    if (_cart_select == null) {
+        window.localStorage.setItem('CartItemSelect', '');
+    }
+    var _location = location.hash;
+    if (_location == "") {
+        tab_events.SelectTab("Find Products");
+    } else {
+        _location = _location.replace("#", "");
+        var _count = Products.find({_id: _location}).count();
+        if (_count > 0) {
+            InitializeProductInfo(_location);
         } else {
-            _location = _location.replace("#", "");
-            var _count = Products.find({_id: _location}).count();
-            if (_count > 0) {
-                InitializeProductInfo(_location);
-            } else {
-                Helpers.Log.Show("Products", "No This Products by " + _location);
-                Helpers.System.LocateTo('/home');
-            }
+            Helpers.Log.Show("Products", "No This Products by " + _location);
+            Helpers.System.LocateTo('/home');
         }
-    }, 2000);
+    }
 }
 
 var tab_events = {
-    SelectTab: function(tab_name) {
+    SelectTab: function (tab_name) {
         Helpers.Log.Show("SelectTab", tab_name);
         $('.container_item').hide();
         $('.profile_item').hide();
         $('.find_product_item').hide();
         $('.sidebar_subhead').hide();
         $('.sidebar_tab').removeClass("active");
-        switch(tab_name) {
+        switch (tab_name) {
             case "Find Products":
                 $('#MainPage_FindProducts').show();
                 $('#FindProducts_Tab').show();
@@ -89,37 +91,37 @@ function CheckOrderColumn() {
 
     var _size = $('#size').find('button');
     var _index_size = -1;
-    for(var i=0; i<_size.length; i++) {
+    for (var i = 0; i < _size.length; i++) {
         var _style = _size.eq(i).attr('style');
-        if(_style == "background: orange;") {
+        if (_style == "background: orange;") {
             _index_size = i;
             break;
         }
     }
     var _color = $('#color').find('div').find('div');
     var _index_color = -1;
-    for(var i=0; i<_color.length; i++) {
+    for (var i = 0; i < _color.length; i++) {
         var _style = _color.eq(i).attr('style');
-        if(_style == "display: block;") {
+        if (_style == "display: block;") {
             _index_color = i;
             break;
         }
     }
 
-    if(_index_size < 0) {
+    if (_index_size < 0) {
         _result = false;
     }
-    if(_index_color < 0) {
+    if (_index_color < 0) {
         _result = false;
     }
 
     var _quantity = $('#quantity').val();
-    if(_quantity == "" || _quantity == "0" || quantity == null) {
+    if (_quantity == "" || _quantity == "0" || quantity == null) {
         _result = false;
     }
 
     var _remain = $('#remain').html();
-    if(parseInt(_quantity) > parseInt(_remain)) {
+    if (parseInt(_quantity) > parseInt(_remain)) {
         _result = false;
     }
     return _result;
@@ -130,18 +132,18 @@ function AddProductToCart(loc) {
     var _id = Helpers.Product.GetProductByHash.ProductID();
     var _size = $('#size').find('button');
     var _index_size = -1;
-    for(var i=0; i<_size.length; i++) {
+    for (var i = 0; i < _size.length; i++) {
         var _style = _size.eq(i).attr('style');
-        if(_style == "background: orange;") {
+        if (_style == "background: orange;") {
             _index_size = i;
             break;
         }
     }
     var _color = $('#color').find('div').find('div');
     var _index_color = -1;
-    for(var i=0; i<_color.length; i++) {
+    for (var i = 0; i < _color.length; i++) {
         var _style = _color.eq(i).attr('style');
-        if(_style == "display: block;") {
+        if (_style == "display: block;") {
             _index_color = i;
             break;
         }
@@ -151,12 +153,12 @@ function AddProductToCart(loc) {
     //var _newtemp = [_randomID];
     var _tempString = window.localStorage.getItem('CartItemValue');
     var _newtemp = [_randomID, _id, _index_color, _index_size, _quantity];
-    if(_tempString != null && _tempString != "") {
+    if (_tempString != null && _tempString != "") {
         var _temp = _tempString.split(',');
         //var _tempsub = _tempString.split(',');
-        for(var i=0; i<_temp.length; i+=ColumnInCartValue) {
+        for (var i = 0; i < _temp.length; i += ColumnInCartValue) {
             //_newtemp.push(_temp[i]);
-            for(var j=0; j<ColumnInCartValue; j++) {
+            for (var j = 0; j < ColumnInCartValue; j++) {
                 _newtemp.push(_temp[i + j]);
             }
         }
@@ -169,40 +171,15 @@ function AddProductToCart(loc) {
 
 Template.MainPage.events({
     // Click in a Product
-    'click .each-product': function() {
+    'click .each-product': function () {
         Helpers.System.LocateTo('/home#' + this._id);
         location.reload();
     },
 
-    // Select Country
-    'click .select-show-country': function(e) {
-        var _boxes = $('.select-show-country');
-        var _items = $('.each-product').find('labela');
-        for(var i=0; i< _items.length; i++) {
-            var _item_values = _items[i].innerHTML.split(',');
-            var _item_index;
-            var _should_show = false;
-            for(_item_index in _item_values) {
-                for(var j=0; j<_boxes.length; j++) {
-                    if(_boxes[j].checked) {
-                        if(_boxes[j].value == _item_values[_item_index]) {
-                            _should_show = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            if(_should_show) {
-                $('.each-product').eq(i).show();
-            } else {
-                $('.each-product').eq(i).hide();
-            }
-        }
-    },
 
     // Click to select the color
-    'click .btn-select-a-color': function(e) {
-        if(e.currentTarget.parentElement.children[0].style.display == 'block') {
+    'click .btn-select-a-color': function (e) {
+        if (e.currentTarget.parentElement.children[0].style.display == 'block') {
             $('#color').find('div').find('div').hide();
             $('#label_product_img_main').attr('src', e.currentTarget.currentSrc);
         } else {
@@ -214,20 +191,20 @@ Template.MainPage.events({
     },
 
     // Click to change the image
-    'click .sub-img, click .main-img, click .color-img': function(e) {
+    'click .sub-img, click .main-img, click .color-img': function (e) {
         $('#img_main').attr('src', e.currentTarget.currentSrc);
     },
 
-    'click .btn': function(e) {
+    'click .btn': function (e) {
         var _action = e.target.value;
         Helpers.Log.Show("Button", _action + " in Product Info.");
         switch (_action) {
             case "SelectSize":
-                if(e.currentTarget.style.background != 'orange') {
-                    $('#size').find('button').css({"background":'transparent'});
+                if (e.currentTarget.style.background != 'orange') {
+                    $('#size').find('button').css({"background": 'transparent'});
                     e.currentTarget.style.background = 'orange';
                 } else {
-                    $('#size').find('button').css({"background":'transparent'});
+                    $('#size').find('button').css({"background": 'transparent'});
                 }
                 CheckRemaining();
                 break;
@@ -239,11 +216,11 @@ Template.MainPage.events({
 
 
     // Change the Quantity
-    'change #label_product_quantity': function() {
+    'change #label_product_quantity': function () {
         var _price = parseFloat(Helpers.Product.GetProductByHash.Price());
         var _cashback = parseFloat(Helpers.Product.GetProductByHash.CalculateDescount());
         var _quantity = parseInt($('#label_product_quantity').val());
-        if(_quantity != 0 && _quantity != "") {
+        if (_quantity != 0 && _quantity != "") {
             var _remain = Helpers.User.CashBackStatus.UserTotalRemain();
             var _price_new = Helpers.Product.CalculatePriceByUseCashback((_price * _quantity), _remain);
             var _remain_new = Helpers.Product.CalculateRemainByUseCashback((_price * _quantity), _remain);
@@ -255,8 +232,8 @@ Template.MainPage.events({
     },
 
     // Click 'Order' for a Product
-    'click .btn-order': function() {
-        if(CheckOrderColumn()) {
+    'click .btn-order': function () {
+        if (CheckOrderColumn()) {
             AddProductToCart("createorder");
             //window.localStorage.setItem('CartItem_selected', localStorage.getItem('CartItem'));
             //tab_events.SelectTab('Start Order');
@@ -268,8 +245,8 @@ Template.MainPage.events({
     },
 
     // Click 'Add to Cart' for a Product
-    'click .btn-cart': function() {
-        if(CheckOrderColumn()) {
+    'click .btn-cart': function () {
+        if (CheckOrderColumn()) {
             AddProductToCart("cart");
             //tab_events.SelectTab('Check Cart');
             //location.hash = '#CART';
@@ -280,33 +257,27 @@ Template.MainPage.events({
     },
 
     // Click to see the product
-    'click .to-see-product': function(e) {
+    'click .to-see-product': function (e) {
         location = '/#' + e.currentTarget.attributes.value.value;
         location.reload();
     },
 
 
-
-
-
-
     // Click to select the size
-    'click .btn-select-a-size': function(e) {
-        if(e.currentTarget.style.background != 'orange') {
-            $('#size').find('button').css({"background":'transparent'});
+    'click .btn-select-a-size': function (e) {
+        if (e.currentTarget.style.background != 'orange') {
+            $('#size').find('button').css({"background": 'transparent'});
             e.currentTarget.style.background = 'orange';
         } else {
-            $('#size').find('button').css({"background":'transparent'});
+            $('#size').find('button').css({"background": 'transparent'});
         }
         CheckRemaining();
     },
 
 
-
-
     // Click a product in Cart
-    'click .cart-item-each': function(e) {
-        if(e.target.nodeName != 'BUTTON') {
+    'click .cart-item-each': function (e) {
+        if (e.target.nodeName != 'BUTTON') {
             var _id = e.currentTarget.attributes.value.value;
             location.hash = '#' + _id;
             location.reload();
@@ -314,21 +285,21 @@ Template.MainPage.events({
     },
 
     // Select or Unselect a product
-    'click .btn-cart-checkbox': function(e) {
+    'click .btn-cart-checkbox': function (e) {
         var _id = this.toString();
         var _action = e.target.checked;
         var _select_o = window.localStorage.getItem('CartItem_selected').split(',');
         var _select_n = [];
-        if(_action) {
-            for(var i=0; i<_select_o.length; i++) {
-                if(_select_o[i] != "") {
+        if (_action) {
+            for (var i = 0; i < _select_o.length; i++) {
+                if (_select_o[i] != "") {
                     _select_n.push(_select_o[i]);
                 }
             }
             _select_n.push(_id);
         } else {
-            for(var i=0; i<_select_o.length; i++) {
-                if(_select_o[i] != _id && _select_o[i] != "") {
+            for (var i = 0; i < _select_o.length; i++) {
+                if (_select_o[i] != _id && _select_o[i] != "") {
                     _select_n.push(_select_o[i]);
                 }
             }
@@ -349,7 +320,7 @@ Template.MainPage.events({
         var _price_new;
         var _cashback_new;
         var _quantity_new;
-        if(_action) {
+        if (_action) {
             _weight_new = _weight + _product_weight;
             _price_new = _price + _product_price;
             _cashback_new = _cashback + _product_cashback;
@@ -375,7 +346,7 @@ Template.MainPage.events({
     },
 
     // Cancel a product in Cart
-    'click .btn-cart-cancel': function() {
+    'click .btn-cart-cancel': function () {
         var _id = this.toString();
         var _product_cart = window.localStorage.getItem("CartItem").split(",");
         var _product_cart_value = window.localStorage.getItem("CartItemValue").split(",");
@@ -383,16 +354,16 @@ Template.MainPage.events({
         var _product_cart_new = [];
         var _product_cart_value_new = [];
         var _product_select_new = [];
-        for(var i=0; i< _product_cart.length; i++) {
-            if(_product_cart[i] != _id && _product_cart[i] != "") {
+        for (var i = 0; i < _product_cart.length; i++) {
+            if (_product_cart[i] != _id && _product_cart[i] != "") {
                 _product_cart_new.push(_product_cart[i]);
-                for(var j=0; j<ColumnInCartValue; j++) {
-                    _product_cart_value_new.push(_product_cart_value[i*ColumnInCartValue + j]);
+                for (var j = 0; j < ColumnInCartValue; j++) {
+                    _product_cart_value_new.push(_product_cart_value[i * ColumnInCartValue + j]);
                 }
             }
         }
-        for(var i=0; i< _product_select.length; i++) {
-            if(_product_select[i] != _id && _product_select[i] != "") {
+        for (var i = 0; i < _product_select.length; i++) {
+            if (_product_select[i] != _id && _product_select[i] != "") {
                 _product_select_new.push(_product_select[i]);
             }
         }
@@ -410,36 +381,36 @@ function CheckRemaining() {
 
     var _size = $('#size').find('button');
     var _index_size = -1;
-    for(var i=0; i<_size.length; i++) {
+    for (var i = 0; i < _size.length; i++) {
         var _style = _size.eq(i).attr('style');
-        if(_style == "background: orange;") {
+        if (_style == "background: orange;") {
             _index_size = i;
             break;
         }
     }
     var _color = $('#color').find('div').find('div');
     var _index_color = -1;
-    for(var i=0; i<_color.length; i++) {
+    for (var i = 0; i < _color.length; i++) {
         var _style = _color.eq(i).attr('style');
-        if(_style == "display: block;") {
+        if (_style == "display: block;") {
             _index_color = i;
             break;
         }
     }
 
     var _hash = location.hash;
-    var _product_id = _hash.replace("#","");
-    var _product = Products.findOne({_id:_product_id});
+    var _product_id = _hash.replace("#", "");
+    var _product = Products.findOne({_id: _product_id});
     var _index = _index_color * _size.length + _index_size;
-    if(_index_color >= 0) {
-        for(var i=0; i<_size.length; i++) {
+    if (_index_color >= 0) {
+        for (var i = 0; i < _size.length; i++) {
             var _checking_index = _index_color * _size.length + i;
-            if(_product.remain[_checking_index] <= 0) {
+            if (_product.remain[_checking_index] <= 0) {
                 $('#size').find('button').eq(i).addClass('selection-unable');
             }
         }
     }
-    if(_index_size >= 0) {
+    if (_index_size >= 0) {
         for (var i = 0; i < _color.length; i++) {
             var _checking_index = i * _size.length + _index_size;
             if (_product.remain[_checking_index] <= 0) {
@@ -447,11 +418,14 @@ function CheckRemaining() {
             }
         }
     }
-    if(_index_color == -1 || _index_size == -1) {
+    if (_index_color == -1 || _index_size == -1) {
         _index = 0;
     }
     var _value = _product.remain[_index];
-    if(_index_color == -1 || _index_size == -1) { _index = -1; _value = 0; }
+    if (_index_color == -1 || _index_size == -1) {
+        _index = -1;
+        _value = 0;
+    }
     $('#remain').html(_value);
     //$('#label_product_rest_edit').val(_value);
 };
@@ -466,90 +440,93 @@ function CheckRemaining() {
 //}
 
 Template.FindProduct_MainPage.helpers({
-    'ListPublished': function() {
-        return Products.find({publish: true});
-    },
-    'ToShow': function(array) {
-        var _show = [];
-        var i;
-        for(i in array) {
-            if(array[i].show_on == "true") {
-                _show.push(array[i].country);
+    'ListPublished': function () {
+        var products = Products.find({publish: true}).fetch();
+        var x;
+        var y;
+        for (x in products) {
+            if (products[x]) {
+                var show_for = products[x].show_for;
+                for (y in show_for) {
+                    if (show_for[y].country === Meteor.user().profile.country) {
+                        if (show_for[y].show_on === "false") products.splice(x, 1);
+                    }
+                }
             }
         }
-        return _show;
+        return products;
     }
 });
 
 Template.ProductInfo.helpers({
-    'HashProduct': function() {
+    'HashProduct': function () {
         var _hash = location.hash;
-        var _id = _hash.replace("#","");
-        return Products.find({_id:_id});
+        var _id = _hash.replace("#", "");
+        return Products.find({_id: _id});
     },
-    'MainImage': function() {
+    'MainImage': function () {
         var _hash = location.hash;
-        var _product_id = _hash.replace("#","");
-        var _product = Products.findOne({_id:_product_id});
+        var _product_id = _hash.replace("#", "");
+        var _product = Products.findOne({_id: _product_id});
         var _imageid = "";
-        if(_product != null) {
+        if (_product != null) {
             _imageid = _product.image;
         }
-        var _image = ProductImages.findOne({_id:_imageid});
-        if(_image != null) {
+        var _image = ProductImages.findOne({_id: _imageid});
+        if (_image != null) {
             return _image.main;
         } else {
             return null;
         }
     },
-    'SubImages': function() {
+    'SubImages': function () {
         var _hash = location.hash;
-        var _product_id = _hash.replace("#","");
-        var _product = Products.findOne({_id:_product_id});
+        var _product_id = _hash.replace("#", "");
+        var _product = Products.findOne({_id: _product_id});
         var _imageid = "";
-        if(_product != null) {
+        if (_product != null) {
             _imageid = _product.image;
         }
-        var _image = ProductImages.findOne({_id:_imageid});
-        if(_image != null && _image.sub != null) {
+        var _image = ProductImages.findOne({_id: _imageid});
+        if (_image != null && _image.sub != null) {
             return _image.sub;
         } else {
             return [];
         }
     },
-    'Sizes': function() {
+    'Sizes': function () {
         var _hash = location.hash;
-        var _product_id = _hash.replace("#","");
-        var _product = Products.findOne({_id:_product_id});
+        var _product_id = _hash.replace("#", "");
+        var _product = Products.findOne({_id: _product_id});
         return _product.size;
     },
-    'Colors': function() {
+    'Colors': function () {
         var _hash = location.hash;
-        var _product_id = _hash.replace("#","");
-        var _product = Products.findOne({_id:_product_id});
+        var _product_id = _hash.replace("#", "");
+        var _product = Products.findOne({_id: _product_id});
         var _imageid = "";
-        if(_product != null) {
+        if (_product != null) {
             _imageid = _product.image;
         }
-        var _image = ProductImages.findOne({_id:_imageid});
-        if(_image != null && _image.color != null) {
+        var _image = ProductImages.findOne({_id: _imageid});
+        if (_image != null && _image.color != null) {
             return _image.color;
         } else {
             return [];
         }
     },
-    'Price': function() {
+    'Price': function () {
         var _hash = location.hash;
-        var _product_id = _hash.replace("#","");
-        var _product = Products.findOne({_id:_product_id});
+        var _product_id = _hash.replace("#", "");
+        var _product = Products.findOne({_id: _product_id});
         return _product.price;
     },
-    'GetProductType': function(type) {
-        if(type == "Special") {
+    'GetProductType': function (type) {
+        if (type == "Special") {
             var _return = TAPi18n.__("ProductInfo_TypeSpecial") +
-                    " (<a href='http://www.hongkongpost.hk/eng/publications/notices/2015/20150320a/index.htm' data-toggle='tooltip' target='_blank'" +
-                    "data-placement='bottom' title='" + TAPi18n.__('Label_SpecialItem') + "'> " + TAPi18n.__("Label_LearnMore") + " </a>)";
-            window.setTimeout(function() {
+                " (<a href='http://www.hongkongpost.hk/eng/publications/notices/2015/20150320a/index.htm' data-toggle='tooltip' target='_blank'" +
+                "data-placement='bottom' title='" + TAPi18n.__('Label_SpecialItem') + "'> " + TAPi18n.__("Label_LearnMore") + " </a>)";
+            window.setTimeout(function () {
                 $('[data-toggle="tooltip"]').tooltip();
             }, 1000);
             return _return;
@@ -557,33 +534,33 @@ Template.ProductInfo.helpers({
             return TAPi18n.__("ProductInfo_TypeNormal");
         }
     },
-    'Cashback': function() {
+    'Cashback': function () {
         return Helpers.User.CashBack.Remain();
     },
-    'CashbackGet': function() {
+    'CashbackGet': function () {
         var _rate = Helpers.CashbackRate();
         var _hash = location.hash;
-        var _product_id = _hash.replace("#","");
-        var _product = Products.findOne({_id:_product_id});
+        var _product_id = _hash.replace("#", "");
+        var _product = Products.findOne({_id: _product_id});
         var _price = _product.price;
-        return parseInt(_price * _rate[0] * 100)*0.01;
+        return parseInt(_price * _rate[0] * 100) * 0.01;
     },
-    'NewPrice': function(price, cashback) {
+    'NewPrice': function (price, cashback) {
         var _result = price - cashback;
-        if(_result < 0) {
+        if (_result < 0) {
             _result = 0;
         }
         return _result;
     },
-    'CashbackRemain': function(price, cashback) {
+    'CashbackRemain': function (price, cashback) {
         var _result = cashback - price;
-        if(_result < 0) {
+        if (_result < 0) {
             _result = 0;
         }
         return _result;
     },
-    'CheckSaleStatus': function(status) {
-        if(status) {
+    'CheckSaleStatus': function (status) {
+        if (status) {
             return TAPi18n.__('ProductInfo_SaleActive');
         } else {
             return TAPi18n.__('ProductInfo_SaleDelay');

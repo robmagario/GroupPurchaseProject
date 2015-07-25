@@ -150,12 +150,6 @@
   "ProductList_TotalWeight":   "合計重量",
 
   // Product Page
-  "CountrySelection_Header":  "選擇顯示的商品製造的國家",
-  "CountrySelection_Japan":   "日本",
-  "CountrySelection_China":   "中國",
-  "CountrySelection_HongKong":"香港",
-  "CountrySelection_Brazil":  "巴西",
-  "CountrySelection_Other":   "其他",
   "ProductPage_Price":   "價格",
 
   // Product Information
