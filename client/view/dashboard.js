@@ -1283,6 +1283,7 @@ Template.Dashboard.helpers({
                 } else {
                     _url = fileInfo.url;
                 }
+                _url.replace(/\s/g, "%20");
                 $('#img_icon').attr('src', _url);
             }
         }
@@ -1296,6 +1297,7 @@ Template.Dashboard.helpers({
                 } else {
                     _url = fileInfo.url;
                 }
+                _url.replace(/\s/g, "%20");
                 $('#img_main').attr('src', _url);
             }
         }
@@ -1309,6 +1311,7 @@ Template.Dashboard.helpers({
                 } else {
                     _url = fileInfo.url;
                 }
+                _url.replace(/\s/g, "%20");
                 $('#img_sub_link').html(_url);
             }
         }
@@ -1322,6 +1325,7 @@ Template.Dashboard.helpers({
                 } else {
                     _url = fileInfo.url;
                 }
+                _url = _url.replace(/\s/g, "%20");
                 $('#img_color_link').html(_url);
             }
         }

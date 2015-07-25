@@ -2,7 +2,7 @@
     <br>
     <br>
     <div class="col-sm-10 col-lg-offset-1" style="min-height:400px; max-height:400px; overflow:hidden;">
-        <img width="100%" src="{{UserPoster}}">
+        <img id="UserPoster" width="100%" src="{{UserPoster}}">
     </div>
     <img id="UserIcon" data-toggle="modal" data-target="#IconModel" width="184px" height="184px" src="{{UserIcon}}" style="position:absolute; left:13%; top:300px; margin-bottom:-20px; bottom:0; border:ridge 10px white; background-color:white;">
     <div class="col-sm-8 col-lg-offset-3">
@@ -258,13 +258,14 @@
                     <div class="panel-body">
                         <div class="form-horizontal" role="form">
                             <div class="form-group">
-                                <label class="control-label col-sm-2">{{_ "Setting_Source"}}:</label>
-                                <div class="col-sm-5">
-                                    <input class="form-control" type="file" onchange="Helpers.Image.ReadURL(this, 'img_user_poster');">
+                                <!--<label class="control-label col-sm-2">{{_ "Setting_Source"}}:</label>-->
+                                <div class="col-sm-12">
+                                    <!--<input class="form-control" type="file" onchange="Helpers.Image.ReadURL(this, 'img_user_poster');">-->
+                                    {{> upload_bootstrap callbacks=UploadProfilePoster }}
                                 </div>
-                                <div class="col-sm-2 col-lg-offset-1">
-                                    <button class="btn btn-success" value="UpdatePoster" data-toggle="modal" data-target="#PosterModel">{{_ "Btn_Upload"}}</button>
-                                </div>
+                                <!--<div class="col-sm-2 col-lg-offset-1">-->
+                                    <!--<button class="btn btn-success" value="UpdatePoster" data-toggle="modal" data-target="#PosterModel">{{_ "Btn_Upload"}}</button>-->
+                                <!--</div>-->
                                 <div class="col-sm-12" style="margin-top:15px;">
                                     <img id="img_user_poster" width="100%">
                                 </div>
